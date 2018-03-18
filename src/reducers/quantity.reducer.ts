@@ -1,5 +1,5 @@
-import {ProductAction} from "../interfaces/action.interface";
-import {PRODUCT_ACTIONS} from "../actions/actions.enum";
+import {ProductAction} from "../interfaces/productAction.interface";
+import {PRODUCT_ACTIONS} from "../actions/productActions.enum";
 import {Product} from "../interfaces/product.interface";
 
 export function quantityReducer(state: Product, action: ProductAction) {

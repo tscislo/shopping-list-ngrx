@@ -3,10 +3,14 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../interfaces/appState.interface";
 import {Observable} from "rxjs/Observable";
 import {Product} from "../interfaces/product.interface";
-import {PRODUCT_ACTIONS} from "../actions/actions.enum";
+import {PRODUCT_ACTIONS} from "../actions/productActions.enum";
 import {id} from "./id";
-import {ProductAction} from "../interfaces/action.interface";
+import {ProductAction} from "../interfaces/productAction.interface";
 import {undo} from "ngrx-undo";
+import {FILTER_ACTIONS} from "../actions/filterActions.enum";
+import {FiltersService} from "./filters.service";
+import {Filters} from "../interfaces/filters.interface";
+import 'rxjs/add/operator/take';
 
 @Component({
     selector: 'app-root',
@@ -28,9 +32,25 @@ import {undo} from "ngrx-undo";
                             Undo
                         </button>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center form-group">
+                        <span class="form-check" style="display: inline-block">
+                              <input class="form-check-input" type="checkbox" (change)="onlyBought(filters$)"
+                                     [ngModel]="(filters$ | async).bought" id="only_bought">
+                              <label class="form-check-label" for="only_bought">
+                                 Show only bought
+                              </label>
+                        </span>
+                    </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center"
-                        *ngFor="let product of products$ | async">
-                        {{ product.name }}
+                        *ngFor="let product of (products$ | async).filter(filter)">
+                        <span class="form-check" style="display: inline-block">
+                              <input class="form-check-input" type="checkbox" (change)="buy(product)" value=""
+                                     id="bought_{{product.id}}"
+                                     [ngModel]="product.bought">
+                              <label class="form-check-label" for="bought_{{product.id}}">
+                                                        {{ product.name }}
+                              </label>
+                        </span>
                         <span>
                             <button type="button" class="btn btn-danger btn-sm"
                                     (click)="removeProduct(product)">Remove</button>
@@ -49,14 +69,20 @@ import {undo} from "ngrx-undo";
 })
 export class AppComponent {
     public products$: Observable<Product[]>;
+    public filters$: Observable<Filters>;
+    public filter;
     public newProductName;
     private actions: ProductAction[] = [];
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>, private filtersService: FiltersService) {
     }
 
     ngOnInit() {
         this.products$ = this.store.select('products');
+        this.filters$ = this.store.select('filters' as any);
+        this.filters$.subscribe((filters: Filters) => {
+            this.filter = this.filtersService.get(filters)
+        })
     }
 
     addProduct() {
@@ -96,9 +122,31 @@ export class AppComponent {
         this.actions.push(action);
     }
 
+    buy(product: Product) {
+        const action = {
+            type: PRODUCT_ACTIONS.BUY, payload: product
+        }
+        this.store.dispatch(action);
+        this.actions.push(action);
+    }
+
+    onlyBought() {
+        const state = this.getState(this.store);
+        const action = {
+            type: (!state.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
+    }
+        this.store.dispatch(action);
+    }
+
     undo() {
         this.store.dispatch(undo(this.actions[this.actions.length - 1]));
         this.actions.splice(this.actions.length - 1, 1);
+    }
+
+    getState(store: any) {
+        let state;
+        store.take(1).subscribe(s => state = s);
+        return state;
     }
 
 }

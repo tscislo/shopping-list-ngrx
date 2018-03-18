@@ -9,6 +9,8 @@ import {StoreModule} from "@ngrx/store";
 import {productReducer} from "../reducers/product.reducer";
 import {FormsModule} from "@angular/forms";
 import {handleUndo} from 'ngrx-undo';
+import {filtersReducer} from "../reducers/filters.reducer";
+import {FiltersService} from "./filters.service";
 
 @NgModule({
     declarations: [
@@ -17,11 +19,14 @@ import {handleUndo} from 'ngrx-undo';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        StoreModule.forRoot({products: productReducer}, {metaReducers: [handleUndo]}),
+        StoreModule.forRoot({
+            products: productReducer,
+            filters: filtersReducer
+        }, {metaReducers: [handleUndo]}),
         StoreDevtoolsModule.instrument(),
         FormsModule
     ],
-    providers: [],
+    providers: [FiltersService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,31 +1,104 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {AppState} from "../interfaces/appState.interface";
+import {Observable} from "rxjs/Observable";
+import {Product} from "../interfaces/product.interface";
+import {PRODUCT_ACTIONS} from "../actions/actions.enum";
+import {id} from "./id";
+import {ProductAction} from "../interfaces/action.interface";
+import {undo} from "ngrx-undo";
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
-  `,
-  styles: []
+    selector: 'app-root',
+    template: `
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">Shopping List based on ngrx/store</a>
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <ul class="col-12">
+                    <li class="list-group-item d-flex justify-content-between align-items-center form-group">
+                        <input type="text" class="form-control col-8" name="newProductName"
+                               [(ngModel)]="newProductName"
+                               placeholder="New product name" required>
+                        <button type="submit" class="btn col-2" (click)="addProduct()" [disabled]="!newProductName">
+                            Add
+                        </button>
+                        <button type="submit" class="btn col-2" (click)="undo()" [disabled]="!actions.length">
+                            Undo
+                        </button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let product of products$ | async">
+                        {{ product.name }}
+                        <span>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    (click)="removeProduct(product)">Remove</button>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="quantityPlus(product)">+</button>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="quantityMinus(product)">-</button>
+                        <span class="badge badge-primary badge-pill">{{product.quantity}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    `,
+    styles: []
 })
 export class AppComponent {
-  title = 'app';
+    public products$: Observable<Product[]>;
+    public newProductName;
+    private actions: ProductAction[] = [];
+
+    constructor(private store: Store<AppState>) {
+    }
+
+    ngOnInit() {
+        this.products$ = this.store.select('products');
+    }
+
+    addProduct() {
+        const action = {
+            type: PRODUCT_ACTIONS.ADD_PRODUCT, payload: {
+                id: id(),
+                name: this.newProductName,
+                quantity: 0,
+                bought: false,
+            }
+        }
+        this.store.dispatch(action);
+        this.actions.push(action);
+    }
+
+    removeProduct(product: Product) {
+        const action = {
+            type: PRODUCT_ACTIONS.REMOVE_PRODUCT, payload: product
+        }
+        this.store.dispatch(action);
+        this.actions.push(action);
+    }
+
+    quantityPlus(product: Product) {
+        const action = {
+            type: PRODUCT_ACTIONS.QUANTITY_PLUS, payload: product
+        }
+        this.store.dispatch(action);
+        this.actions.push(action);
+    }
+
+    quantityMinus(product: Product) {
+        const action = {
+            type: PRODUCT_ACTIONS.QUANTITY_MINUS, payload: product
+        }
+        this.store.dispatch(action);
+        this.actions.push(action);
+    }
+
+    undo() {
+        this.store.dispatch(undo(this.actions[this.actions.length - 1]));
+        this.actions.splice(this.actions.length - 1, 1);
+    }
+
 }

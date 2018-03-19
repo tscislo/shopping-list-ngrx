@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../interfaces/appState.interface";
 import {Observable} from "rxjs/Observable";
@@ -11,12 +11,13 @@ import {FILTER_ACTIONS} from "../actions/filterActions.enum";
 import {FiltersService} from "./filters.service";
 import {Filters} from "../interfaces/filters.interface";
 import 'rxjs/add/operator/take';
+import * as Rx from 'rxjs/Rx'
 
 @Component({
     selector: 'app-root',
     template: `
         <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">Shopping List based on ngrx/store</a>
+            <a class="navbar-brand">Shopping List</a>
         </nav>
         <div class="container-fluid">
             <div class="row">
@@ -34,15 +35,15 @@ import 'rxjs/add/operator/take';
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center form-group">
                         <span class="form-check" style="display: inline-block">
-                              <input class="form-check-input" type="checkbox" (change)="onlyBought(filters$)"
-                                     [ngModel]="(filters$ | async).bought" id="only_bought">
+                              <input class="form-check-input" type="checkbox" (change)="onlyBought()"
+                                     [ngModel]="filters.bought" id="only_bought">
                               <label class="form-check-label" for="only_bought">
                                  Show only bought
                               </label>
                         </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center"
-                        *ngFor="let product of (products$ | async).filter(filter)">
+                        *ngFor="let product of products">
                         <span class="form-check" style="display: inline-block">
                               <input class="form-check-input" type="checkbox" (change)="buy(product)" value=""
                                      id="bought_{{product.id}}"
@@ -67,22 +68,24 @@ import 'rxjs/add/operator/take';
     `,
     styles: []
 })
-export class AppComponent {
-    public products$: Observable<Product[]>;
-    public filters$: Observable<Filters>;
-    public filter;
-    public newProductName;
+export class AppComponent implements OnInit {
+    public newProductName: string;
+    public products: Product[];
+    public filters: Filters;
     private actions: ProductAction[] = [];
 
     constructor(private store: Store<AppState>, private filtersService: FiltersService) {
     }
 
     ngOnInit() {
-        this.products$ = this.store.select('products');
-        this.filters$ = this.store.select('filters' as any);
-        this.filters$.subscribe((filters: Filters) => {
-            this.filter = this.filtersService.get(filters)
-        })
+        Rx.Observable.combineLatest(
+            this.store.select('products'),
+            this.store.select('filters' as any),
+            (products: Product[], filters: Filters) => {
+                this.products = products.filter(this.filtersService.get(filters));
+                this.filters = filters;
+            }
+        ).subscribe()
     }
 
     addProduct() {
@@ -134,7 +137,7 @@ export class AppComponent {
         const state = this.getState(this.store);
         const action = {
             type: (!state.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
-    }
+        }
         this.store.dispatch(action);
     }
 

@@ -12,6 +12,7 @@ import {FiltersService} from "./filters.service";
 import {Filters} from "../interfaces/filters.interface";
 import 'rxjs/add/operator/take';
 import * as Rx from 'rxjs/Rx'
+import {StoreManagementService} from "./store-management.service";
 
 @Component({
     selector: 'app-root',
@@ -74,13 +75,16 @@ export class AppComponent implements OnInit {
     public filters: Filters;
     private actions: ProductAction[] = [];
 
-    constructor(private store: Store<AppState>, private filtersService: FiltersService) {
+    constructor(private store: Store<AppState>,
+                private filtersService: FiltersService,
+                private storeManagement: StoreManagementService
+    ) {
     }
 
     ngOnInit() {
         Rx.Observable.combineLatest(
             this.store.select('products'),
-            this.store.select('filters' as any),
+            this.store.select('filters'),
             (products: Product[], filters: Filters) => {
                 this.products = products.filter(this.filtersService.get(filters));
                 this.filters = filters;
@@ -134,9 +138,9 @@ export class AppComponent implements OnInit {
     }
 
     onlyBought() {
-        const state = this.getState(this.store);
+        const state = this.storeManagement.get('filters')
         const action = {
-            type: (!state.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
+            type: (!state.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
         }
         this.store.dispatch(action);
     }
@@ -146,10 +150,5 @@ export class AppComponent implements OnInit {
         this.actions.splice(this.actions.length - 1, 1);
     }
 
-    getState(store: any) {
-        let state;
-        store.take(1).subscribe(s => state = s);
-        return state;
-    }
 
 }

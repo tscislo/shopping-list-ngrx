@@ -12,6 +12,7 @@ import {handleUndo} from 'ngrx-undo';
 import {filtersReducer} from "../reducers/filters.reducer";
 import {FiltersService} from "./filters.service";
 import {localStorageSync} from "ngrx-store-localstorage";
+import {StoreManagementService} from "./store-management.service";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -32,7 +33,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreDevtoolsModule.instrument(),
         FormsModule
     ],
-    providers: [FiltersService],
+    providers: [
+        FiltersService,
+        StoreManagementService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

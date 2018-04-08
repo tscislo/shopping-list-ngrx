@@ -1,19 +1,19 @@
 <app-header></app-header>
 <div class="container-fluid">
-  <div class="row">
-    <ul class="col-12">
-      <li class="list-group-item d-flex justify-content-between align-items-center form-group">
-        <input type="text" class="form-control col-8" name="newProductName"
-               [(ngModel)]="newProductName"
-               placeholder="New product name" required>
-        <button type="submit" class="btn col-2" (click)="addProduct()" [disabled]="!newProductName">
-          Add
-        </button>
-        <button type="submit" class="btn col-2" (click)="undo()" [disabled]="!actions.length">
-          Undo
-        </button>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center form-group">
+    <div class="row">
+        <ul class="col-12">
+            <li class="list-group-item d-flex justify-content-between align-items-center form-group">
+                <input type="text" class="form-control col-8" name="newProductName"
+                       [(ngModel)]="newProductName"
+                       placeholder="New product name" required>
+                <button type="submit" class="btn col-2" (click)="addProduct()" [disabled]="!newProductName">
+                    Add
+                </button>
+                <button type="submit" class="btn col-2" (click)="undo()" [disabled]="!storeManagement.hasUndoActions()">
+                    Undo
+                </button>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center form-group">
                         <span class="form-check" style="display: inline-block">
                               <input class="form-check-input" type="checkbox" (change)="onlyBought()"
                                      [ngModel]="filters.bought" id="only_bought">
@@ -21,28 +21,13 @@
                                  Show only bought
                               </label>
                         </span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center"
-          routerLink="details"
-          *ngFor="let product of products">
-                        <span class="form-check" style="display: inline-block">
-                              <input class="form-check-input" type="checkbox" (change)="buy(product)" value=""
-                                     id="bought_{{product.id}}"
-                                     [ngModel]="product.bought">
-                              <label class="form-check-label" for="bought_{{product.id}}">
-                                                        {{ product.name }}
-                              </label>
-                        </span>
-        <span>
-                            <button type="button" class="btn btn-danger btn-sm"
-                                    (click)="removeProduct(product)">Remove</button>
-                            <button type="button" class="btn btn-primary btn-sm"
-                                    (click)="quantityPlus(product)">+</button>
-                            <button type="button" class="btn btn-primary btn-sm"
-                                    (click)="quantityMinus(product)">-</button>
-                        <span class="badge badge-primary badge-pill">{{product.quantity}}</span>
-                        </span>
-      </li>
-    </ul>
-  </div>
+            </li>
+            <app-list-item
+                    [products]="products"
+                    (buy)="buy($event)"
+                    (quantityMinus)="quantityMinus($event)"
+                    (quantityPlus)="quantityPlus($event)"
+                    (removeProduct)="removeProduct($event)"></app-list-item>
+        </ul>
+    </div>
 </div>

@@ -1,0 +1,20 @@
+<li class="list-group-item d-flex justify-content-between align-items-center"
+    *ngFor="let product of products">
+                        <span class="form-check" style="display: inline-block">
+                              <input class="form-check-input" type="checkbox" (change)="buy.emit(product)" value=""
+                                     id="bought_{{product.id}}"
+                                     [ngModel]="product.bought">
+                              <label class="form-check-label" for="bought_{{product.id}}">
+                                                        {{ product.name }}
+                              </label>
+                        </span>
+  <span>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    (click)="removeProduct.emit(product)">Remove</button>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="quantityPlus.emit(product)">+</button>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="quantityMinus.emit(product)">-</button>
+                        <span class="badge badge-primary badge-pill">{{product.quantity}}</span>
+                        </span>
+</li>

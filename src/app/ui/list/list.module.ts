@@ -10,6 +10,7 @@ import {filtersReducer} from "./filters.reducer";
 import {ListRoutingModule} from "./list-routing.module";
 import {CoreModule} from "../../core/core.module";
 import {SharedModule} from "../../shared/shared.module";
+import { ListItemComponent } from './list-item/list-item.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {SharedModule} from "../../shared/shared.module";
         )
     ],
     declarations: [
-        ListComponent
+        ListComponent,
+        ListItemComponent
     ],
     providers: [
         FiltersService,

@@ -1,3 +1,9 @@
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">Shopping List</a>
-</nav>
+<mat-toolbar color="primary">
+    <span>Shopping List</span>
+    <span class="spacer"></span>
+    <mat-spinner color="warn" [diameter]="30" *ngIf="isLoading$ | async"></mat-spinner>
+
+    <mat-icon class="icon" (click)="sync()">backup</mat-icon>
+    <mat-icon class="icon" (click)="undo()">history</mat-icon>
+
+</mat-toolbar>

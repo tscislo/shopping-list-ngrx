@@ -1,12 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {StoreManagementService} from "./store-management.service";
+import {HttpClientModule} from "@angular/common/http";
+import {SyncEffectsService} from "./sync-effects.service";
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-    providers: [StoreManagementService],
-  declarations: []
+    imports: [
+        CommonModule,
+        HttpClientModule
+    ],
+    providers: [
+        StoreManagementService,
+        SyncEffectsService
+    ],
+    declarations: []
 })
-export class CoreModule { }
+export class CoreModule {
+}

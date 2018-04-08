@@ -1,0 +1,5 @@
+export enum ENDPOINT_STATES {
+    IN_PROGRESS = "IN_PROGRESS",
+    SUCCESS = "SUCCESS",
+    ERROR = "ERROR"
+}

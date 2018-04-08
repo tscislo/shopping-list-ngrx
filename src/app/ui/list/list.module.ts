@@ -5,7 +5,6 @@ import {FormsModule} from "@angular/forms";
 import {FiltersService} from "./filters.service";
 import {StoreManagementService} from "../../core/store-management.service";
 import {ActionReducerMap, StoreModule} from "@ngrx/store";
-import {productReducer} from "../../product.reducer";
 import {filtersReducer} from "./filters.reducer";
 import {ListRoutingModule} from "./list-routing.module";
 import {CoreModule} from "../../core/core.module";
@@ -22,7 +21,6 @@ import { ListItemComponent } from './list-item/list-item.component';
         SharedModule,
         StoreModule.forFeature('list',
             {
-                products: productReducer,
                 filters: filtersReducer
             }
         )

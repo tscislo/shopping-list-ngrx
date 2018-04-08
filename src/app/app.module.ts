@@ -8,6 +8,10 @@ import {handleUndo} from 'ngrx-undo';
 import {localStorageSync} from "ngrx-store-localstorage";
 import {CoreModule} from "./core/core.module";
 import {productReducer} from "./product.reducer";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {apiReducer} from "./api.reducer";
+import {EffectsModule} from "@ngrx/effects";
+import {SyncEffectsService} from "./core/sync-effects.service";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -20,8 +24,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         StoreModule.forRoot({
+            api: apiReducer,
             products: productReducer
         }, {
             metaReducers: [
@@ -30,6 +36,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
             ]
         }),
         StoreDevtoolsModule.instrument(),
+        EffectsModule.forRoot([SyncEffectsService]),
         CoreModule
     ],
     providers: [],

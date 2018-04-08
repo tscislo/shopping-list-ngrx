@@ -1,4 +1,5 @@
-import {PRODUCT_ACTIONS} from "../actions/productActions.enum";
+import {PRODUCT_ACTIONS} from "./productActions.enum";
+
 
 export interface ProductAction {
     type: PRODUCT_ACTIONS;

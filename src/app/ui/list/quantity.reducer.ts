@@ -1,6 +1,6 @@
-import {ProductAction} from "../interfaces/productAction.interface";
-import {PRODUCT_ACTIONS} from "../actions/productActions.enum";
-import {Product} from "../interfaces/product.interface";
+import {ProductAction} from "./productAction.interface";
+import {PRODUCT_ACTIONS} from "./productActions.enum";
+import {Product} from "./product.interface";
 
 export function quantityReducer(state: Product, action: ProductAction) {
     const newState = {...state};

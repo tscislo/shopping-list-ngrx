@@ -1,6 +1,7 @@
-import {Filters} from "../interfaces/filters.interface";
-import {FilterAction} from "../interfaces/filterAction.interface";
-import {FILTER_ACTIONS} from "../actions/filterActions.enum";
+import {Filters} from "./filters.interface";
+import {FilterAction} from "./filterAction.interface";
+import {FILTER_ACTIONS} from "./filterActions.enum";
+
 
 
 export function filtersReducer(state: Filters = {bought: false}, action: FilterAction) {

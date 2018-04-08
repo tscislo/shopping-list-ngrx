@@ -1,7 +1,8 @@
-import {PRODUCT_ACTIONS} from "../actions/productActions.enum";
-import {ProductAction} from "../interfaces/productAction.interface";
-import {Product} from "../interfaces/product.interface";
+
+import {ProductAction} from "./productAction.interface";
+import {Product} from "./product.interface";
 import {quantityReducer} from "./quantity.reducer";
+import {PRODUCT_ACTIONS} from "./productActions.enum";
 
 
 export function productReducer(state: Product[] = [], action: ProductAction) {

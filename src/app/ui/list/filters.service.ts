@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Filters} from "../interfaces/filters.interface";
+import {Filters} from "./filters.interface";
 
 @Injectable()
 export class FiltersService {

@@ -7,10 +7,11 @@ import {ActionReducer, StoreModule} from "@ngrx/store";
 import {handleUndo} from 'ngrx-undo';
 import {localStorageSync} from "ngrx-store-localstorage";
 import {CoreModule} from "./core/core.module";
+import {productReducer} from "./product.reducer";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-    return localStorageSync({keys: ['list'], rehydrate: true})(reducer);
+    return localStorageSync({keys: ['list', 'products'], rehydrate: true})(reducer);
 }
 
 @NgModule({
@@ -20,7 +21,9 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
     imports: [
         BrowserModule,
         AppRoutingModule,
-        StoreModule.forRoot({}, {
+        StoreModule.forRoot({
+            products: productReducer
+        }, {
             metaReducers: [
                 handleUndo,
                 localStorageSyncReducer

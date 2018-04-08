@@ -3,11 +3,11 @@ import {undo} from "ngrx-undo";
 import {Store} from "@ngrx/store";
 import {StoreManagementService} from "../../../core/store-management.service";
 import {FiltersService} from "../filters.service";
-import {PRODUCT_ACTIONS} from "../productActions.enum";
-import {Product} from "../product.interface";
+import {PRODUCT_ACTIONS} from "../../../productActions.enum";
+import {Product} from "../../../product.interface";
 import {Filters} from "../filters.interface";
-import {ProductAction} from "../productAction.interface";
-import {AppState} from "../appState.interface";
+import {ProductAction} from "../../../productAction.interface";
+import {AppState} from "../../../appState.interface";
 import {FILTER_ACTIONS} from "../filterActions.enum";
 import * as Rx from "rxjs/Rx";
 
@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
 
     ngOnInit() {
         Rx.Observable.combineLatest(
-            this.store.select((state) => state.list.products),
+            this.store.select((state) => state.products),
             this.store.select((state) => state.list.filters),
             (products: Product[], filters: Filters) => {
                 this.products = products.filter(this.filtersService.get(filters));

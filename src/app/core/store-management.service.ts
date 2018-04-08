@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AppState} from "../ui/list/appState.interface";
+import {AppState} from "../appState.interface";
 import {Store} from "@ngrx/store";
 
 @Injectable()

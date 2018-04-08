@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {AppState} from "../../list/appState.interface";
+import {AppState} from "../../../appState.interface";
 
 @Component({
   selector: 'app-details',

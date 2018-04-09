@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import {
-    MatButtonModule, MatCheckboxModule,
+    MatButtonModule, MatCardModule, MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatListModule, MatProgressSpinnerModule,
@@ -19,7 +19,8 @@ const exportableMatModules = [
     MatListModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
 ]
 
 @NgModule({

@@ -1,9 +1,16 @@
 import {API_ACTIONS} from "./apiActions.enum";
 import {ENDPOINT_STATES} from "./endpointStates.enum";
 import {ApiAction} from "./apiAction.interface";
+import {Api} from "./api.interface";
 
+const initialState: Api = {
+    isLoading: false,
+    endpoint: {
+        sync: ENDPOINT_STATES.IDLE
+    }
+}
 
-export function apiReducer(state = {}, action: ApiAction) {
+export function apiReducer(state = initialState, action: ApiAction) {
     switch (action.type) {
         case API_ACTIONS.SYNC_GO:
             return {

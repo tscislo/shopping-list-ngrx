@@ -1,2 +1,7 @@
 <app-header></app-header>
-<p>Item details!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ (product$ | async).name }}</mat-card-title>
+        <mat-card-subtitle>{{ (product$ | async).quantity }}</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>

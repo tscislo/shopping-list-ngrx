@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
     public isLoading$;
 
-    constructor(private storeManagementService: StoreManagementService,
+    constructor(public storeManagementService: StoreManagementService,
                 private store: Store<AppState>
     ) {
     }

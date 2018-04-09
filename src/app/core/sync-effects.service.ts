@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {API_ACTIONS} from "../apiActions.enum";
 import {catchError, delay, map, switchMap} from "rxjs/operators";
+import {of} from "rxjs/observable/of";
 
 @Injectable()
 export class SyncEffectsService {
@@ -21,7 +22,13 @@ export class SyncEffectsService {
                         return {
                             type: API_ACTIONS.SYNC_SUCCESS
                         }
-                    })
+                    }),
+                    // TODO: Why this does not work???
+                    // catchError(err => of(() => {
+                    //     return {
+                    //         type: API_ACTIONS.SYNC_ERROR
+                    //     }
+                    // }))
                 )
         )
     );

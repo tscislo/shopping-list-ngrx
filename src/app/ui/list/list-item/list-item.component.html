@@ -1,5 +1,5 @@
 <mat-nav-list>
-    <mat-list-item *ngFor="let product of products" routerLink="./details">
+    <mat-list-item *ngFor="let product of products" [routerLink]="['details', product.id]">
         <mat-checkbox
                 (change)="buy.emit(product)"
                 (click)="$event.stopPropagation()"

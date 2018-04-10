@@ -54,6 +54,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         }),
         EffectsModule.forRoot([SyncEffectsService]),
         CoreModule,
+        SharedModule
     ],
     providers: [
         {provide: RouterStateSerializer, useClass: RouterSerializer}

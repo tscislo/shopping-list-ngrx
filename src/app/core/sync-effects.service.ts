@@ -34,7 +34,6 @@ export class SyncEffectsService {
     );
 
     constructor(private actions$: Actions<Action>, private http: HttpClient) {
-        console.log("product effects init");
     }
 
 }

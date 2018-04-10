@@ -10,8 +10,8 @@ import {SyncEffectsService} from "./sync-effects.service";
         HttpClientModule
     ],
     providers: [
-        StoreManagementService,
-        SyncEffectsService
+        SyncEffectsService,
+        StoreManagementService
     ],
     declarations: []
 })

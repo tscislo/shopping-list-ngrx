@@ -8,7 +8,7 @@ import {
     MatInputModule, MatListModule, MatProgressSpinnerModule,
     MatSelectionList, MatSliderModule, MatSlideToggleModule,
     MatToolbarModule
-} from "@angular/material";
+} from '@angular/material';
 
 const exportableMatModules = [
     MatInputModule,
@@ -21,7 +21,7 @@ const exportableMatModules = [
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatCardModule
-]
+];
 
 @NgModule({
     imports: [

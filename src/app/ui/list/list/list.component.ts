@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {StoreManagementService} from "../../../core/store-management.service";
-import {FiltersService} from "../filters.service";
-import {PRODUCT_ACTIONS} from "../../../productActions.enum";
-import {Product} from "../../../product.interface";
-import {Filters} from "../filters.interface";
-import {AppState} from "../../../appState.interface";
-import {FILTER_ACTIONS} from "../filterActions.enum";
-import * as Rx from "rxjs/Rx";
+import {Store} from '@ngrx/store';
+import {StoreManagementService} from '../../../core/store-management.service';
+import {FiltersService} from '../filters.service';
+import {PRODUCT_ACTIONS} from '../../../productActions.enum';
+import {Product} from '../../../product.interface';
+import {Filters} from '../filters.interface';
+import {AppState} from '../../../appState.interface';
+import {FILTER_ACTIONS} from '../filterActions.enum';
+import * as Rx from 'rxjs/Rx';
 
 @Component({
     selector: 'app-list',
@@ -21,8 +21,7 @@ export class ListComponent implements OnInit {
 
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
-                public storeManagement: StoreManagementService
-    ) {
+                public storeManagement: StoreManagementService) {
     }
 
     ngOnInit() {
@@ -33,7 +32,7 @@ export class ListComponent implements OnInit {
                 this.products = products.filter(this.filtersService.get(filters));
                 this.filters = filters;
             }
-        ).subscribe()
+        ).subscribe();
     }
 
     addProduct() {
@@ -44,7 +43,7 @@ export class ListComponent implements OnInit {
                 quantity: 0,
                 bought: false,
             }
-        }
+        };
         this.newProductName = '';
         this.store.dispatch(action);
         this.storeManagement.addUndoAction(action);
@@ -52,32 +51,36 @@ export class ListComponent implements OnInit {
 
     removeProduct(product: Product) {
         const action = {
-            type: PRODUCT_ACTIONS.REMOVE_PRODUCT, payload: product
-        }
+            type: PRODUCT_ACTIONS.REMOVE_PRODUCT,
+            payload: product
+        };
         this.store.dispatch(action);
         this.storeManagement.addUndoAction(action);
     }
 
     quantityPlus(product: Product) {
         const action = {
-            type: PRODUCT_ACTIONS.QUANTITY_PLUS, payload: product
-        }
+            type: PRODUCT_ACTIONS.QUANTITY_PLUS,
+            payload: product
+        };
         this.store.dispatch(action);
         this.storeManagement.addUndoAction(action);
     }
 
     quantityMinus(product: Product) {
         const action = {
-            type: PRODUCT_ACTIONS.QUANTITY_MINUS, payload: product
-        }
+            type: PRODUCT_ACTIONS.QUANTITY_MINUS,
+            payload: product
+        };
         this.store.dispatch(action);
         this.storeManagement.addUndoAction(action);
     }
 
     buy(product: Product) {
         const action = {
-            type: PRODUCT_ACTIONS.BUY, payload: product
-        }
+            type: PRODUCT_ACTIONS.BUY,
+            payload: product
+        };
         this.store.dispatch(action);
         this.storeManagement.addUndoAction(action);
     }
@@ -86,12 +89,8 @@ export class ListComponent implements OnInit {
         const state = this.storeManagement.get();
         const action = {
             type: (!state.list.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
-        }
+        };
         this.store.dispatch(action);
-    }
-
-    undo() {
-        this.storeManagement.undo()
     }
 
 

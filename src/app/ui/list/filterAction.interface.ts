@@ -1,4 +1,4 @@
-import {FILTER_ACTIONS} from "./filterActions.enum";
+import {FILTER_ACTIONS} from './filterActions.enum';
 
 
 export interface FilterAction {

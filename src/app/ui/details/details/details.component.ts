@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../appState.interface";
-import {ActivatedRoute} from "@angular/router";
-import {StoreManagementService} from "../../../core/store-management.service";
-import {Product} from "../../../product.interface";
-import {Observable} from "rxjs/Observable";
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../appState.interface';
+import {ActivatedRoute} from '@angular/router';
+import {StoreManagementService} from '../../../core/store-management.service';
+import {Product} from '../../../product.interface';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-details',
@@ -13,7 +13,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class DetailsComponent implements OnInit {
 
-    public product$:Observable<Product>;
+    public product$: Observable<Product>;
 
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService,
@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit() {
         this.product$ = this.store
-            .map((state: AppState) => state.products.find((product: Product) => product.id === parseInt(this.activatedRoute.snapshot.paramMap.get('id'))))
+            .map((state: AppState) => state.products.find((product: Product) => product.id === parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10)));
 
     }
 

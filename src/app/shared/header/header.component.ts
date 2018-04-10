@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {StoreManagementService} from "../../core/store-management.service";
-import {AppState} from "../../appState.interface";
-import {Store} from "@ngrx/store";
-import {API_ACTIONS} from "../../apiActions.enum";
+import {StoreManagementService} from '../../core/store-management.service';
+import {AppState} from '../../appState.interface';
+import {Store} from '@ngrx/store';
+import {API_ACTIONS} from '../../apiActions.enum';
 
 @Component({
     selector: 'app-header',
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     public sync() {
         this.store.dispatch({
             type: API_ACTIONS.SYNC_GO
-        })
+        });
     }
 
 }

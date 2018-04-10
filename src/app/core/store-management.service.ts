@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {AppState} from "../appState.interface";
-import {Store} from "@ngrx/store";
-import {ProductAction} from "../productAction.interface";
-import {undo} from "ngrx-undo";
+import {AppState} from '../appState.interface';
+import {Store} from '@ngrx/store';
+import {ProductAction} from '../productAction.interface';
+import {undo} from 'ngrx-undo';
 
 @Injectable()
 export class StoreManagementService {
@@ -32,6 +32,6 @@ export class StoreManagementService {
         this.productActions.splice(this.productActions.length - 1, 1);
     }
 
-    public hasUndoActions = () => this.productActions.length
+    public hasUndoActions = () => this.productActions.length;
 
 }

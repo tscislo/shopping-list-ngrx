@@ -2,19 +2,19 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {ActionReducer, StoreModule} from "@ngrx/store";
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {ActionReducer, StoreModule} from '@ngrx/store';
 import {handleUndo} from 'ngrx-undo';
-import {localStorageSync} from "ngrx-store-localstorage";
-import {CoreModule} from "./core/core.module";
-import {productReducer} from "./product.reducer";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {apiReducer} from "./api.reducer";
-import {EffectsModule} from "@ngrx/effects";
-import {SyncEffectsService} from "./core/sync-effects.service";
-import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-store";
-import {RouterSerializer} from "./core/router-serializer";
-import {SharedModule} from "./shared/shared.module";
+import {localStorageSync} from 'ngrx-store-localstorage';
+import {CoreModule} from './core/core.module';
+import {productReducer} from './product.reducer';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {apiReducer} from './api.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {SyncEffectsService} from './core/sync-effects.service';
+import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RouterSerializer} from './core/router-serializer';
+import {SharedModule} from './shared/shared.module';
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

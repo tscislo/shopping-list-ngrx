@@ -1,4 +1,4 @@
-import {API_ACTIONS} from "./apiActions.enum";
+import {API_ACTIONS} from './apiActions.enum';
 
 
 export interface ApiAction {

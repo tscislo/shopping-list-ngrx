@@ -15,6 +15,8 @@ import {SyncEffectsService} from './core/sync-effects.service';
 import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterSerializer} from './core/router-serializer';
 import {SharedModule} from './shared/shared.module';
+import {AngularFireModule} from "angularfire2";
+import {environment} from "../environments/environment";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -36,6 +38,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        AngularFireModule.initializeApp(environment.firebase),
         StoreModule.forRoot({
             api: apiReducer,
             products: productReducer,

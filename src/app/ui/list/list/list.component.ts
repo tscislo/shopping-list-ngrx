@@ -7,7 +7,7 @@ import {Product} from '../../../product.interface';
 import {Filters} from '../filters.interface';
 import {AppState} from '../../../appState.interface';
 import {FILTER_ACTIONS} from '../filterActions.enum';
-import * as Rx from 'rxjs/Rx';
+import {combineLatest} from 'rxjs/observable/combineLatest';
 
 @Component({
     selector: 'app-list',
@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
     }
 
     ngOnInit() {
-        Rx.Observable.combineLatest(
+        combineLatest(
             this.store.select((state) => state.products),
             this.store.select((state) => state.list.filters),
             (products: Product[], filters: Filters) => {

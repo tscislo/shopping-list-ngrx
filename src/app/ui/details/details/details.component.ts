@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {Product} from '../../../product.interface';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'app-details',

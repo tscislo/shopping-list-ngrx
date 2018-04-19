@@ -17,6 +17,8 @@ import {RouterSerializer} from './core/router-serializer';
 import {SharedModule} from './shared/shared.module';
 import {AngularFireModule} from "angularfire2";
 import {environment} from "../environments/environment";
+import {AngularFirestore} from "angularfire2/firestore";
+import {FirebaseEffectsService} from "./core/firebase-effects.service";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -55,11 +57,13 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([SyncEffectsService]),
+        // TODO: How to register effects in submodule???
+        EffectsModule.forRoot([FirebaseEffectsService]),
         CoreModule,
         SharedModule
     ],
     providers: [
+        AngularFirestore,
         {provide: RouterStateSerializer, useClass: RouterSerializer}
     ],
     bootstrap: [AppComponent]

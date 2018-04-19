@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {StoreManagementService} from './store-management.service';
 import {HttpClientModule} from '@angular/common/http';
 import {SyncEffectsService} from './sync-effects.service';
+import {FirebaseEffectsService} from "./firebase-effects.service";
 
 @NgModule({
     imports: [
@@ -10,7 +11,7 @@ import {SyncEffectsService} from './sync-effects.service';
         HttpClientModule
     ],
     providers: [
-        SyncEffectsService,
+        FirebaseEffectsService,
         StoreManagementService
     ],
     declarations: []

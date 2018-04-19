@@ -3,7 +3,8 @@
     <span class="spacer"></span>
     <mat-spinner color="warn" [diameter]="30" *ngIf="isLoading$ | async"></mat-spinner>
 
-    <mat-icon class="icon" (click)="sync()">backup</mat-icon>
+    <mat-icon class="icon" (click)="sync()">cloud_download</mat-icon>
     <mat-icon class="icon" (click)="undo()" [ngClass]="{'disabled': !storeManagementService.hasUndoActions()}">history</mat-icon>
+    <mat-icon class="icon" (click)="back()">keyboard_arrow_left</mat-icon>
 
 </mat-toolbar>

@@ -9,6 +9,9 @@ import {filtersReducer} from './filters.reducer';
 import {ListRoutingModule} from './list-routing.module';
 import {SharedModule} from '../../shared/shared.module';
 import { ListItemComponent } from './list-item/list-item.component';
+import {EffectsModule} from "@ngrx/effects";
+import {SyncEffectsService} from "../../core/sync-effects.service";
+import {FirebaseEffectsService} from "../../core/firebase-effects.service";
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { ListItemComponent } from './list-item/list-item.component';
             {
                 filters: filtersReducer
             }
-        )
+        ),
+        // EffectsModule.forFeature([FirebaseEffectsService]),
     ],
     declarations: [
         ListComponent,

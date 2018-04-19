@@ -8,6 +8,9 @@ import {Filters} from '../filters.interface';
 import {AppState} from '../../../appState.interface';
 import {FILTER_ACTIONS} from '../filterActions.enum';
 import {combineLatest} from 'rxjs/observable/combineLatest';
+import {AngularFirestore} from "angularfire2/firestore";
+import * as firebase from "firebase";
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Component({
     selector: 'app-list',
@@ -21,10 +24,31 @@ export class ListComponent implements OnInit {
 
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
-                public storeManagement: StoreManagementService) {
+                public storeManagement: StoreManagementService,
+                private angularFirestore: AngularFirestore
+                ) {
     }
 
     ngOnInit() {
+        // this.angularFirestore.collection('products').valueChanges().subscribe((val) => {
+        //     console.log(val)
+        // })
+        //
+        // this.angularFirestore.collection('products').doc('7TpTChiONyiwqB2OacWh').update({
+        //     name : {
+        //         x : 'tomek ścisło'
+        //     }
+        // })
+        // this.angularFirestore.collection('products').add (
+        //     {
+        //         type: 'kiszka'
+        //     }
+        // ).then((doc :DocumentReference) => {
+        //     console.log(doc.id)
+        // })
+
+
+
         combineLatest(
             this.store.select((state) => state.products),
             this.store.select((state) => state.list.filters),

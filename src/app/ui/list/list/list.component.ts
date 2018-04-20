@@ -11,6 +11,8 @@ import {combineLatest} from 'rxjs/observable/combineLatest';
 import {AngularFirestore} from "angularfire2/firestore";
 import * as firebase from "firebase";
 import DocumentReference = firebase.firestore.DocumentReference;
+import {MatDialog} from "@angular/material";
+import {ErrorModalComponent} from "../../../shared/error-modal/error-modal.component";
 
 @Component({
     selector: 'app-list',
@@ -25,7 +27,8 @@ export class ListComponent implements OnInit {
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
                 public storeManagement: StoreManagementService,
-                private angularFirestore: AngularFirestore
+                private angularFirestore: AngularFirestore,
+                private matDialog: MatDialog
                 ) {
     }
 
@@ -47,6 +50,7 @@ export class ListComponent implements OnInit {
         //     console.log(doc.id)
         // })
 
+        // this.matDialog.open(ErrorModalComponent)
 
 
         combineLatest(

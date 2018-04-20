@@ -2,13 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import {
-    MatButtonModule, MatCardModule, MatCheckboxModule,
+    MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatListModule, MatProgressSpinnerModule,
     MatSelectionList, MatSliderModule, MatSlideToggleModule,
     MatToolbarModule
 } from '@angular/material';
+import {ErrorModalComponent} from './error-modal/error-modal.component';
 
 const exportableMatModules = [
     MatInputModule,
@@ -20,18 +21,30 @@ const exportableMatModules = [
     MatCheckboxModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
 ];
+
+const exportableComponents = [
+    HeaderComponent,
+    ErrorModalComponent
+]
 
 @NgModule({
     imports: [
         CommonModule,
         ...exportableMatModules
     ],
-    declarations: [HeaderComponent],
+    declarations: [
+        ...exportableComponents
+    ],
     exports: [
         HeaderComponent,
-        ...exportableMatModules
+        ...exportableMatModules,
+        ...exportableComponents
+    ],
+    entryComponents : [
+        ErrorModalComponent
     ]
 })
 export class SharedModule {

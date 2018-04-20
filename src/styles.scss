@@ -7,5 +7,13 @@
 }
 
 .mat-list-item-content {
-  border-bottom: 1px rgba(0,0,0,.42) solid;
+  border-bottom: 1px rgba(0, 0, 0, .42) solid;
+}
+
+.done {
+  color: #39c71d;
+  margin-right: 15px;
+  mat-icon {
+    font-size: 30px;
+  }
 }

@@ -12,7 +12,7 @@ export class SyncEffectsService {
 
     @Effect()
     sync$: Observable<Action> = this.actions$.pipe(
-        ofType(API_ACTIONS.SYNC_GO),
+        ofType(API_ACTIONS.FIREBASE_SYNC),
         switchMap(action =>
             this.http
                 .get('assets/sync.json')
@@ -20,7 +20,7 @@ export class SyncEffectsService {
                     delay(3000),
                     map(() => {
                         return {
-                            type: API_ACTIONS.SYNC_SUCCESS
+                            type: API_ACTIONS.FIREBASE_SUCCESS
                         };
                     }),
                     // TODO: Why this does not work???

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
 
     public sync() {
         this.store.dispatch({
-            type: API_ACTIONS.SYNC_GO
+            type: API_ACTIONS.FIREBASE_SYNC
         });
     }
 

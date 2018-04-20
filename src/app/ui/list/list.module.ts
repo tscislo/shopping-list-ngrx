@@ -25,7 +25,7 @@ import {FirebaseEffectsService} from "../../core/firebase-effects.service";
                 filters: filtersReducer
             }
         ),
-        // EffectsModule.forFeature([FirebaseEffectsService]),
+        EffectsModule.forFeature([FirebaseEffectsService]),
     ],
     declarations: [
         ListComponent,

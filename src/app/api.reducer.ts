@@ -12,21 +12,21 @@ const initialState: Api = {
 
 export function apiReducer(state = initialState, action: ApiAction) {
     switch (action.type) {
-        case API_ACTIONS.SYNC_GO:
+        case API_ACTIONS.FIREBASE_SYNC:
             return {
                 isLoading: true,
                 endpoint: {
                     sync: ENDPOINT_STATES.IN_PROGRESS
                 }
             };
-        case API_ACTIONS.SYNC_SUCCESS:
+        case API_ACTIONS.FIREBASE_SUCCESS:
             return {
                 isLoading: false,
                 endpoint: {
                     sync: ENDPOINT_STATES.SUCCESS
                 }
             };
-        case API_ACTIONS.SYNC_ERROR:
+        case API_ACTIONS.FIREBASE_ERROR:
             return {
                 isLoading: false,
                 endpoint: {

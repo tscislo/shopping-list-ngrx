@@ -57,8 +57,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        // TODO: How to register effects in submodule???
-        EffectsModule.forRoot([FirebaseEffectsService]),
+        EffectsModule.forRoot([]),
         CoreModule,
         SharedModule
     ],

@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {StoreManagementService} from './store-management.service';
 import {HttpClientModule} from '@angular/common/http';
-import {SyncEffectsService} from './sync-effects.service';
 import {FirebaseEffectsService} from "./firebase-effects.service";
+import {ModalsService} from "./modals.service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {FirebaseEffectsService} from "./firebase-effects.service";
     ],
     providers: [
         FirebaseEffectsService,
-        StoreManagementService
+        StoreManagementService,
+        ModalsService
     ],
     declarations: []
 })

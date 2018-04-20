@@ -5,4 +5,7 @@ export interface Api {
     endpoint: {
         sync: ENDPOINT_STATES
     };
+    firebase: {
+        listId
+    }
 }

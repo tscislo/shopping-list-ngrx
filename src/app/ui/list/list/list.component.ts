@@ -13,6 +13,8 @@ import * as firebase from "firebase";
 import DocumentReference = firebase.firestore.DocumentReference;
 import {MatDialog} from "@angular/material";
 import {ErrorModalComponent} from "../../../shared/error-modal/error-modal.component";
+import {ModalsService} from "../../../core/modals.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'app-list',
@@ -23,36 +25,17 @@ export class ListComponent implements OnInit {
     public newProductName: string;
     public products: Product[];
     public filters: Filters;
+    public listId: Observable<string>;
 
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
                 public storeManagement: StoreManagementService,
-                private angularFirestore: AngularFirestore,
-                private matDialog: MatDialog
-                ) {
+                private modalService: ModalsService,
+                private angularFirestore: AngularFirestore
+    ) {
     }
 
     ngOnInit() {
-        // this.angularFirestore.collection('products').valueChanges().subscribe((val) => {
-        //     console.log(val)
-        // })
-        //
-        // this.angularFirestore.collection('products').doc('7TpTChiONyiwqB2OacWh').update({
-        //     name : {
-        //         x : 'tomek ścisło'
-        //     }
-        // })
-        // this.angularFirestore.collection('products').add (
-        //     {
-        //         type: 'kiszka'
-        //     }
-        // ).then((doc :DocumentReference) => {
-        //     console.log(doc.id)
-        // })
-
-        // this.matDialog.open(ErrorModalComponent)
-
-
         combineLatest(
             this.store.select((state) => state.products),
             this.store.select((state) => state.list.filters),
@@ -61,6 +44,8 @@ export class ListComponent implements OnInit {
                 this.filters = filters;
             }
         ).subscribe();
+
+        this.listId = this.store.select((state) => state.api.firebase.listId);
     }
 
     addProduct() {
@@ -68,7 +53,7 @@ export class ListComponent implements OnInit {
             type: PRODUCT_ACTIONS.ADD_PRODUCT, payload: {
                 id: this.storeManagement.getId(),
                 name: this.newProductName,
-                quantity: 0,
+                quantity: 1,
                 bought: false,
             }
         };
@@ -78,12 +63,19 @@ export class ListComponent implements OnInit {
     }
 
     removeProduct(product: Product) {
-        const action = {
-            type: PRODUCT_ACTIONS.REMOVE_PRODUCT,
-            payload: product
-        };
-        this.store.dispatch(action);
-        this.storeManagement.addUndoAction(action);
+        this.modalService.showConfirmation({
+            title: "Confirmation",
+            question: `Are you sure you want to delete '${product.name}'?`
+        }).afterClosed().subscribe((result) => {
+            if (result) {
+                const action = {
+                    type: PRODUCT_ACTIONS.REMOVE_PRODUCT,
+                    payload: product
+                };
+                this.store.dispatch(action);
+                this.storeManagement.addUndoAction(action);
+            }
+        })
     }
 
     quantityPlus(product: Product) {
@@ -113,13 +105,13 @@ export class ListComponent implements OnInit {
         this.storeManagement.addUndoAction(action);
     }
 
-    onlyBought() {
-        const state = this.storeManagement.get();
-        const action = {
-            type: (!state.list.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
-        };
-        this.store.dispatch(action);
-    }
+    // onlyBought() {
+    //     const state = this.storeManagement.get();
+    //     const action = {
+    //         type: (!state.list.filters.bought) ? FILTER_ACTIONS.SHOW_BOUGHT : FILTER_ACTIONS.SHOW_ALL
+    //     };
+    //     this.store.dispatch(action);
+    // }
 
 
 }

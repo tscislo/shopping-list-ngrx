@@ -7,6 +7,9 @@ const initialState: Api = {
     isLoading: false,
     endpoint: {
         sync: ENDPOINT_STATES.IDLE
+    },
+    firebase: {
+        listId: null
     }
 };
 
@@ -17,6 +20,9 @@ export function apiReducer(state = initialState, action: ApiAction) {
                 isLoading: true,
                 endpoint: {
                     sync: ENDPOINT_STATES.IN_PROGRESS
+                },
+                firebase: {
+                    listId: state.firebase.listId
                 }
             };
         case API_ACTIONS.FIREBASE_SUCCESS:
@@ -24,6 +30,9 @@ export function apiReducer(state = initialState, action: ApiAction) {
                 isLoading: false,
                 endpoint: {
                     sync: ENDPOINT_STATES.SUCCESS
+                },
+                firebase: {
+                    listId: state.firebase.listId
                 }
             };
         case API_ACTIONS.FIREBASE_ERROR:
@@ -31,6 +40,19 @@ export function apiReducer(state = initialState, action: ApiAction) {
                 isLoading: false,
                 endpoint: {
                     sync: ENDPOINT_STATES.ERROR
+                },
+                firebase: {
+                    listId: state.firebase.listId
+                }
+            };
+        case API_ACTIONS.FIREBASE_LIST_ID_CHANGED:
+            return {
+                isLoading: false,
+                endpoint: {
+                    sync: ENDPOINT_STATES.ERROR
+                },
+                firebase: {
+                    listId: action.payload
                 }
             };
         default:

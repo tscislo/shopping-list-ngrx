@@ -1,0 +1,12 @@
+<div class="confirmation">
+    <p class="header">
+        {{ data.title }}
+    </p>
+    <p class="text">
+        {{ data.question }}
+    </p>
+    <div class="button-container">
+        <button mat-raised-button color="primary" class="ok" (click)="ok()">OK</button>
+        <button mat-raised-button color="primary" (click)="close()">Cancel</button>
+    </div>
+</div>

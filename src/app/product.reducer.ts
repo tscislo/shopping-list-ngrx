@@ -23,6 +23,8 @@ export function productReducer(state: Product[] = [], action: ProductAction) {
                 }
                 return product;
             });
+        case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
+            return action.payload
 
         case PRODUCT_ACTIONS.QUANTITY_MINUS:
         case PRODUCT_ACTIONS.QUANTITY_PLUS:

@@ -2,6 +2,7 @@
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -16,4 +17,25 @@
   mat-icon {
     font-size: 30px;
   }
+}
+
+.items-list {
+
+  .mat-list-item-content {
+    padding: 0px 0px 0px 8px !important;
+  }
+
+  .mat-mini-fab {
+    line-height: 33px!important;
+    height: 30px !important;
+    width: 30px !important;
+  }
+
+  .mat-button-wrapper {
+    padding: 0px !important;
+  }
+}
+
+.mat-nav-list {
+  padding-top: 0px !important;
 }

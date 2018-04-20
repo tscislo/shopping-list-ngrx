@@ -8,11 +8,11 @@ export interface AppState {
         isLoading: boolean,
         endpoint: {
             sync: ENDPOINT_STATES
-        }
+        },
+        firebase: {
+            listId: string
+        },
     };
-    firebase: {
-        listId: string
-    },
     products: Product[];
     list: {
         filters: Filters

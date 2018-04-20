@@ -11,7 +11,6 @@ import {productReducer} from './product.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {apiReducer} from './api.reducer';
 import {EffectsModule} from '@ngrx/effects';
-import {SyncEffectsService} from './core/sync-effects.service';
 import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterSerializer} from './core/router-serializer';
 import {SharedModule} from './shared/shared.module';
@@ -19,6 +18,7 @@ import {AngularFireModule} from "angularfire2";
 import {environment} from "../environments/environment";
 import {AngularFirestore} from "angularfire2/firestore";
 import {FirebaseEffectsService} from "./core/firebase-effects.service";
+import {FormsModule} from "@angular/forms";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -26,7 +26,8 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         keys: [
             'list',
             'products',
-            'router'
+            'router',
+            'api'
         ],
         rehydrate: true
     })(reducer);
@@ -57,9 +58,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([]),
+        EffectsModule.forRoot([FirebaseEffectsService]),
         CoreModule,
-        SharedModule
+        SharedModule,
+        FormsModule
     ],
     providers: [
         AngularFirestore,

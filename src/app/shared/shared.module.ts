@@ -6,11 +6,12 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatListModule, MatProgressSpinnerModule,
-    MatSelectionList, MatSliderModule, MatSlideToggleModule,
+    MatSelectionList, MatSidenavModule, MatSliderModule, MatSlideToggleModule,
     MatToolbarModule
 } from '@angular/material';
 import {ErrorModalComponent} from './error-modal/error-modal.component';
 import {OrderModule} from "ngx-order-pipe";
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 const exportableModules = [
     OrderModule,
@@ -25,7 +26,8 @@ const exportableModules = [
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule
 ];
 
 const exportableComponents = [
@@ -39,7 +41,8 @@ const exportableComponents = [
         ...exportableModules
     ],
     declarations: [
-        ...exportableComponents
+        ...exportableComponents,
+        ConfirmationModalComponent
     ],
     exports: [
         HeaderComponent,
@@ -47,7 +50,8 @@ const exportableComponents = [
         ...exportableComponents
     ],
     entryComponents : [
-        ErrorModalComponent
+        ErrorModalComponent,
+        ConfirmationModalComponent
     ]
 })
 export class SharedModule {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StoreManagementService} from '../../core/store-management.service';
 import {AppState} from '../../appState.interface';
 import {Store} from '@ngrx/store';
@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
+    @Output() sideMenu = new EventEmitter()
     public isLoading$;
 
     constructor(public storeManagementService: StoreManagementService,
@@ -28,14 +29,17 @@ export class HeaderComponent implements OnInit {
         this.storeManagementService.undo();
     }
 
-    public sync() {
-        this.store.dispatch({
-            type: API_ACTIONS.FIREBASE_SYNC
-        });
-    }
+    // Not used
+    // public sync() {
+    //     this.store.dispatch({
+    //         type: API_ACTIONS.FIREBASE_SYNC
+    //     });
+    // }
 
     public back() {
         this.router.navigate(['/']);
     }
+
+    public isInRoot = () => this.router.isActive('/', true);
 
 }

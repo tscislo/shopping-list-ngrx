@@ -1,35 +1,43 @@
 <div class="container-fluid new-product">
     <div class="row">
         <div class="col-12">
-            <div class="row">
+            <form (ngSubmit)="addProduct()" class="row">
                 <mat-form-field class="col-10 col-lg-11">
                     <input
                             [(ngModel)]="newProductName"
                             matInput
+                            name="productName"
                             placeholder="New product name">
                 </mat-form-field>
                 <div class="col-2 col-lg-1 add">
                     <a mat-mini-fab (click)="addProduct()" [disabled]="!newProductName">Add</a>
                 </div>
-            </div>
+            </form>
+            <!-- Only bought filter disabled on purpose -->
             <!--<mat-nav-list class="filter">-->
-                <!--<mat-list-item>-->
-                    <!--<mat-slide-toggle (change)="onlyBought()" [ngModel]="filters.bought">Show only bought-->
-                    <!--</mat-slide-toggle>-->
-                <!--</mat-list-item>-->
+            <!--<mat-list-item>-->
+            <!--<mat-slide-toggle (change)="onlyBought()" [ngModel]="filters.bought">Show only bought-->
+            <!--</mat-slide-toggle>-->
+            <!--</mat-list-item>-->
             <!--</mat-nav-list>-->
         </div>
     </div>
 </div>
-<div class="container-fluid items-list">
-    <div class="row">
-        <div class="col-12">
-            <app-list-item
-                    [products]="products"
-                    (buy)="buy($event)"
-                    (quantityMinus)="quantityMinus($event)"
-                    (quantityPlus)="quantityPlus($event)"
-                    (removeProduct)="removeProduct($event)"></app-list-item>
+<div class="items-list">
+    <div class="no-products-container" *ngIf="!products.length">
+        <div class="no-products">
+            <mat-card>
+                <p>Start creating your own list by adding <strong>new products</strong>!</p>
+                <p><strong>Your list number is: {{ (listId | async) || '???' }}</strong>,
+                    which you can provide to others in order to share your
+                    list!</p>
+            </mat-card>
         </div>
     </div>
+    <app-list-item
+            [products]="products"
+            (buy)="buy($event)"
+            (quantityMinus)="quantityMinus($event)"
+            (quantityPlus)="quantityPlus($event)"
+            (removeProduct)="removeProduct($event)"></app-list-item>
 </div>

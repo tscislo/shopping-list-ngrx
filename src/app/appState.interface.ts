@@ -10,6 +10,9 @@ export interface AppState {
             sync: ENDPOINT_STATES
         }
     };
+    firebase: {
+        listId: string
+    },
     products: Product[];
     list: {
         filters: Filters

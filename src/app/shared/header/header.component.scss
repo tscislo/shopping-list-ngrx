@@ -6,3 +6,10 @@
 .disabled {
   opacity: 0.5
 }
+
+.header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+}

@@ -28,8 +28,10 @@ export class StoreManagementService {
     }
 
     public undo() {
-        this.store.dispatch(undo(this.productActions[this.productActions.length - 1]));
-        this.productActions.splice(this.productActions.length - 1, 1);
+        if(this.hasUndoActions()) {
+            this.store.dispatch(undo(this.productActions[this.productActions.length - 1]));
+            this.productActions.splice(this.productActions.length - 1, 1);
+        }
     }
 
     public hasUndoActions = () => this.productActions.length;

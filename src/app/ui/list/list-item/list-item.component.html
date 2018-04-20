@@ -1,20 +1,20 @@
 <mat-nav-list>
-    <mat-list-item *ngFor="let product of products" [routerLink]="['details', product.id]">
+    <mat-list-item *ngFor="let product of products | orderBy: 'name'" [routerLink]="['details', product.id]">
         <mat-checkbox
                 (change)="buy.emit(product)"
                 (click)="$event.stopPropagation()"
                 [checked]="product.bought"></mat-checkbox>
         <span class="product-name">{{ product.name }}</span>
         <span class="spacer"></span>
-        <button mat-icon-button (click)="removeProduct.emit(product)">
-            <mat-icon>delete</mat-icon>
-        </button>
         <button mat-icon-button (click)="quantityPlus.emit(product)">
             <mat-icon>add_circle</mat-icon>
         </button>
         <button mat-mini-fab color="primary">{{ product.quantity }}</button>
         <button mat-icon-button (click)="quantityMinus.emit(product)">
             <mat-icon>remove_circle</mat-icon>
+        </button>
+        <button mat-icon-button (click)="removeProduct.emit(product)">
+            <mat-icon>delete</mat-icon>
         </button>
     </mat-list-item>
 </mat-nav-list>

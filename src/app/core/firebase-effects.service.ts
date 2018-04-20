@@ -21,7 +21,8 @@ export class FirebaseEffectsService {
             PRODUCT_ACTIONS.QUANTITY_PLUS,
             PRODUCT_ACTIONS.QUANTITY_MINUS,
             PRODUCT_ACTIONS.REMOVE_PRODUCT,
-            PRODUCT_ACTIONS.BUY
+            PRODUCT_ACTIONS.BUY,
+            'ngrx-undo/UNDO_ACTION'
         ),
         switchMap(() => this.store.select('products').take(1)),
         switchMap((products: Product[]) => fromPromise(

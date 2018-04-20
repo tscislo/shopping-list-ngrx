@@ -10,8 +10,11 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import {ErrorModalComponent} from './error-modal/error-modal.component';
+import {OrderModule} from "ngx-order-pipe";
 
-const exportableMatModules = [
+const exportableModules = [
+    OrderModule,
+
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
@@ -33,14 +36,14 @@ const exportableComponents = [
 @NgModule({
     imports: [
         CommonModule,
-        ...exportableMatModules
+        ...exportableModules
     ],
     declarations: [
         ...exportableComponents
     ],
     exports: [
         HeaderComponent,
-        ...exportableMatModules,
+        ...exportableModules,
         ...exportableComponents
     ],
     entryComponents : [

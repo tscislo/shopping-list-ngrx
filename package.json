@@ -51,6 +51,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "ngrx-store-localstorage": "^5.0.0",
     "ngrx-undo": "^4.0.2",
+    "ngx-order-pipe": "^2.0.1",
     "puppeteer": "^1.2.0",
     "reset-css": "^3.0.0",
     "rxjs": "^5.5.6",

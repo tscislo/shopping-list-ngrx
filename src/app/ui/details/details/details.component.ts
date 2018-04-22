@@ -24,7 +24,7 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit() {
         this.product$ = this.store
-            .map((state: AppState) => state.products.find((product: Product) => product.id === parseInt(this.activatedRoute.snapshot.paramMap.get('id'), 10)));
+            .map((state: AppState) => state.products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id')));
 
     }
 

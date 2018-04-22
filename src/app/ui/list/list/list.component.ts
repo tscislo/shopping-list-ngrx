@@ -49,17 +49,19 @@ export class ListComponent implements OnInit {
     }
 
     addProduct() {
-        const action = {
-            type: PRODUCT_ACTIONS.ADD_PRODUCT, payload: {
-                id: this.storeManagement.getId(),
-                name: this.newProductName,
-                quantity: 1,
-                bought: false,
-            }
-        };
-        this.newProductName = '';
-        this.store.dispatch(action);
-        this.storeManagement.addUndoAction(action);
+        if(this.newProductName) {
+            const action = {
+                type: PRODUCT_ACTIONS.ADD_PRODUCT, payload: {
+                    id: this.storeManagement.getId(),
+                    name: this.newProductName,
+                    quantity: 1,
+                    bought: false,
+                }
+            };
+            this.newProductName = '';
+            this.store.dispatch(action);
+            this.storeManagement.addUndoAction(action);
+        }
     }
 
     removeProduct(product: Product) {

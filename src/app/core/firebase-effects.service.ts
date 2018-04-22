@@ -10,40 +10,115 @@ import {Product} from "../product.interface";
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {PRODUCT_ACTIONS} from "../productActions.enum";
 import {of} from "rxjs/observable/of";
-import * as firebase from "firebase";
-import DocumentReference = firebase.firestore.DocumentReference;
 import {StoreManagementService} from "./store-management.service";
+import {ProductAction} from "../productAction.interface";
 
 @Injectable()
 export class FirebaseEffectsService {
 
+    constructor(private actions$: Actions<Action>,
+                private store: Store<AppState>,
+                private angularFirestore: AngularFirestore,
+                private storeManagement: StoreManagementService
+    ) {
+    }
+
     @Effect()
-    sync$: Observable<Action> = this.actions$.pipe(
+    addProduct$: Observable<Action> = this.actions$.pipe(
         ofType(
             PRODUCT_ACTIONS.ADD_PRODUCT,
-            PRODUCT_ACTIONS.QUANTITY_PLUS,
-            PRODUCT_ACTIONS.QUANTITY_MINUS,
-            PRODUCT_ACTIONS.REMOVE_PRODUCT,
-            PRODUCT_ACTIONS.BUY,
-            'ngrx-undo/UNDO_ACTION'
         ),
-        switchMap(() => this.store.take(1)),
-        switchMap((appState: AppState) => fromPromise(
-            this.angularFirestore
-                .collection('lists')
-                .doc(appState.api.firebase.listId)
-                .update({products: appState.products}
-                ))),
+        switchMap((action: ProductAction) => {
+            return this.store.select((state: AppState) => state.api.firebase.listId)
+                .take(1)
+                .pipe(
+                    switchMap((listId) =>
+                        fromPromise(
+                            this.angularFirestore
+                                .collection('lists')
+                                .doc(listId)
+                                .collection('products')
+                                .doc(action.payload.id)
+                                .set(action.payload)
+                        ))
+                );
+        }),
         map(() => {
             return {
                 type: API_ACTIONS.FIREBASE_SUCCESS
             }
         }),
-        catchError(err => of(
-            {
+        catchError(err =>
+            of({
                 type: API_ACTIONS.FIREBASE_ERROR
+            })
+        )
+    );
+
+    @Effect()
+    removeProduct$: Observable<Action> = this.actions$.pipe(
+        ofType(
+            PRODUCT_ACTIONS.REMOVE_PRODUCT,
+        ),
+        switchMap((action: ProductAction) => {
+            return this.store.select((state: AppState) => state.api.firebase.listId)
+                .take(1)
+                .pipe(
+                    switchMap((listId) =>
+                        fromPromise(
+                            this.angularFirestore
+                                .collection('lists')
+                                .doc(listId)
+                                .collection('products')
+                                .doc(action.payload.id)
+                                .delete()
+                        ))
+                );
+        }),
+        map(() => {
+            return {
+                type: API_ACTIONS.FIREBASE_SUCCESS
             }
-        ))
+        }),
+        catchError(err =>
+            of({
+                type: API_ACTIONS.FIREBASE_ERROR
+            })
+        )
+    );
+
+    @Effect()
+    updateProduct$: Observable<Action> = this.actions$.pipe(
+        ofType(
+            PRODUCT_ACTIONS.QUANTITY_MINUS,
+            PRODUCT_ACTIONS.QUANTITY_PLUS,
+            PRODUCT_ACTIONS.BUY
+        ),
+        switchMap((action: ProductAction) => {
+            return this.store
+                .take(1)
+                .pipe(
+                    switchMap((state) =>
+                        fromPromise(
+                            this.angularFirestore
+                                .collection('lists')
+                                .doc(state.api.firebase.listId)
+                                .collection('products')
+                                .doc(action.payload.id)
+                                .set(state.products.find((product: Product) => product.id === action.payload.id))
+                        ))
+                );
+        }),
+        map(() => {
+            return {
+                type: API_ACTIONS.FIREBASE_SUCCESS
+            }
+        }),
+        catchError(err =>
+            of({
+                type: API_ACTIONS.FIREBASE_ERROR
+            })
+        )
     );
 
     @Effect()
@@ -75,11 +150,5 @@ export class FirebaseEffectsService {
         ))
     );
 
-    constructor(private actions$: Actions<Action>,
-                private store: Store<AppState>,
-                private angularFirestore: AngularFirestore,
-                private storeManagement: StoreManagementService
-    ) {
-    }
 
 }

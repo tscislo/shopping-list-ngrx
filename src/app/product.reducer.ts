@@ -18,13 +18,15 @@ export function productReducer(state: Product[] = [], action: ProductAction) {
 
         case PRODUCT_ACTIONS.BUY:
             return state.map((product: Product) => {
-                if (product.id === action.payload.id) {
-                    product.bought = !product.bought;
+                const newProduct = {...product};
+                if (newProduct.id === action.payload.id) {
+                    newProduct.bought = !newProduct.bought;
                 }
-                return product;
+                return newProduct;
             });
+
         case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
-            return action.payload
+            return action.payload;
 
         case PRODUCT_ACTIONS.QUANTITY_MINUS:
         case PRODUCT_ACTIONS.QUANTITY_PLUS:

@@ -7,46 +7,41 @@ import {PRODUCT_ACTIONS} from "../productActions.enum";
 import {AngularFirestore} from "angularfire2/firestore";
 import 'rxjs/add/operator/mergeMap';
 import {Observable} from "rxjs/Observable";
+import {Product} from "../product.interface";
 
 @Injectable()
 export class StoreManagementService {
 
-    private start;
     private productActions: ProductAction[] = [];
 
     constructor(private store: Store<AppState>,
                 private angularFirestore: AngularFirestore
     ) {
-        this.start = this.generateId();
         this.store
             .select((state) => state.api.firebase.listId)
             .flatMap((listId) => {
                 if (listId) {
-                    return this.angularFirestore.collection('lists').doc(listId).valueChanges();
+                    return this.angularFirestore
+                        .collection('lists')
+                        .doc(listId)
+                        .collection('products')
+                        .valueChanges();
                 } else {
                     return new Observable(() => {});
                 }
             })
-            .subscribe((products: any) => {
-                console.log('from firebase')
+            .subscribe((products: Product[]) => {
+                console.log('Products taken from FireBase!')
                 this.store.dispatch({
                     type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
-                    payload: (products.products) ? products.products : []
+                    payload: (products.length) ? products : []
                 })
             });
     }
 
-    public generateId = () => Math.floor(Math.random() * (100000000));
+    public generateId = (length = 8) => Math.floor(Math.random() * Math.pow(10, length)).toString();
 
-    public get() {
-        let stateValue;
-        this.store
-            .take(1)
-            .subscribe((outputStateValue) => stateValue = outputStateValue);
-        return stateValue;
-    }
-
-    public getId = () => ++this.start;
+    public getId = () => this.generateId(15);
 
     public addUndoAction(action: ProductAction) {
         this.productActions.push(action);

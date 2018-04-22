@@ -5,6 +5,7 @@ import {Store} from "@ngrx/store";
 import {PRODUCT_ACTIONS} from "./productActions.enum";
 import {API_ACTIONS} from "./apiActions.enum";
 import {Observable} from "rxjs/Observable";
+import {ErrorStateMatcher} from "@angular/material";
 
 @Component({
     selector: 'app-root',
@@ -12,17 +13,17 @@ import {Observable} from "rxjs/Observable";
         <app-header (sideMenu)="sidenav.toggle()"></app-header>
         <mat-sidenav-container class="sidenav-container">
             <mat-sidenav #sidenav mode="over" class="sidenav">
-                <mat-list role="list">
-                    <mat-list-item role="listitem">
-                        <mat-form-field>
-                            <input name="listId" type="text"
-                                   matInput
-                                   (blur)="listIdChanged()"
-                                   [(ngModel)]="listId"> 
-                            <mat-icon matSuffix>mode_edit</mat-icon>
-                        </mat-form-field>
-                    </mat-list-item>
-                </mat-list>
+                <mat-form-field>
+                    <input name="listId" type="text"
+                           matInput
+                           [errorStateMatcher]="errorMatcher"
+                           (blur)="listIdChanged()"
+                           [(ngModel)]="listId">
+                    <mat-error>
+                        List number must have at least 8 characters
+                    </mat-error>
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
             </mat-sidenav>
             <mat-sidenav-content>
                 <router-outlet></router-outlet>
@@ -42,6 +43,7 @@ import {Observable} from "rxjs/Observable";
             .sidenav {
                 min-width: 40%;
                 margin-top: 56px;
+                padding: 0px 10px;
             }
         `
     ]
@@ -49,9 +51,13 @@ import {Observable} from "rxjs/Observable";
 export class AppComponent {
 
     public listId: string;
+    public errorMatcher = {
+        isErrorState: () => {
+        }
+    }
 
     constructor(private store: Store<AppState>) {
-
+        this.errorMatcher.isErrorState = () => !this.isListIdValid();
     }
 
     ngOnInit() {
@@ -70,10 +76,14 @@ export class AppComponent {
     }
 
     public listIdChanged() {
-        this.store.dispatch({
-            type: API_ACTIONS.FIREBASE_LIST_ID_CHANGED,
-            payload: this.listId
-        })
+        if (this.isListIdValid()) {
+            this.store.dispatch({
+                type: API_ACTIONS.FIREBASE_LIST_ID_CHANGED,
+                payload: this.listId
+            });
+        }
     }
+
+    public isListIdValid = () => this.listId && this.listId.length >= 8;
 
 }

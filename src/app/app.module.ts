@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -19,6 +19,7 @@ import {environment} from "../environments/environment";
 import {AngularFirestore} from "angularfire2/firestore";
 import {FirebaseEffectsService} from "./core/firebase-effects.service";
 import {FormsModule} from "@angular/forms";
+import {HammerConfig} from "./HammerConfig.class";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -65,7 +66,11 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
     ],
     providers: [
         AngularFirestore,
-        {provide: RouterStateSerializer, useClass: RouterSerializer}
+        {provide: RouterStateSerializer, useClass: RouterSerializer},
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: HammerConfig
+        }
     ],
     bootstrap: [AppComponent]
 })

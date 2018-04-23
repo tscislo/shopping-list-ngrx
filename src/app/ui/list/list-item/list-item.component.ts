@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from '../../../product.interface';
 import {ModalsService} from "../../../core/modals.service";
 import {Store} from "@ngrx/store";
@@ -8,7 +8,8 @@ import {PRODUCT_ACTIONS} from "../../../productActions.enum";
 @Component({
     selector: 'app-list-item',
     templateUrl: './list-item.component.html',
-    styleUrls: ['./list-item.component.scss']
+    styleUrls: ['./list-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListItemComponent implements OnInit {
 
@@ -27,16 +28,18 @@ export class ListItemComponent implements OnInit {
     }
 
     edit(product: Product) {
-        this.modalsService.editProduct(product)
-            .afterClosed()
-            .subscribe((result) => {
-                if (result) {
-                    this.store.dispatch({
-                        type: PRODUCT_ACTIONS.EDIT,
-                        payload: result
-                    });
-                }
-            })
+        setTimeout(() => {
+            this.modalsService.editProduct(product)
+                .afterClosed()
+                .subscribe((result) => {
+                    if (result) {
+                        this.store.dispatch({
+                            type: PRODUCT_ACTIONS.EDIT,
+                            payload: result
+                        });
+                    }
+                })
+        }, 200);
     }
 
 }

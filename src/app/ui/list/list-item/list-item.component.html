@@ -4,8 +4,9 @@
                 (change)="buy.emit(product)"
                 (click)="$event.stopPropagation()"
                 [checked]="product.bought"></mat-checkbox>
-        <span class="product-name" [ngClass]="{'bought': product.bought}">{{ product.name }}</span>
-        <span class="spacer"></span>
+        <div class="product-name-container" [ngClass]="{'bought': product.bought}">
+            <span class="product-name">{{ product.name }}</span>
+        </div>
         <button mat-icon-button (click)="quantityPlus.emit(product)">
             <mat-icon>add_circle</mat-icon>
         </button>

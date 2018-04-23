@@ -16,9 +16,10 @@ import {
     MatSnackBarModule,
     MatToolbarModule
 } from '@angular/material';
-import {ErrorModalComponent} from './error-modal/error-modal.component';
 import {OrderModule} from "ngx-order-pipe";
 import {ConfirmationModalComponent} from './confirmation-modal/confirmation-modal.component';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
+import {FormsModule} from "@angular/forms";
 
 const exportableModules = [
     OrderModule,
@@ -39,18 +40,19 @@ const exportableModules = [
 ];
 
 const exportableComponents = [
-    HeaderComponent,
-    ErrorModalComponent
+    HeaderComponent
 ]
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         ...exportableModules
     ],
     declarations: [
         ...exportableComponents,
-        ConfirmationModalComponent
+        ConfirmationModalComponent,
+        EditModalComponent
     ],
     exports: [
         HeaderComponent,
@@ -58,8 +60,8 @@ const exportableComponents = [
         ...exportableComponents
     ],
     entryComponents : [
-        ErrorModalComponent,
-        ConfirmationModalComponent
+        ConfirmationModalComponent,
+        EditModalComponent
     ]
 })
 export class SharedModule {

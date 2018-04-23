@@ -6,13 +6,8 @@ import {PRODUCT_ACTIONS} from '../../../productActions.enum';
 import {Product} from '../../../product.interface';
 import {Filters} from '../filters.interface';
 import {AppState} from '../../../appState.interface';
-import {FILTER_ACTIONS} from '../filterActions.enum';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {AngularFirestore} from "angularfire2/firestore";
-import * as firebase from "firebase";
-import DocumentReference = firebase.firestore.DocumentReference;
-import {MatDialog} from "@angular/material";
-import {ErrorModalComponent} from "../../../shared/error-modal/error-modal.component";
 import {ModalsService} from "../../../core/modals.service";
 import {Observable} from "rxjs/Observable";
 

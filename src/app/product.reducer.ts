@@ -16,6 +16,15 @@ export function productReducer(state: Product[] = [], action: ProductAction) {
         case PRODUCT_ACTIONS.REMOVE_PRODUCT:
             return state.filter((product: Product) => product.id !== action.payload.id);
 
+        case PRODUCT_ACTIONS.EDIT:
+            return state.map((product: Product) => {
+                let newProduct = {...product};
+                if (newProduct.id === action.payload.id) {
+                    newProduct = action.payload;
+                }
+                return newProduct;
+            });
+
         case PRODUCT_ACTIONS.BUY:
             return state.map((product: Product) => {
                 const newProduct = {...product};

@@ -90,7 +90,8 @@ export class FirebaseEffectsService {
         ofType(
             PRODUCT_ACTIONS.QUANTITY_MINUS,
             PRODUCT_ACTIONS.QUANTITY_PLUS,
-            PRODUCT_ACTIONS.BUY
+            PRODUCT_ACTIONS.BUY,
+            PRODUCT_ACTIONS.EDIT
         ),
         switchMap((action: ProductAction) => {
             return this.store

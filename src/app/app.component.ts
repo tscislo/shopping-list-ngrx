@@ -2,10 +2,7 @@ import {Component} from '@angular/core';
 import 'rxjs/add/operator/take';
 import {AppState} from "./appState.interface";
 import {Store} from "@ngrx/store";
-import {PRODUCT_ACTIONS} from "./productActions.enum";
 import {API_ACTIONS} from "./apiActions.enum";
-import {Observable} from "rxjs/Observable";
-import {ErrorStateMatcher} from "@angular/material";
 import {StoreManagementService} from "./core/store-management.service";
 
 @Component({

@@ -1,5 +1,5 @@
 export interface Api {
-    isLoading: boolean;
+    isError: boolean;
     firebase: {
         listId
     }

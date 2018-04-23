@@ -5,7 +5,7 @@ import {ProductAction} from '../productAction.interface';
 import {undo} from 'ngrx-undo';
 import {PRODUCT_ACTIONS} from "../productActions.enum";
 import {AngularFirestore} from "angularfire2/firestore";
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 import {Observable} from "rxjs/Observable";
 import {Product} from "../product.interface";
 
@@ -19,7 +19,7 @@ export class StoreManagementService {
     ) {
         this.store
             .select((state) => state.api.firebase.listId)
-            .flatMap((listId) => {
+            .switchMap((listId) => {
                 if (listId) {
                     return this.angularFirestore
                         .collection('lists')

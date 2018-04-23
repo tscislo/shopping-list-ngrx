@@ -4,6 +4,8 @@ import {AppState} from '../../appState.interface';
 import {Store} from '@ngrx/store';
 import {API_ACTIONS} from '../../apiActions.enum';
 import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
     selector: 'app-header',
@@ -12,28 +14,22 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-    @Output() sideMenu = new EventEmitter()
-    public isLoading$;
+    @Output() sideMenu = new EventEmitter();
+    public warning: Observable<boolean>;
 
     constructor(public storeManagementService: StoreManagementService,
                 public router: Router,
-                private store: Store<AppState>
+                private store: Store<AppState>,
+                private snackBar: MatSnackBar
     ) {
     }
 
     ngOnInit() {
-        this.isLoading$ = this.store.select((state) => state.api.isLoading);
+        this.warning = this.store.select((state: AppState) => state.api.isError);
     }
 
-    public undo() {
-        this.storeManagementService.undo();
-    }
-
-    // Not used
-    // public sync() {
-    //     this.store.dispatch({
-    //         type: API_ACTIONS.FIREBASE_SYNC
-    //     });
+    // public undo() {
+    //     this.storeManagementService.undo();
     // }
 
     public back() {
@@ -41,5 +37,15 @@ export class HeaderComponent implements OnInit {
     }
 
     public isInRoot = () => this.router.isActive('/', true);
+
+    public showErrorSnackBar() {
+        this.snackBar.open(
+            "There was some problem with the cloud. Don't worry this app can work offline!",
+            "Dismiss",
+            {
+                duration: 5000
+            }
+        )
+    }
 
 }

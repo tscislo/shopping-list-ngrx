@@ -1,9 +1,8 @@
 <mat-toolbar color="primary" class="header">
     <span (click)="back()">Family Shopping List</span>
     <span class="spacer"></span>
-    <mat-spinner color="warn" [diameter]="30" *ngIf="isLoading$ | async"></mat-spinner>
-
-    <!--<mat-icon class="icon" (click)="sync()">cloud_download</mat-icon>-->
+    <mat-icon class="icon" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
+    <!--<mat-spinner color="warn" [diameter]="30" *ngIf="isLoading$ | async"></mat-spinner>-->
     <!--<mat-icon class="icon undo" (click)="undo()" [ngClass]="{'disabled': !storeManagementService.hasUndoActions()}">settings_backup_restore</mat-icon>-->
     <mat-icon class="icon" (click)="sideMenu.emit()">menu</mat-icon>
     <mat-icon class="icon" (click)="back()" *ngIf="!isInRoot()">keyboard_arrow_left</mat-icon>

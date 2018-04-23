@@ -10,7 +10,6 @@ import {Product} from "../product.interface";
 import {fromPromise} from "rxjs/observable/fromPromise";
 import {PRODUCT_ACTIONS} from "../productActions.enum";
 import {of} from "rxjs/observable/of";
-import {StoreManagementService} from "./store-management.service";
 import {ProductAction} from "../productAction.interface";
 
 @Injectable()
@@ -18,8 +17,7 @@ export class FirebaseEffectsService {
 
     constructor(private actions$: Actions<Action>,
                 private store: Store<AppState>,
-                private angularFirestore: AngularFirestore,
-                private storeManagement: StoreManagementService
+                private angularFirestore: AngularFirestore
     ) {
     }
 
@@ -119,35 +117,6 @@ export class FirebaseEffectsService {
                 type: API_ACTIONS.FIREBASE_ERROR
             })
         )
-    );
-
-    @Effect()
-    newList$: Observable<Action> = this.actions$.pipe(
-        ofType(
-            API_ACTIONS.FIREBASE_CREATE_NEW_LIST
-        ),
-        switchMap(() => {
-                const id = this.storeManagement.generateId().toString()
-                return fromPromise(
-                    this.angularFirestore
-                        .collection('lists')
-                        .doc(id)
-                        .set({})
-                        .then(() => id)
-                )
-            }
-        ),
-        map((id) => {
-            return {
-                type: API_ACTIONS.FIREBASE_LIST_ID_CHANGED,
-                payload: id
-            }
-        }),
-        catchError(err => of(
-            {
-                type: API_ACTIONS.FIREBASE_ERROR
-            }
-        ))
     );
 
 

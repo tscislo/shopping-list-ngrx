@@ -6,6 +6,7 @@ import {PRODUCT_ACTIONS} from "./productActions.enum";
 import {API_ACTIONS} from "./apiActions.enum";
 import {Observable} from "rxjs/Observable";
 import {ErrorStateMatcher} from "@angular/material";
+import {StoreManagementService} from "./core/store-management.service";
 
 @Component({
     selector: 'app-root',
@@ -56,23 +57,25 @@ export class AppComponent {
         }
     }
 
-    constructor(private store: Store<AppState>) {
+    constructor(private store: Store<AppState>,
+                private storeManagement: StoreManagementService
+    ) {
         this.errorMatcher.isErrorState = () => !this.isListIdValid();
     }
 
     ngOnInit() {
-        this.store.select((state) => state.api.firebase)
-            .take(1)
-            .subscribe((firebase) => {
-                if (!(firebase && firebase.listId)) {
+        this.store
+            .select((state) => state.api.firebase.listId)
+            .subscribe((listId) => {
+                if (!listId) {
                     this.store.dispatch({
-                        type: API_ACTIONS.FIREBASE_CREATE_NEW_LIST
+                        type: API_ACTIONS.FIREBASE_CREATE_NEW_LIST,
+                        payload: this.storeManagement.generateId()
                     })
+                } else {
+                    this.listId = listId;
                 }
             })
-        this.store.select((state) => state.api.firebase.listId).subscribe((listId) => {
-            this.listId = listId
-        })
     }
 
     public listIdChanged() {

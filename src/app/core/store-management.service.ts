@@ -30,6 +30,7 @@ export class StoreManagementService {
                     return new Observable(() => {});
                 }
             })
+            // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
             .subscribe((products: Product[]) => {
                 console.log('Products taken from FireBase!')
                 this.store.dispatch({

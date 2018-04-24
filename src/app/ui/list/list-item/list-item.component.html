@@ -1,24 +1,51 @@
-<mat-nav-list>
-    <mat-list-item
-            (press)="edit(product)"
-            *ngFor="let product of products | orderBy: 'name'"
-            [routerLink]="['details', product.id]">
-        <mat-checkbox
-                (change)="buy.emit(product)"
-                (click)="$event.stopPropagation()"
-                [checked]="product.bought"></mat-checkbox>
-        <div class="product-name-container" [ngClass]="{'bought': product.bought}">
+<!--<mat-nav-list>-->
+<!--<mat-list-item-->
+<!--[ngClass]="{'bought': product.bought}"-->
+<!--(press)="edit(product)"-->
+<!--(swipeLeft)="buy.emit(product)"-->
+<!--(swipeRight)="removeProduct.emit(product)"-->
+<!--*ngFor="let product of products | orderBy: 'name'"-->
+<!--[routerLink]="['details', product.id]">-->
+<!--<input type="checkbox"-->
+<!--(click)="$event.stopPropagation()"-->
+<!--(change)="buy.emit(product)"-->
+<!--[checked]="product.bought">-->
+<!--&lt;!&ndash;<mat-checkbox&ndash;&gt;-->
+<!--&lt;!&ndash;(change)="buy.emit(product)"&ndash;&gt;-->
+<!--&lt;!&ndash;(click)="$event.stopPropagation()"&ndash;&gt;-->
+<!--&lt;!&ndash;[checked]="product.bought"></mat-checkbox>&ndash;&gt;-->
+<!--<div class="product-name-container">-->
+<!--<span class="product-name">{{ product.name }}</span>-->
+<!--</div>-->
+<!--<div class="quantity">{{ product.quantity }}</div>-->
+<!--&lt;!&ndash;<button mat-icon-button (click)="quantityPlus.emit(product)">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-icon>add_circle</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button mat-mini-fab color="primary">{{ product.quantity }}</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button mat-icon-button (click)="quantityMinus.emit(product)">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-icon>remove_circle</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button mat-icon-button (click)="removeProduct.emit(product); $event.stopPropagation();">&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-icon>delete</mat-icon>&ndash;&gt;-->
+<!--&lt;!&ndash;</button>&ndash;&gt;-->
+<!--</mat-list-item>-->
+<!--</mat-nav-list>-->
+
+<div class="list-item" [ngClass]="{'bought': product.bought}"
+     (press)="edit(product)"
+     (swipeLeft)="buy.emit(product)"
+     (swipeRight)="removeProduct.emit(product)"
+     *ngFor="let product of products | orderBy: 'name'"
+     [routerLink]="['details', product.id]">
+    <div class="checkbox-and-name">
+        <input type="checkbox"
+               (click)="$event.stopPropagation()"
+               (change)="buy.emit(product)"
+               [checked]="product.bought">
+        <div class="product-name-container">
             <span class="product-name">{{ product.name }}</span>
         </div>
-        <button mat-icon-button (click)="quantityPlus.emit(product)">
-            <mat-icon>add_circle</mat-icon>
-        </button>
-        <button mat-mini-fab color="primary">{{ product.quantity }}</button>
-        <button mat-icon-button (click)="quantityMinus.emit(product)">
-            <mat-icon>remove_circle</mat-icon>
-        </button>
-        <button mat-icon-button (click)="removeProduct.emit(product); $event.stopPropagation();">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </mat-list-item>
-</mat-nav-list>
+    </div>
+    <div class="quantity">{{ product.quantity }}</div>
+
+</div>

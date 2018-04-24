@@ -8,6 +8,7 @@ import {AngularFirestore} from "angularfire2/firestore";
 import 'rxjs/add/operator/switchMap';
 import {Observable} from "rxjs/Observable";
 import {Product} from "../product.interface";
+import * as _ from "lodash";
 
 @Injectable()
 export class StoreManagementService {
@@ -30,12 +31,23 @@ export class StoreManagementService {
                     return new Observable(() => {});
                 }
             })
-            .subscribe((products: Product[]) => {
-                console.log('Products taken from FireBase!')
-                this.store.dispatch({
-                    type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
-                    payload: (products.length) ? products : []
+
+            // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
+            .subscribe((productsFromFirebase: Product[]) => {
+                let productsFromStore;
+                this.store
+                    .select((state) => state.products).take(1).subscribe((products: Product[]) => {
+                        productsFromStore = products
                 })
+                if(!_.isEqual(productsFromFirebase, productsFromStore)) {
+                    console.log('Products taken from FireBase!');
+                    this.store.dispatch({
+                        type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
+                        payload: (productsFromFirebase.length) ? productsFromFirebase : []
+                    })
+                } else {
+                    console.log("Products equals")
+                }
             });
     }
 

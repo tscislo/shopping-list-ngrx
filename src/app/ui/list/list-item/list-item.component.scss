@@ -2,7 +2,7 @@
   display: flex;
   overflow: hidden;
   width: 100%;
-  padding-left:10px;
+  padding-left: 10px;
 }
 
 .product-name {
@@ -13,5 +13,40 @@
 }
 
 .bought {
-  text-decoration: line-through;
+  .product-name {
+    text-decoration: line-through;
+  }
+  .quantity {
+    background-color: #2f8518;
+  }
+}
+
+.quantity {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #673ab7;
+  line-height: 28px;
+  font-size: 14px;
+  color: #ffffff;
+  margin-right: 10px;
+  text-align: center;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.list-item {
+  font-family: 'Roboto,"Helvetica Neue",sans-serif';
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  height: 50px;
+  border-bottom: 1px rgba(0, 0, 0, 0.42) solid
+}
+
+.checkbox-and-name{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 85%;
 }

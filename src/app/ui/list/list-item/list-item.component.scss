@@ -21,6 +21,13 @@
   }
 }
 
+.button {
+  padding: 10px 7px 10px 7px;
+  &.m-last {
+    padding: 10px 7px 10px 0px;
+  }
+}
+
 .quantity {
   width: 30px;
   height: 30px;
@@ -29,22 +36,32 @@
   line-height: 28px;
   font-size: 14px;
   color: #ffffff;
-  margin-right: 10px;
   text-align: center;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
 .list-item {
-  font-family: 'Roboto,"Helvetica Neue",sans-serif';
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
   height: 50px;
-  border-bottom: 1px rgba(0, 0, 0, 0.42) solid
+  border-bottom: 1px rgba(0, 0, 0, 0.42) solid;
+
+  &.m-zebra{
+    background-color: #f2f2f2;
+  }
+
 }
 
-.checkbox-and-name{
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-and-name {
+  margin-left: 5px;
   display: flex;
   align-items: center;
   overflow: hidden;

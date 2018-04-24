@@ -4,15 +4,11 @@ import {HeaderComponent} from './header/header.component';
 import {
     MatButtonModule,
     MatCardModule,
-    MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatListModule,
-    MatProgressSpinnerModule,
     MatSidenavModule,
-    MatSlideToggleModule,
     MatSnackBarModule,
     MatToolbarModule
 } from '@angular/material';
@@ -29,10 +25,6 @@ const exportableModules = [
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatListModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
     MatCardModule,
     MatDialogModule,
     MatSidenavModule,

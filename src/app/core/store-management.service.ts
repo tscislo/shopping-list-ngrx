@@ -28,26 +28,27 @@ export class StoreManagementService {
                         .collection('products')
                         .valueChanges();
                 } else {
-                    return new Observable(() => {});
+                    return new Observable(() => {
+                    });
                 }
             })
-
+            .switchMap((productsFromFirebase: Product[]) => this.store
+                .select((state) => state.products)
+                .take(1)
+                .switchMap((products: Product[]) => new Observable((observer) => {
+                        if (!_.isEqual(products, productsFromFirebase)) {
+                            observer.next(productsFromFirebase)
+                        }
+                    })
+                )
+            )
             // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
             .subscribe((productsFromFirebase: Product[]) => {
-                let productsFromStore;
-                this.store
-                    .select((state) => state.products).take(1).subscribe((products: Product[]) => {
-                    productsFromStore = products
+                console.log('Products taken from FireBase!');
+                this.store.dispatch({
+                    type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
+                    payload: (productsFromFirebase.length) ? productsFromFirebase : []
                 })
-                if(!_.isEqual(productsFromFirebase, productsFromStore)) {
-                    console.log('Products taken from FireBase!');
-                    this.store.dispatch({
-                        type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
-                        payload: (productsFromFirebase.length) ? productsFromFirebase : []
-                    })
-                } else {
-                    console.log("Products equals")
-                }
             });
     }
 

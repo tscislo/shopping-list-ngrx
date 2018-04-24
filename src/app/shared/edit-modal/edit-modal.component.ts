@@ -10,7 +10,7 @@ import {Product} from "../../product.interface";
 })
 export class EditModalComponent implements OnInit {
 
-    private product: Product;
+    public product: Product;
     public errorMatcher = {
         isErrorState: () => {
         }

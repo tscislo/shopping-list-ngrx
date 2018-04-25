@@ -58,6 +58,9 @@ export class AppComponent implements OnInit {
                 private storeManagement: StoreManagementService
     ) {
         this.errorMatcher.isErrorState = () => !this.isListIdValid();
+        document.addEventListener("backbutton", () => {
+            window.close();
+        }, false);
     }
 
     ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {FiltersService} from '../filters.service';
@@ -53,6 +53,7 @@ export class ListComponent implements OnInit {
             .debounce(() => timer(300))
             .subscribe(this.quantityMinus)
     }
+
 
     addProduct() {
         if (this.newProductName) {

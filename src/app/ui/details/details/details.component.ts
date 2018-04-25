@@ -16,6 +16,7 @@ import {MatSnackBar} from "@angular/material";
 export class DetailsComponent implements OnInit {
 
     public product$: Observable<Product>;
+    public productsSubscription;
 
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService,
@@ -29,8 +30,8 @@ export class DetailsComponent implements OnInit {
         this.product$ = this.store
             .map((state: AppState) => state.products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id')));
 
-        const productsSubscription = this.product$.subscribe((product: Product) => {
-            if(!product) {
+        this.productsSubscription = this.product$.subscribe((product: Product) => {
+            if (!product) {
                 this.snackBar.open(
                     'Product does not exist anymore...',
                     'Dismiss',
@@ -38,11 +39,17 @@ export class DetailsComponent implements OnInit {
                         duration: 5000
                     }
                 );
-                productsSubscription.unsubscribe();
+                this.productsSubscription.unsubscribe();
                 this.router.navigate(['/']);
             }
         })
 
+    }
+
+    ngOnDestroy() {
+        if (this.productsSubscription) {
+            this.productsSubscription.unsubscribe();
+        }
     }
 
 }

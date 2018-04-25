@@ -13,18 +13,11 @@
                     <a mat-mini-fab (click)="addProduct()" [disabled]="!newProductName">Add</a>
                 </div>
             </form>
-            <!-- Only bought filter disabled on purpose -->
-            <!--<mat-nav-list class="filter">-->
-            <!--<mat-list-item>-->
-            <!--<mat-slide-toggle (change)="onlyBought()" [ngModel]="filters.bought">Show only bought-->
-            <!--</mat-slide-toggle>-->
-            <!--</mat-list-item>-->
-            <!--</mat-nav-list>-->
         </div>
     </div>
 </div>
 <div class="items-list">
-    <div class="no-products-container" *ngIf="!products.length">
+    <div class="no-products-container" *ngIf="!products || !products.length">
         <div class="no-products">
             <mat-card>
                 <p>Start creating your own list by adding <strong>new products</strong>!</p>

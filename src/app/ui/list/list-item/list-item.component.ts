@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from '../../../product.interface';
-import {ModalsService} from "../../../core/modals.service";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../appState.interface";
-import {PRODUCT_ACTIONS} from "../../../productActions.enum";
+import {ModalsService} from '../../../core/modals.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../appState.interface';
+import {PRODUCT_ACTIONS} from '../../../productActions.enum';
 
 @Component({
     selector: 'app-list-item',
@@ -38,7 +38,7 @@ export class ListItemComponent implements OnInit {
                             payload: result
                         });
                     }
-                })
+                });
         }, 200);
     }
 

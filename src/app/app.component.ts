@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/take';
-import {AppState} from "./appState.interface";
-import {Store} from "@ngrx/store";
-import {API_ACTIONS} from "./apiActions.enum";
-import {StoreManagementService} from "./core/store-management.service";
+import {AppState} from './appState.interface';
+import {Store} from '@ngrx/store';
+import {API_ACTIONS} from './apiActions.enum';
+import {StoreManagementService} from './core/store-management.service';
 
 @Component({
     selector: 'app-root',
@@ -46,13 +46,13 @@ import {StoreManagementService} from "./core/store-management.service";
         `
     ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     public listId: string;
     public errorMatcher = {
         isErrorState: () => {
         }
-    }
+    };
 
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService
@@ -68,11 +68,11 @@ export class AppComponent {
                     this.store.dispatch({
                         type: API_ACTIONS.FIREBASE_CREATE_NEW_LIST,
                         payload: this.storeManagement.generateId()
-                    })
+                    });
                 } else {
                     this.listId = listId;
                 }
-            })
+            });
     }
 
     public listIdChanged() {

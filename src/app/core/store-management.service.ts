@@ -3,12 +3,12 @@ import {AppState} from '../appState.interface';
 import {Store} from '@ngrx/store';
 import {ProductAction} from '../productAction.interface';
 import {undo} from 'ngrx-undo';
-import {PRODUCT_ACTIONS} from "../productActions.enum";
-import {AngularFirestore} from "angularfire2/firestore";
+import {PRODUCT_ACTIONS} from '../productActions.enum';
+import {AngularFirestore} from 'angularfire2/firestore';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from "rxjs/Observable";
-import {Product} from "../product.interface";
-import * as _ from "lodash";
+import {Observable} from 'rxjs/Observable';
+import {Product} from '../product.interface';
+import * as _ from 'lodash';
 
 @Injectable()
 export class StoreManagementService {
@@ -37,7 +37,7 @@ export class StoreManagementService {
                 .take(1)
                 .switchMap((products: Product[]) => new Observable((observer) => {
                         if (!_.isEqual(products, productsFromFirebase)) {
-                            observer.next(productsFromFirebase)
+                            observer.next(productsFromFirebase);
                         }
                     })
                 )
@@ -48,7 +48,7 @@ export class StoreManagementService {
                 this.store.dispatch({
                     type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
                     payload: (productsFromFirebase.length) ? productsFromFirebase : []
-                })
+                });
             });
     }
 

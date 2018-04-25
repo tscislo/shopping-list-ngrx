@@ -3,9 +3,9 @@ import {StoreManagementService} from '../../core/store-management.service';
 import {AppState} from '../../appState.interface';
 import {Store} from '@ngrx/store';
 import {API_ACTIONS} from '../../apiActions.enum';
-import {Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {MatSnackBar} from "@angular/material";
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'app-header',
@@ -40,12 +40,12 @@ export class HeaderComponent implements OnInit {
 
     public showErrorSnackBar() {
         this.snackBar.open(
-            "There was some problem with the cloud. Don't worry this app can work offline!",
-            "Dismiss",
+            'There was some problem with the cloud. Don\'t worry this app can work offline!',
+            'Dismiss',
             {
                 duration: 5000
             }
-        )
+        );
     }
 
 }

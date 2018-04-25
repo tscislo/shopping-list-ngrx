@@ -4,13 +4,14 @@ import {Action, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {API_ACTIONS} from '../apiActions.enum';
 import {map, switchMap, catchError} from 'rxjs/operators';
-import {AngularFirestore} from "angularfire2/firestore";
-import {AppState} from "../appState.interface";
-import {Product} from "../product.interface";
-import {fromPromise} from "rxjs/observable/fromPromise";
-import {PRODUCT_ACTIONS} from "../productActions.enum";
-import {of} from "rxjs/observable/of";
-import {ProductAction} from "../productAction.interface";
+import "rxjs/operators/take";
+import {AngularFirestore} from 'angularfire2/firestore';
+import {AppState} from '../appState.interface';
+import {Product} from '../product.interface';
+import {fromPromise} from 'rxjs/observable/fromPromise';
+import {PRODUCT_ACTIONS} from '../productActions.enum';
+import {of} from 'rxjs/observable/of';
+import {ProductAction} from '../productAction.interface';
 
 @Injectable()
 export class FirebaseEffectsService {
@@ -44,7 +45,7 @@ export class FirebaseEffectsService {
         map(() => {
             return {
                 type: API_ACTIONS.FIREBASE_SUCCESS
-            }
+            };
         }),
         catchError(err =>
             of({
@@ -76,7 +77,7 @@ export class FirebaseEffectsService {
         map(() => {
             return {
                 type: API_ACTIONS.FIREBASE_SUCCESS
-            }
+            };
         }),
         catchError(err =>
             of({
@@ -111,7 +112,7 @@ export class FirebaseEffectsService {
         map(() => {
             return {
                 type: API_ACTIONS.FIREBASE_SUCCESS
-            }
+            };
         }),
         catchError(err =>
             of({

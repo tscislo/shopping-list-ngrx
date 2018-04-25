@@ -12,10 +12,10 @@ import {
     MatSnackBarModule,
     MatToolbarModule
 } from '@angular/material';
-import {OrderModule} from "ngx-order-pipe";
+import {OrderModule} from 'ngx-order-pipe';
 import {ConfirmationModalComponent} from './confirmation-modal/confirmation-modal.component';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 const exportableModules = [
     OrderModule,
@@ -33,7 +33,7 @@ const exportableModules = [
 
 const exportableComponents = [
     HeaderComponent
-]
+];
 
 @NgModule({
     imports: [

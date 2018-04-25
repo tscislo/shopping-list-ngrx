@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ConfirmationModalComponent} from "../confirmation-modal/confirmation-modal.component";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {Product} from "../../product.interface";
+import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Product} from '../../product.interface';
 
 @Component({
     selector: 'app-edit-modal',
@@ -14,7 +14,7 @@ export class EditModalComponent implements OnInit {
     public errorMatcher = {
         isErrorState: () => {
         }
-    }
+    };
 
     constructor(private dialogRef: MatDialogRef<ConfirmationModalComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any
@@ -23,7 +23,7 @@ export class EditModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.product = {...this.data}
+        this.product = {...this.data};
     }
 
     close() {

@@ -7,9 +7,9 @@ import {Product} from '../../../product.interface';
 import {Filters} from '../filters.interface';
 import {AppState} from '../../../appState.interface';
 import {combineLatest} from 'rxjs/observable/combineLatest';
-import {AngularFirestore} from "angularfire2/firestore";
-import {ModalsService} from "../../../core/modals.service";
-import {Observable} from "rxjs/Observable";
+import {AngularFirestore} from 'angularfire2/firestore';
+import {ModalsService} from '../../../core/modals.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-list',
@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
     }
 
     addProduct() {
-        if(this.newProductName) {
+        if (this.newProductName) {
             const action = {
                 type: PRODUCT_ACTIONS.ADD_PRODUCT, payload: {
                     id: this.storeManagement.getId(),
@@ -61,7 +61,7 @@ export class ListComponent implements OnInit {
 
     removeProduct(product: Product) {
         this.modalService.showConfirmation({
-            title: "Confirmation",
+            title: 'Confirmation',
             question: `Are you sure you want to delete '${product.name}'?`
         }).afterClosed().subscribe((result) => {
             if (result) {
@@ -72,7 +72,7 @@ export class ListComponent implements OnInit {
                 this.store.dispatch(action);
                 this.storeManagement.addUndoAction(action);
             }
-        })
+        });
     }
 
     quantityPlus(product: Product) {

@@ -1,4 +1,4 @@
-import {HammerGestureConfig} from "@angular/platform-browser";
+import {HammerGestureConfig} from '@angular/platform-browser';
 
 export class HammerConfig extends HammerGestureConfig  {
     overrides = <any>{
@@ -11,5 +11,5 @@ export class HammerConfig extends HammerGestureConfig  {
         'press': {
             time: 200
         }
-    }
+    };
 }

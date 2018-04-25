@@ -1,6 +1,6 @@
 import {Product} from './product.interface';
 import {Filters} from './ui/list/filters.interface';
-import {Api} from "./api.interface";
+import {Api} from './api.interface';
 
 
 export interface AppState {

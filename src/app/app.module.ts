@@ -14,12 +14,12 @@ import {EffectsModule} from '@ngrx/effects';
 import {routerReducer, RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterSerializer} from './core/router-serializer';
 import {SharedModule} from './shared/shared.module';
-import {AngularFireModule} from "angularfire2";
-import {environment} from "../environments/environment";
-import {AngularFirestore} from "angularfire2/firestore";
-import {FirebaseEffectsService} from "./core/firebase-effects.service";
-import {FormsModule} from "@angular/forms";
-import {HammerConfig} from "./HammerConfig.class";
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {FirebaseEffectsService} from './core/firebase-effects.service';
+import {FormsModule} from '@angular/forms';
+import {HammerConfig} from './HammerConfig.class';
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

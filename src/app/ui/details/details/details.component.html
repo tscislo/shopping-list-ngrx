@@ -2,7 +2,9 @@
     <mat-card-header>
         <div class="details-container">
             <div>
-                <mat-card-title>Product: {{ (product$ | async).name }}</mat-card-title>
+                <mat-card-title>
+                    Product: {{ (product$ | async).name }}
+                </mat-card-title>
                 <mat-card-subtitle>Quantity: {{ (product$ | async).quantity }}</mat-card-subtitle>
             </div>
             <mat-card-subtitle class="done" *ngIf="(product$ | async).bought">

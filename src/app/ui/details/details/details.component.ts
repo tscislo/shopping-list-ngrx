@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../appState.interface';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {Product} from '../../../product.interface';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {MatSnackBar} from "@angular/material";
 
 @Component({
     selector: 'app-details',
@@ -18,13 +19,29 @@ export class DetailsComponent implements OnInit {
 
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService,
-                private activatedRoute: ActivatedRoute
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private snackBar: MatSnackBar
     ) {
     }
 
     ngOnInit() {
         this.product$ = this.store
             .map((state: AppState) => state.products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id')));
+
+        const productsSubscription = this.product$.subscribe((product: Product) => {
+            if(!product) {
+                this.snackBar.open(
+                    'Product does not exist anymore...',
+                    'Dismiss',
+                    {
+                        duration: 5000
+                    }
+                );
+                productsSubscription.unsubscribe();
+                this.router.navigate(['/']);
+            }
+        })
 
     }
 

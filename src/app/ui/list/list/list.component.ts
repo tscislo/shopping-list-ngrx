@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {FiltersService} from '../filters.service';
@@ -9,6 +9,9 @@ import {AppState} from '../../../appState.interface';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {ModalsService} from '../../../core/modals.service';
 import {Observable} from 'rxjs/Observable';
+import {ListItemComponent} from "../list-item/list-item.component";
+import {timer} from "rxjs/observable/timer";
+import 'rxjs/add/operator/debounce';
 
 @Component({
     selector: 'app-list',
@@ -20,6 +23,8 @@ export class ListComponent implements OnInit {
     public products: Product[];
     public filters: Filters;
     public listId: Observable<string>;
+
+    @ViewChild(ListItemComponent) listItemComponent: ListItemComponent;
 
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
@@ -39,6 +44,14 @@ export class ListComponent implements OnInit {
         ).subscribe();
 
         this.listId = this.store.select((state) => state.api.firebase.listId);
+
+        this.listItemComponent.quantityPlus
+            .debounce(() => timer(300))
+            .subscribe(this.quantityPlus)
+
+        this.listItemComponent.quantityMinus
+            .debounce(() => timer(300))
+            .subscribe(this.quantityMinus)
     }
 
     addProduct() {
@@ -73,7 +86,7 @@ export class ListComponent implements OnInit {
         });
     }
 
-    quantityPlus(product: Product) {
+    quantityPlus = (product: Product) => {
         const action = {
             type: PRODUCT_ACTIONS.QUANTITY_PLUS,
             payload: product
@@ -82,7 +95,7 @@ export class ListComponent implements OnInit {
         this.storeManagement.addUndoAction(action);
     }
 
-    quantityMinus(product: Product) {
+    quantityMinus = (product: Product) => {
         const action = {
             type: PRODUCT_ACTIONS.QUANTITY_MINUS,
             payload: product

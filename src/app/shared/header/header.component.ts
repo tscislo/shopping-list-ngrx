@@ -6,6 +6,8 @@ import {API_ACTIONS} from '../../apiActions.enum';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {MatSnackBar} from '@angular/material';
+import {PRODUCT_ACTIONS} from "../../productActions.enum";
+import {ModalsService} from "../../core/modals.service";
 
 @Component({
     selector: 'app-header',
@@ -17,10 +19,11 @@ export class HeaderComponent implements OnInit {
     @Output() sideMenu = new EventEmitter();
     public warning: Observable<boolean>;
 
-    constructor(public storeManagementService: StoreManagementService,
+    constructor(
                 public router: Router,
                 private store: Store<AppState>,
-                private snackBar: MatSnackBar
+                private snackBar: MatSnackBar,
+                private modalsService: ModalsService
     ) {
     }
 
@@ -46,6 +49,19 @@ export class HeaderComponent implements OnInit {
                 duration: 5000
             }
         );
+    }
+
+    public unBuy = () => {
+        this.modalsService.showConfirmation({
+            title: 'Confirmation',
+            question: `Are you sure you want to mark ALL products as unbought?`
+        }).afterClosed().subscribe((result) => {
+            if (result) {
+                this.store.dispatch({
+                    type: PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS
+                })
+            }
+        });
     }
 
 }

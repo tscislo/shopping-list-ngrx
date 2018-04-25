@@ -34,6 +34,13 @@ export function productReducer(state: Product[] = [], action: ProductAction) {
                 return newProduct;
             });
 
+        case PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS:
+            return state.map((product: Product) => {
+                const newProduct = {...product};
+                newProduct.bought = false;
+                return newProduct;
+            });
+
         case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
             return action.payload;
 

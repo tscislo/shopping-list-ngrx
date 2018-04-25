@@ -60,6 +60,18 @@ export class StoreManagementService {
         this.productActions.push(action);
     }
 
+    public getProductsFirebaseReferences = (state) =>
+        state.products.map((product: Product) =>
+            this.angularFirestore
+                .collection('lists')
+                .doc(state.api.firebase.listId)
+                .collection('products')
+                .doc(product.id)
+                .ref
+                .get()
+        );
+
+
     public undo() {
         // TODO: Undo for bought does not work???
         if (this.hasUndoActions()) {

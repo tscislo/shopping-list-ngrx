@@ -14,7 +14,7 @@ export function apiReducer(state = initialState, action: ApiAction) {
     switch (action.type) {
         case API_ACTIONS.FIREBASE_CREATE_NEW_LIST:
             return {
-                isError: state.isError,
+                isError: newState.isError,
                 firebase: {
                     listId: action.payload
                 }
@@ -23,19 +23,19 @@ export function apiReducer(state = initialState, action: ApiAction) {
             return {
                 isError: false,
                 firebase: {
-                    listId: state.firebase.listId
+                    listId: newState.firebase.listId
                 }
             };
         case API_ACTIONS.FIREBASE_ERROR:
             return {
                 isError: true,
                 firebase: {
-                    listId: state.firebase.listId
+                    listId: newState.firebase.listId
                 }
             };
         case API_ACTIONS.FIREBASE_LIST_ID_CHANGED:
             return {
-                isError: state.isError,
+                isError: newState.isError,
                 firebase: {
                     listId: action.payload
                 }

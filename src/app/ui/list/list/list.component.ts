@@ -7,7 +7,6 @@ import {Product} from '../../../product.interface';
 import {Filters} from '../filters.interface';
 import {AppState} from '../../../appState.interface';
 import {combineLatest} from 'rxjs/observable/combineLatest';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {ModalsService} from '../../../core/modals.service';
 import {Observable} from 'rxjs/Observable';
 
@@ -25,8 +24,7 @@ export class ListComponent implements OnInit {
     constructor(private store: Store<AppState>,
                 private filtersService: FiltersService,
                 public storeManagement: StoreManagementService,
-                private modalService: ModalsService,
-                private angularFirestore: AngularFirestore
+                private modalService: ModalsService
     ) {
     }
 

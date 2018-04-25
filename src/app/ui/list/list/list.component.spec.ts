@@ -13,8 +13,10 @@ import {filtersReducer} from '../filters.reducer';
 import {productReducer} from '../../../product.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Product} from '../../../product.interface';
+import {AngularFireModule} from "angularfire2";
+import {environment} from "../../../../environments/environment";
 
-describe('TestComponent', () => {
+describe('ListComponent', () => {
     let component: ListComponent;
     let fixture: ComponentFixture<ListComponent>;
     let store: Store<any>;
@@ -47,7 +49,8 @@ describe('TestComponent', () => {
                 CoreModule,
                 FormsModule,
                 AppRoutingModule,
-                BrowserAnimationsModule
+                BrowserAnimationsModule,
+                AngularFireModule.initializeApp({}),
             ],
             declarations: [
                 ListComponent,

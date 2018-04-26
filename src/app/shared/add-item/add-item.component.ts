@@ -18,8 +18,10 @@ export class AddItemComponent implements OnInit {
     }
 
     public addItem() {
-        this.itemAdded.emit(this.itemName);
-        this.itemName = null;
+        if (this.itemName) {
+            this.itemAdded.emit(this.itemName);
+            this.itemName = null;
+        }
     }
 
 }

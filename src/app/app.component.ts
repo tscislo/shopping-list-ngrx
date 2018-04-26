@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/take';
 import {AppState} from './appState.interface';
 import {Store} from '@ngrx/store';
 import {API_ACTIONS} from './apiActions.enum';
 import {StoreManagementService} from './core/store-management.service';
+import {MatSidenav} from "@angular/material";
 
 @Component({
     selector: 'app-root',
     template: `
-        <app-header (sideMenu)="sidenav.toggle()"></app-header>
         <mat-sidenav-container class="sidenav-container">
-            <mat-sidenav #sidenav mode="over" class="sidenav">
+            <mat-sidenav mode="over" class="sidenav">
                 <mat-form-field>
                     <input name="listId" type="text"
                            matInput
@@ -54,6 +54,8 @@ export class AppComponent implements OnInit {
         }
     };
 
+    @ViewChild(MatSidenav) matSidenav: MatSidenav;
+
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService
     ) {
@@ -76,6 +78,16 @@ export class AppComponent implements OnInit {
                     this.listId = listId;
                 }
             });
+
+        this.store
+            .select((state) => state.ui.sidenav)
+            .subscribe((sidenav) => {
+                if (sidenav) {
+                    this.matSidenav.open()
+                } else {
+                    this.matSidenav.close()
+                }
+            })
     }
 
     public listIdChanged() {

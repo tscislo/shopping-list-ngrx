@@ -71,4 +71,5 @@ export class CategoriesComponent implements OnInit {
         }, 200);
     }
 
+
 }

@@ -19,13 +19,14 @@ import {FirebaseEffectsService} from './core/firebase-effects.service';
 import {FormsModule} from '@angular/forms';
 import {HammerConfig} from './HammerConfig.class';
 import {categoriesReducer} from "./ui/categories/categoriesReducer";
+import {uiReducer} from "./ui.reducer";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
     return localStorageSync({
         keys: [
             'categories',
-            'router',
+            // 'router',
             'api'
         ],
         rehydrate: true
@@ -44,7 +45,8 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreModule.forRoot({
             api: apiReducer,
             categories: categoriesReducer,
-            router: routerReducer
+            router: routerReducer,
+            ui: uiReducer
         }, {
             metaReducers: [
                 localStorageSyncReducer

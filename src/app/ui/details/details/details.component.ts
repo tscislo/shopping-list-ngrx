@@ -27,22 +27,28 @@ export class DetailsComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.product$ = this.store
-        //     .map((state: AppState) => state.products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id')));
-        //
-        // this.productsSubscription = this.product$.subscribe((product: Product) => {
-        //     if (!product) {
-        //         this.snackBar.open(
-        //             'Product does not exist anymore...',
-        //             'Dismiss',
-        //             {
-        //                 duration: 5000
-        //             }
-        //         );
-        //         this.productsSubscription.unsubscribe();
-        //         this.router.navigate(['/']);
-        //     }
-        // })
+        this.product$ = this.store
+            .map((state: AppState) => {
+                let products: Product[] = [];
+                state.categories.forEach((category) => {
+                    products = [...products, ...category.products]
+                })
+                return products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id'))
+            });
+
+        this.productsSubscription = this.product$.subscribe((product: Product) => {
+            if (!product) {
+                this.snackBar.open(
+                    'Product does not exist anymore...',
+                    'Dismiss',
+                    {
+                        duration: 5000
+                    }
+                );
+                this.productsSubscription.unsubscribe();
+                this.router.navigate(['/']);
+            }
+        })
 
     }
 

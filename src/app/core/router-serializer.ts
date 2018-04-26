@@ -3,15 +3,20 @@ import {RouterStateSnapshot} from '@angular/router';
 
 interface MyRouterState {
     url: string;
-    queryParams: any;
+    previousURL: string;
 }
 
 export class RouterSerializer implements RouterStateSerializer<MyRouterState> {
-    serialize(routerState: RouterStateSnapshot) {
 
+    private urls = [];
+
+    public getPreviousRoute = ()=> (this.urls.length >= 2) ? this.urls[this.urls.length - 2] : null;
+
+    serialize(routerState: RouterStateSnapshot) {
+        this.urls.push(routerState.url)
         return<MyRouterState> {
             url: routerState.url,
-            queryParams: routerState.root.queryParams
+            previousURL: this.getPreviousRoute()
         };
     }
 }

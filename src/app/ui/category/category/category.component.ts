@@ -18,8 +18,9 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class CategoryComponent implements OnInit {
     public products$: Observable<Product[]>;
-    public listId: Observable<string>;
+    public listId$: Observable<string>;
     private categoryId: string;
+    public categoryName$: Observable<string>;
 
     @ViewChild(ListComponent) listItemComponent: ListComponent;
 
@@ -37,14 +38,18 @@ export class CategoryComponent implements OnInit {
             return state.categories.find((category) => category.id === this.categoryId).products
         });
 
-        this.listId = this.store.select((state) => state.api.firebase.listId);
+        this.categoryName$ = this.store.select((state) => {
+            return state.categories.find((category) => category.id === this.categoryId).name
+        });
+
+        this.listId$ = this.store.select((state) => state.api.firebase.listId);
 
         this.listItemComponent.quantityPlus
-            .debounce(() => timer(300))
+            .debounce(() => timer(100))
             .subscribe(this.quantityPlus);
 
         this.listItemComponent.quantityMinus
-            .debounce(() => timer(300))
+            .debounce(() => timer(100))
             .subscribe(this.quantityMinus);
     }
 
@@ -136,6 +141,22 @@ export class CategoryComponent implements OnInit {
             }
         };
         this.store.dispatch(action);
+    }
+
+    public unBuy = () => {
+        this.modalService.showConfirmation({
+            title: 'Confirmation',
+            question: `Are you sure you want to mark ALL products as unbought?`
+        }).afterClosed().subscribe((result) => {
+            if (result) {
+                this.store.dispatch({
+                    type: PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS,
+                    payload: {
+                        categoryId: this.categoryId
+                    }
+                })
+            }
+        });
     }
 
 }

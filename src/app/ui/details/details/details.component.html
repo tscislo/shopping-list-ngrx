@@ -1,9 +1,13 @@
+<app-header
+        [title]="(product$ | async).name"
+        [showBack]="true"
+></app-header>
 <mat-card class="details">
     <mat-card-header>
         <div class="details-container">
             <div>
                 <mat-card-title>
-                    Product: {{ (product$ | async).name }}
+                    {{ (product$ | async).name }}
                 </mat-card-title>
                 <mat-card-subtitle>Quantity: {{ (product$ | async).quantity }}</mat-card-subtitle>
             </div>

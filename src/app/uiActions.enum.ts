@@ -1,0 +1,3 @@
+export enum UI_ACTIONS {
+    TOGGLE_NAVBAR = "TOGGLE_NAVBAR"
+}

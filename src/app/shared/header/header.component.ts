@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {StoreManagementService} from '../../core/store-management.service';
 import {AppState} from '../../appState.interface';
 import {Store} from '@ngrx/store';
@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {MatSnackBar} from '@angular/material';
 import {PRODUCT_ACTIONS} from "../../ui/categories/productActions.enum";
 import {ModalsService} from "../../core/modals.service";
+import {UI_ACTIONS} from "../../uiActions.enum";
 
 @Component({
     selector: 'app-header',
@@ -17,13 +18,14 @@ import {ModalsService} from "../../core/modals.service";
 export class HeaderComponent implements OnInit {
 
     @Output() sideMenu = new EventEmitter();
+    @Input() title;
+    @Input() showBack;
     public warning: Observable<boolean>;
 
     constructor(
                 public router: Router,
                 private store: Store<AppState>,
-                private snackBar: MatSnackBar,
-                private modalsService: ModalsService
+                private snackBar: MatSnackBar
     ) {
     }
 
@@ -36,7 +38,11 @@ export class HeaderComponent implements OnInit {
         window.history.back();
     }
 
-    public isInRoot = () => this.router.isActive('/', true);
+    public toggleNavbar() {
+        this.store.dispatch({
+            type: UI_ACTIONS.TOGGLE_NAVBAR
+        })
+    }
 
     public showErrorSnackBar() {
         this.snackBar.open(
@@ -48,17 +54,5 @@ export class HeaderComponent implements OnInit {
         );
     }
 
-    public unBuy = () => {
-        this.modalsService.showConfirmation({
-            title: 'Confirmation',
-            question: `Are you sure you want to mark ALL products as unbought?`
-        }).afterClosed().subscribe((result) => {
-            if (result) {
-                this.store.dispatch({
-                    type: PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS
-                })
-            }
-        });
-    }
 
 }

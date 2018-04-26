@@ -1,11 +1,12 @@
 <mat-toolbar color="primary" class="header">
-    <span (click)="back()">Family Shopping List</span>
+    <span>{{ title }}</span>
     <span class="spacer"></span>
-    <mat-icon class="icon" (click)="unBuy()"  *ngIf="isInRoot()">done_all</mat-icon>
+    <ng-content></ng-content>
     <mat-icon class="icon" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
-    <!--<mat-spinner color="warn" [diameter]="30" *ngIf="isLoading$ | async"></mat-spinner>-->
-    <!--<mat-icon class="icon undo" (click)="undo()" [ngClass]="{'disabled': !storeManagementService.hasUndoActions()}">settings_backup_restore</mat-icon>-->
-    <mat-icon class="icon" (click)="sideMenu.emit()">menu</mat-icon>
-    <mat-icon class="icon" (click)="back()" *ngIf="!isInRoot()">keyboard_arrow_left</mat-icon>
+    <mat-icon class="icon" (click)="toggleNavbar()">menu</mat-icon>
+    <mat-icon class="icon"
+              (click)="back()"
+              *ngIf="showBack">keyboard_arrow_left
+    </mat-icon>
 
 </mat-toolbar>

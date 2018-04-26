@@ -13,5 +13,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class ListRoutingModule {
+export class ProductsRoutingModule {
 }

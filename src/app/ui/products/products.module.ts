@@ -3,21 +3,17 @@ import {CommonModule} from '@angular/common';
 import {ListComponent} from './list/list.component';
 import {FormsModule} from '@angular/forms';
 import {FiltersService} from './filters.service';
-import {StoreManagementService} from '../../core/store-management.service';
 import {ActionReducerMap, StoreModule} from '@ngrx/store';
 import {filtersReducer} from './filters.reducer';
-import {ListRoutingModule} from './list-routing.module';
+import {ProductsRoutingModule} from './products-routing.module';
 import {SharedModule} from '../../shared/shared.module';
-import { ListItemComponent } from './list-item/list-item.component';
-import {EffectsModule} from '@ngrx/effects';
-import {FirebaseEffectsService} from '../../core/firebase-effects.service';
 
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        ListRoutingModule,
+        ProductsRoutingModule,
         SharedModule,
         StoreModule.forFeature('list',
             {
@@ -26,12 +22,11 @@ import {FirebaseEffectsService} from '../../core/firebase-effects.service';
         )
     ],
     declarations: [
-        ListComponent,
-        ListItemComponent
+        ListComponent
     ],
     providers: [
         FiltersService
     ]
 })
-export class ListModule {
+export class ProductsModule {
 }

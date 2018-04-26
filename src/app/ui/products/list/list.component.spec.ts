@@ -5,7 +5,7 @@ import {ListComponent} from './list.component';
 import {SharedModule} from '../../../shared/shared.module';
 import {CoreModule} from '../../../core/core.module';
 import {FormsModule} from '@angular/forms';
-import {ListItemComponent} from '../list-item/list-item.component';
+import {ListItemComponent} from '../../../shared/list-item/list-item.component';
 import {AppRoutingModule} from '../../../app-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
 import {FiltersService} from '../filters.service';

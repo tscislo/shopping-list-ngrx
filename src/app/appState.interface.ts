@@ -1,5 +1,5 @@
 import {Product} from './product.interface';
-import {Filters} from './ui/list/filters.interface';
+import {Filters} from './ui/products/filters.interface';
 import {Api} from './api.interface';
 
 

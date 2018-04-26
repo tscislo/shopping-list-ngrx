@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {FiltersService} from '../filters.service';
@@ -9,7 +9,7 @@ import {AppState} from '../../../appState.interface';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {ModalsService} from '../../../core/modals.service';
 import {Observable} from 'rxjs/Observable';
-import {ListItemComponent} from "../list-item/list-item.component";
+import {ListItemComponent} from "../../../shared/list-item/list-item.component";
 import {timer} from "rxjs/observable/timer";
 import 'rxjs/add/operator/debounce';
 

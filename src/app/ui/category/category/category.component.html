@@ -1,0 +1,19 @@
+<app-add-item (itemAdded)="addProduct($event)" [type]="'product'">
+</app-add-item>
+<div class="items-list">
+    <div class="no-products-container" *ngIf="!(products$ | async).length">
+        <div class="no-products">
+            <mat-card>
+                <p>There are no products in this category! Don't waste time and add them now!</p>
+                <p><strong>Your list number is: {{ (listId | async) || '???' }}</strong>,
+                    which you can provide to others in order to share it!</p>
+            </mat-card>
+        </div>
+    </div>
+    <app-list-item
+            [items]="products$"
+            [type]="'PRODUCT'"
+            (buy)="buy($event)"
+            (edit)="edit($event)"
+            (remove)="removeProduct($event)"></app-list-item>
+</div>

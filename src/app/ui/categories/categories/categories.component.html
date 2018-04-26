@@ -1,0 +1,18 @@
+<app-add-item (itemAdded)="addCategory($event)" [type]="'category'">
+</app-add-item>
+<div class="categories-list">
+    <div class="no-products-container" *ngIf="!(categories$ | async).length">
+        <div class="no-products">
+            <mat-card>
+                <p>You haven't added any categories yet. You can do that now... for example: fruits, vegetables etc.</p>
+                <p><strong>Your list number is: {{ (listId | async) || '???' }}</strong>,
+                    which you can provide to others in order to share it!</p>
+            </mat-card>
+        </div>
+    </div>
+    <app-list-item
+            [type]="'CATEGORY'"
+            [items]="categories$"
+            (edit)="edit($event)"
+            (remove)="removeCategory($event)"></app-list-item>
+</div>

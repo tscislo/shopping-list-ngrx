@@ -4,10 +4,14 @@ import {Routes, RouterModule} from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: './ui/products/products.module#ProductsModule'
+        loadChildren: './ui/categories/categories.module#CategoriesModule'
     },
     {
-        path: 'details',
+        path: 'category',
+        loadChildren: './ui/category/category.module#CategoryModule'
+    },
+    {
+        path: 'product',
         loadChildren: './ui/details/details.module#DetailsModule'
     }
 ];

@@ -1,0 +1,22 @@
+.categories-list {
+  margin-top: 120px;
+}
+
+.no-products-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 15px 0 15px;
+}
+
+.no-products {
+  text-align: center;
+  font-size: 15px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  p {
+    margin-bottom: 15px;
+  }
+  strong {
+    font-weight: bold;
+  }
+}

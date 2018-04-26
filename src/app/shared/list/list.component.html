@@ -1,0 +1,32 @@
+<div class="list-item"
+     [ngClass]="{'bought': item.bought, 'm-zebra': i%2}"
+     (press)="edit.emit(item)"
+     *ngFor="let item of (items | async) | orderBy: 'name'; let i = index"
+     (click)="navigate(item.id)">
+    <div class="checkbox-and-name">
+        <input type="checkbox"
+               *ngIf="type==='PRODUCT'"
+               (click)="$event.stopPropagation()"
+               (change)="buy.emit(item)"
+               [checked]="item.bought">
+        <div class="product-name-container">
+            <span class="product-name">{{ item.name }}</span>
+        </div>
+    </div>
+    <div class="buttons">
+        <div class="button"
+             *ngIf="type==='PRODUCT'"
+             (click)="quantityPlus.emit(item); $event.stopPropagation();">
+            <mat-icon>add_circle</mat-icon>
+        </div>
+        <div class="quantity" *ngIf="type==='PRODUCT'">{{ item.quantity }}</div>
+        <div class="button"
+             *ngIf="type==='PRODUCT'"
+             (click)="quantityMinus.emit(item); $event.stopPropagation();">
+            <mat-icon>remove_circle</mat-icon>
+        </div>
+        <div class="button m-last" (click)="remove.emit(item); $event.stopPropagation();">
+            <mat-icon>delete</mat-icon>
+        </div>
+    </div>
+</div>

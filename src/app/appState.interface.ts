@@ -1,12 +1,8 @@
-import {Product} from './product.interface';
-import {Filters} from './ui/products/filters.interface';
 import {Api} from './api.interface';
+import {Category} from "./ui/categories/category.intefrace";
 
 
 export interface AppState {
     api: Api;
-    products: Product[];
-    list: {
-        filters: Filters
-    };
+    categories: Category[];
 }

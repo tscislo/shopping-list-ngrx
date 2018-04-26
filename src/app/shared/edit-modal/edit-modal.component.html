@@ -4,9 +4,9 @@
             <input name="name" type="text"
                    matInput
                    [errorStateMatcher]="errorMatcher"
-                   [(ngModel)]="product.name">
+                   [(ngModel)]="item.name">
             <mat-error>
-                Product name must not be empty.
+                Name must not be empty.
             </mat-error>
             <mat-icon matSuffix>mode_edit</mat-icon>
         </mat-form-field>

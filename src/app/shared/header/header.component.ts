@@ -6,7 +6,7 @@ import {API_ACTIONS} from '../../apiActions.enum';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {MatSnackBar} from '@angular/material';
-import {PRODUCT_ACTIONS} from "../../productActions.enum";
+import {PRODUCT_ACTIONS} from "../../ui/categories/productActions.enum";
 import {ModalsService} from "../../core/modals.service";
 
 @Component({
@@ -31,12 +31,9 @@ export class HeaderComponent implements OnInit {
         this.warning = this.store.select((state: AppState) => state.api.isError);
     }
 
-    // public undo() {
-    //     this.storeManagementService.undo();
-    // }
 
     public back() {
-        this.router.navigate(['/']);
+        window.history.back();
     }
 
     public isInRoot = () => this.router.isActive('/', true);

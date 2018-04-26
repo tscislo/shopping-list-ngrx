@@ -4,7 +4,7 @@ import {Product} from './product.interface';
 
 export function quantityReducer(state: Product, action: ProductAction) {
     const newState = {...state};
-    if (state.id === action.payload.id) {
+    if (state.id === action.payload.product.id) {
         switch (action.type) {
             case PRODUCT_ACTIONS.QUANTITY_PLUS:
                 ++newState.quantity;

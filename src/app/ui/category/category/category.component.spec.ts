@@ -1,31 +1,31 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {Store, StoreModule} from '@ngrx/store';
-import {ListComponent} from './list.component';
+import {CategoryComponent} from './category.component';
 import {SharedModule} from '../../../shared/shared.module';
 import {CoreModule} from '../../../core/core.module';
 import {FormsModule} from '@angular/forms';
-import {ListItemComponent} from '../../../shared/list-item/list-item.component';
+import {ListComponent} from '../../../shared/list/list.component';
 import {AppRoutingModule} from '../../../app-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
 import {FiltersService} from '../filters.service';
 import {filtersReducer} from '../filters.reducer';
-import {productReducer} from '../../../product.reducer';
+import {productsReducer} from '../../categories/productsReducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {Product} from '../../../product.interface';
+import {Product} from '../../categories/product.interface';
 import {AngularFireModule} from "angularfire2";
 import {environment} from "../../../../environments/environment";
 
 describe('ListComponent', () => {
-    let component: ListComponent;
-    let fixture: ComponentFixture<ListComponent>;
+    let component: CategoryComponent;
+    let fixture: ComponentFixture<CategoryComponent>;
     let store: Store<any>;
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [
                 StoreModule.forRoot({
-                        products: productReducer,
+                        products: productsReducer,
                     },
                     {
                         initialState: {
@@ -54,7 +54,7 @@ describe('ListComponent', () => {
             ],
             declarations: [
                 ListComponent,
-                ListItemComponent,
+                ListComponent,
             ],
             providers: [
                 FiltersService,

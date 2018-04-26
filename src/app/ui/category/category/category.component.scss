@@ -1,23 +1,9 @@
-.add {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .filter {
   padding-top: 0px
 }
 
 .items-list {
   margin-top: 120px;
-}
-
-.new-product {
-  position: fixed;
-  top: 56px;
-  left: 0px;
-  z-index: 2;
-  background-color: #e0e0e0;
 }
 
 .no-products-container{
@@ -30,7 +16,7 @@
 .no-products {
   text-align: center;
   font-size: 15px;
-  font-family: 'Roboto,"Helvetica Neue",sans-serif';
+  font-family: Roboto,"Helvetica Neue",sans-serif;
   p {
     margin-bottom: 15px;
   }

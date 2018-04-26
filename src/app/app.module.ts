@@ -4,10 +4,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {ActionReducer, StoreModule} from '@ngrx/store';
-import {handleUndo} from 'ngrx-undo';
 import {localStorageSync} from 'ngrx-store-localstorage';
 import {CoreModule} from './core/core.module';
-import {productReducer} from './product.reducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {apiReducer} from './api.reducer';
 import {EffectsModule} from '@ngrx/effects';
@@ -20,13 +18,13 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {FirebaseEffectsService} from './core/firebase-effects.service';
 import {FormsModule} from '@angular/forms';
 import {HammerConfig} from './HammerConfig.class';
+import {categoriesReducer} from "./ui/categories/categoriesReducer";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
     return localStorageSync({
         keys: [
-            'list',
-            'products',
+            'categories',
             'router',
             'api'
         ],
@@ -45,11 +43,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         AngularFireModule.initializeApp(environment.firebase),
         StoreModule.forRoot({
             api: apiReducer,
-            products: productReducer,
+            categories: categoriesReducer,
             router: routerReducer
         }, {
             metaReducers: [
-                handleUndo,
                 localStorageSyncReducer
             ]
         }),

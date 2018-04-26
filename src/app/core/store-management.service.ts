@@ -13,8 +13,6 @@ import * as _ from 'lodash';
 @Injectable()
 export class StoreManagementService {
 
-    private productActions: ProductAction[] = [];
-
     constructor(private store: Store<AppState>,
                 private angularFirestore: AngularFirestore
     ) {
@@ -56,10 +54,6 @@ export class StoreManagementService {
 
     public getId = () => this.generateId(15);
 
-    public addUndoAction(action: ProductAction) {
-        this.productActions.push(action);
-    }
-
     public getProductsFirebaseReferences = (state) =>
         state.items.map((product: Product) =>
             this.angularFirestore
@@ -71,15 +65,5 @@ export class StoreManagementService {
                 .get()
         );
 
-
-    public undo() {
-        // TODO: Undo for bought does not work???
-        if (this.hasUndoActions()) {
-            this.store.dispatch(undo(this.productActions[this.productActions.length - 1]));
-            this.productActions.splice(this.productActions.length - 1, 1);
-        }
-    }
-
-    public hasUndoActions = () => this.productActions.length;
 
 }

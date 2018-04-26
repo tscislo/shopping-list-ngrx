@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {API_ACTIONS} from './apiActions.enum';
 import {StoreManagementService} from './core/store-management.service';
 import {MatSidenav} from "@angular/material";
+import {UI_ACTIONS} from "./uiActions.enum";
 
 @Component({
     selector: 'app-root',
@@ -81,13 +82,20 @@ export class AppComponent implements OnInit {
 
         this.store
             .select((state) => state.ui.sidenav)
-            .subscribe((sidenav) => {
-                if (sidenav) {
-                    this.matSidenav.open()
-                } else {
-                    this.matSidenav.close()
-                }
+            .subscribe((sidenav) => this.matSidenav.toggle(sidenav && !this.matSidenav.opened));
+
+        this.matSidenav.onOpen.subscribe(() => {
+            this.store.dispatch({
+                type: UI_ACTIONS.OPEN_NAVBAR
             })
+        });
+
+        this.matSidenav.onClose.subscribe(() => {
+            this.store.dispatch({
+                type: UI_ACTIONS.CLOSE_NAVBAR
+            })
+        })
+
     }
 
     public listIdChanged() {

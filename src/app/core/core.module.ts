@@ -2,9 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {StoreManagementService} from './store-management.service';
 import {HttpClientModule} from '@angular/common/http';
-import {FirebaseEffectsService} from './firebase-effects.service';
+import {ProductEffectsService} from './effects/product-effects.service';
 import {ModalsService} from './modals.service';
 import {FormsModule} from '@angular/forms';
+import {CategoryEffectsService} from "./effects/category-effects.service";
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {FormsModule} from '@angular/forms';
         HttpClientModule
     ],
     providers: [
-        FirebaseEffectsService,
+        ProductEffectsService,
+        CategoryEffectsService,
         StoreManagementService,
         ModalsService
     ],

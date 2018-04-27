@@ -15,11 +15,12 @@ import {SharedModule} from './shared/shared.module';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {FirebaseEffectsService} from './core/firebase-effects.service';
+import {ProductEffectsService} from './core/effects/product-effects.service';
 import {FormsModule} from '@angular/forms';
 import {HammerConfig} from './HammerConfig.class';
 import {categoriesReducer} from "./ui/categories/categoriesReducer";
 import {uiReducer} from "./ui.reducer";
+import {CategoryEffectsService} from "./core/effects/category-effects.service";
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -58,7 +59,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([FirebaseEffectsService]),
+        EffectsModule.forRoot([
+            ProductEffectsService,
+            CategoryEffectsService
+        ]),
         CoreModule,
         SharedModule,
         FormsModule

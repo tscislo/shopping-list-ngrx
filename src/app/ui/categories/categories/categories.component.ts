@@ -8,6 +8,7 @@ import {CATEGORY_ACTIONS} from "../categoryActions.enum";
 import {Product} from "../product.interface";
 import {PRODUCT_ACTIONS} from "../productActions.enum";
 import {Observable} from "rxjs/Observable";
+import {FirebaseSyncService} from "../../../core/firebase-sync.service";
 
 @Component({
     selector: 'app-categories',
@@ -21,13 +22,20 @@ export class CategoriesComponent implements OnInit {
 
     constructor(private store: Store<AppState>,
                 public storeManagement: StoreManagementService,
-                private modalService: ModalsService
+                private modalService: ModalsService,
+                private firebaseSyncService: FirebaseSyncService
     ) {
     }
 
     ngOnInit() {
         this.categories$ = this.store.select((state) => state.categories);
         this.listId = this.store.select((state) => state.api.firebase.listId);
+        //TODO: move this sync to app module!
+        this.firebaseSyncService.syncCategories();
+    }
+
+    ngOnDestroy() {
+        this.firebaseSyncService.unSyncCategories();
     }
 
     addCategory(categoryName) {

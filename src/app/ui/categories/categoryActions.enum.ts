@@ -2,4 +2,5 @@ export enum CATEGORY_ACTIONS {
     ADD = 'ADD',
     REMOVE = 'REMOVE',
     EDIT = 'EDIT',
+    GET_FORM_FIREBASE = 'GET_FROM_FIREBASE_CATEGORY'
 }

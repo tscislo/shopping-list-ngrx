@@ -10,6 +10,7 @@ import {ListComponent} from "../../../shared/list/list.component";
 import {timer} from "rxjs/observable/timer";
 import 'rxjs/add/operator/debounce';
 import {ActivatedRoute} from "@angular/router";
+import {FirebaseSyncService} from "../../../core/firebase-sync.service";
 
 @Component({
     selector: 'app-products',
@@ -27,7 +28,8 @@ export class CategoryComponent implements OnInit {
     constructor(private store: Store<AppState>,
                 public storeManagement: StoreManagementService,
                 private modalService: ModalsService,
-                private activatedRoute: ActivatedRoute
+                private activatedRoute: ActivatedRoute,
+                private firebaseSyncService: FirebaseSyncService
     ) {
     }
 
@@ -51,8 +53,13 @@ export class CategoryComponent implements OnInit {
         this.listItemComponent.quantityMinus
             .debounce(() => timer(100))
             .subscribe(this.quantityMinus);
+
+        this.firebaseSyncService.syncProducts(this.categoryId);
     }
 
+    ngOnDestroy() {
+        this.firebaseSyncService.unSyncProducts();
+    }
 
     addProduct(productName) {
         if (productName) {

@@ -6,6 +6,7 @@ import {ProductEffectsService} from './effects/product-effects.service';
 import {ModalsService} from './modals.service';
 import {FormsModule} from '@angular/forms';
 import {CategoryEffectsService} from "./effects/category-effects.service";
+import {FirebaseSyncService} from "./firebase-sync.service";
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {CategoryEffectsService} from "./effects/category-effects.service";
         ProductEffectsService,
         CategoryEffectsService,
         StoreManagementService,
-        ModalsService
+        ModalsService,
+        FirebaseSyncService
     ],
     declarations: []
 })

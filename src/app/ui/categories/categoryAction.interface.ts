@@ -4,5 +4,5 @@ import {Category} from "./category.intefrace";
 
 export interface CategoryAction {
     type: CATEGORY_ACTIONS;
-    payload?: Category;
+    payload?: Category
 }

@@ -40,8 +40,8 @@ export function productsReducer(state: Product[] = [], action: ProductAction) {
                 return newProduct;
             });
 
-        // case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
-        //     return action.payload.product;
+        case PRODUCT_ACTIONS.GET_FORM_FIREBASE:
+            return action.payload.products;
 
         case PRODUCT_ACTIONS.QUANTITY_MINUS:
         case PRODUCT_ACTIONS.QUANTITY_PLUS:

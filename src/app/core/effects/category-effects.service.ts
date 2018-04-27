@@ -31,15 +31,18 @@ export class CategoryEffectsService {
             return this.store.select((state: AppState) => state.api.firebase.listId)
                 .take(1)
                 .pipe(
-                    switchMap((listId) =>
-                        fromPromise(
-                            this.angularFirestore
-                                .collection('lists')
-                                .doc(listId)
-                                .collection('categories')
-                                .doc(action.payload.id)
-                                .set(action.payload)
-                        ))
+                    switchMap((listId) => {
+                            delete action.payload.products;
+                            return fromPromise(
+                                this.angularFirestore
+                                    .collection('lists')
+                                    .doc(listId)
+                                    .collection('categories')
+                                    .doc(action.payload.id)
+                                    .set(action.payload)
+                            )
+                        }
+                    )
                 );
         }),
         map(() => {

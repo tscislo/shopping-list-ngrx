@@ -1,6 +1,6 @@
 <app-header
- [title]="categoryName$ | async"
- [showBack]="true"
+        [title]="categoryName$ | async"
+        [showBack]="true"
 >
     <mat-icon class="icon" (click)="unBuy()">done_all</mat-icon>
 </app-header>
@@ -19,6 +19,7 @@
     <app-list-item
             [items]="products$"
             [type]="'PRODUCT'"
+            [categoryId]="categoryId"
             (buy)="buy($event)"
             (edit)="edit($event)"
             (remove)="removeProduct($event)"></app-list-item>

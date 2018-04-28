@@ -12,7 +12,7 @@ import {PRODUCT_ACTIONS} from "../ui/categories/productActions.enum";
 @Injectable()
 export class FirebaseSyncService {
 
-    public categoriesSync: Subscription;
+    public productSync: Subscription;
     public productsSync: Subscription;
 
     constructor(private store: Store<AppState>,
@@ -21,7 +21,7 @@ export class FirebaseSyncService {
     }
 
     public syncCategories() {
-        this.categoriesSync = this.store
+        this.store
             .select((state) => state.api.firebase.listId)
             .switchMap((listId) => {
                 if (listId) {
@@ -55,9 +55,6 @@ export class FirebaseSyncService {
             });
     }
 
-    public unSyncCategories() {
-        this.categoriesSync.unsubscribe();
-    }
 
     public syncProducts(categoryId: string) {
         this.productsSync = this.store
@@ -80,7 +77,7 @@ export class FirebaseSyncService {
             .subscribe((productsFromFirebase: Product[]) => {
                 console.log('Products taken from FireBase!');
                 this.store.dispatch({
-                    type: PRODUCT_ACTIONS.GET_FORM_FIREBASE,
+                    type: PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE,
                     payload: {
                         categoryId,
                         products: (productsFromFirebase.length) ? productsFromFirebase : []
@@ -91,6 +88,53 @@ export class FirebaseSyncService {
 
     public unSyncProducts() {
         this.productsSync.unsubscribe();
+    }
+
+    public syncProduct(categoryId: string, productId: string) {
+        this.productSync = this.store
+            .select((state) => state.api.firebase.listId)
+            .switchMap((listId) => {
+                if (listId) {
+                    return this.angularFirestore
+                        .collection('lists')
+                        .doc(listId)
+                        .collection('categories')
+                        .doc(categoryId)
+                        .collection('products')
+                        .doc(productId)
+                        .valueChanges();
+                } else {
+                    return new Observable();
+                }
+            })
+            // TODO: Reject the same
+            // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
+            .subscribe((productFromFirebase: Product) => {
+                console.log('Product taken from FireBase!');
+                if (productFromFirebase) {
+                    this.store.dispatch({
+                        type: PRODUCT_ACTIONS.GET_PRODUCT_FROM_FIREBASE,
+                        payload: {
+                            categoryId,
+                            product: productFromFirebase
+                        }
+                    })
+                } else {
+                    this.store.dispatch({
+                        type: PRODUCT_ACTIONS.REMOVE_PRODUCT_FROM_FIREBASE,
+                        payload: {
+                            categoryId,
+                            product: {
+                                id: productId
+                            }
+                        }
+                    })
+                }
+            });
+    }
+
+    public unSyncProduct() {
+        this.productSync.unsubscribe();
     }
 
 }

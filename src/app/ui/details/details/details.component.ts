@@ -7,6 +7,7 @@ import {Product} from '../../categories/product.interface';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {MatSnackBar} from "@angular/material";
+import {FirebaseSyncService} from "../../../core/firebase-sync.service";
 
 @Component({
     selector: 'app-details',
@@ -21,41 +22,36 @@ export class DetailsComponent implements OnInit {
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService,
                 private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private snackBar: MatSnackBar
+                private firebaseSyncService: FirebaseSyncService
     ) {
     }
 
+    getProduct = () => this.store
+        .map((state: AppState) => {
+            let products: Product[] = [];
+            state.categories.forEach((category) => {
+                products = [...products, ...category.products]
+            })
+            return products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('productId'))
+        });
+
     ngOnInit() {
-        this.product$ = this.store
-            .map((state: AppState) => {
-                let products: Product[] = [];
-                state.categories.forEach((category) => {
-                    products = [...products, ...category.products]
-                })
-                return products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('id'))
-            });
 
-        this.productsSubscription = this.product$.subscribe((product: Product) => {
+        this.product$ = this.getProduct();
+
+        this.productsSubscription = this.getProduct().subscribe((product: Product) => {
             if (!product) {
-                this.snackBar.open(
-                    'Product does not exist anymore...',
-                    'Dismiss',
-                    {
-                        duration: 5000
-                    }
-                );
-                this.productsSubscription.unsubscribe();
-                this.router.navigate(['/']);
+                // TODO: Why in setTimeout?
+                setTimeout(() => this.storeManagement.redirectToRoot('Product'));
             }
-        })
+        });
 
+        this.firebaseSyncService.syncProduct(this.activatedRoute.snapshot.paramMap.get('categoryId'), this.activatedRoute.snapshot.paramMap.get('productId'));
     }
 
     ngOnDestroy() {
-        if (this.productsSubscription) {
-            this.productsSubscription.unsubscribe();
-        }
+        this.productsSubscription.unsubscribe();
+        this.firebaseSyncService.unSyncProduct();
     }
 
 }

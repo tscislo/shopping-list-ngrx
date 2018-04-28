@@ -6,6 +6,7 @@ import {API_ACTIONS} from './apiActions.enum';
 import {StoreManagementService} from './core/store-management.service';
 import {MatSidenav} from "@angular/material";
 import {UI_ACTIONS} from "./uiActions.enum";
+import {FirebaseSyncService} from "./core/firebase-sync.service";
 
 @Component({
     selector: 'app-root',
@@ -58,7 +59,8 @@ export class AppComponent implements OnInit {
     @ViewChild(MatSidenav) matSidenav: MatSidenav;
 
     constructor(private store: Store<AppState>,
-                private storeManagement: StoreManagementService
+                private storeManagement: StoreManagementService,
+                private firebaseSyncService: FirebaseSyncService
     ) {
         this.errorMatcher.isErrorState = () => !this.isListIdValid();
         document.addEventListener("backbutton", () => {
@@ -79,6 +81,8 @@ export class AppComponent implements OnInit {
                     this.listId = listId;
                 }
             });
+
+        this.firebaseSyncService.syncCategories();
 
         this.store
             .select((state) => state.ui.sidenav)

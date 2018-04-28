@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
 
     @Input() public type: ListTypes;
     @Input() public items: Product[] | Category[];
+    @Input() public categoryId:string;
     @Output() public remove = new EventEmitter();
     @Output() public edit = new EventEmitter();
     @Output() public quantityPlus = new EventEmitter();
@@ -32,8 +33,8 @@ export class ListComponent implements OnInit {
     ngOnInit() {
     }
 
-    public navigate(id) {
-        const path = (this.type === ListTypes.PRODUCT) ? ['product', id] : ['category', id];
+    public navigate(productId) {
+        const path = (this.type === ListTypes.PRODUCT) ? ['product', this.categoryId, productId] : ['category', productId];
         this.router.navigate(path);
     }
 

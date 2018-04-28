@@ -11,6 +11,8 @@ import {timer} from "rxjs/observable/timer";
 import 'rxjs/add/operator/debounce';
 import {ActivatedRoute} from "@angular/router";
 import {FirebaseSyncService} from "../../../core/firebase-sync.service";
+import {Category} from "../../categories/category.intefrace";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
     selector: 'app-products',
@@ -20,8 +22,9 @@ import {FirebaseSyncService} from "../../../core/firebase-sync.service";
 export class CategoryComponent implements OnInit {
     public products$: Observable<Product[]>;
     public listId$: Observable<string>;
-    private categoryId: string;
+    public categoryId: string;
     public categoryName$: Observable<string>;
+    private categoryExistance: Subscription;
 
     @ViewChild(ListComponent) listItemComponent: ListComponent;
 
@@ -33,15 +36,21 @@ export class CategoryComponent implements OnInit {
     ) {
     }
 
+    getCategory = () => this.store.select((state) => state.categories.find((category) => category.id === this.categoryId));
+
+
     ngOnInit() {
         this.categoryId = this.activatedRoute.snapshot.paramMap.get('id');
 
-        this.products$ = this.store.select((state) => {
-            return state.categories.find((category) => category.id === this.categoryId).products
-        });
+        this.products$ = this.getCategory()
+            .map((category: Category) => (category && category.products) || []);
+        this.categoryName$ = this.getCategory()
+            .map((category: Category) => (category && category.name) || 'N/A');
 
-        this.categoryName$ = this.store.select((state) => {
-            return state.categories.find((category) => category.id === this.categoryId).name
+        this.categoryExistance = this.getCategory().subscribe((category: Category) => {
+            if (!category) {
+                this.storeManagement.redirectToRoot('Category');
+            }
         });
 
         this.listId$ = this.store.select((state) => state.api.firebase.listId);
@@ -59,6 +68,7 @@ export class CategoryComponent implements OnInit {
 
     ngOnDestroy() {
         this.firebaseSyncService.unSyncProducts();
+        this.categoryExistance.unsubscribe();
     }
 
     addProduct(productName) {

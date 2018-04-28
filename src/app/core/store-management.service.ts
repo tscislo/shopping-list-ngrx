@@ -9,12 +9,16 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Observable';
 import {Product} from '../ui/categories/product.interface';
 import * as _ from 'lodash';
+import {MatSnackBar} from "@angular/material";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class StoreManagementService {
 
     constructor(private store: Store<AppState>,
-                private angularFirestore: AngularFirestore
+                private angularFirestore: AngularFirestore,
+                private snackBar: MatSnackBar,
+                private router: Router
     ) {
     }
 
@@ -32,6 +36,17 @@ export class StoreManagementService {
                 .ref
                 .get()
         );
+
+    public redirectToRoot(title) {
+        this.snackBar.open(
+            `${title} does not exist anymore...`,
+            'Dismiss',
+            {
+                duration: 5000
+            }
+        );
+        this.router.navigate(['/']);
+    }
 
 
 }

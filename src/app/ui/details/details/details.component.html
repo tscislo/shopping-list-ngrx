@@ -1,5 +1,5 @@
 <app-header
-        [title]="(product$ | async).name"
+        [title]="(product$ | async) && (product$ | async).name"
         [showBack]="true"
 ></app-header>
 <mat-card class="details">
@@ -7,11 +7,11 @@
         <div class="details-container">
             <div>
                 <mat-card-title>
-                    {{ (product$ | async).name }}
+                    {{ (product$ | async) && (product$ | async).name }}
                 </mat-card-title>
-                <mat-card-subtitle>Quantity: {{ (product$ | async).quantity }}</mat-card-subtitle>
+                <mat-card-subtitle>Quantity: {{ (product$ | async) && (product$ | async).quantity }}</mat-card-subtitle>
             </div>
-            <mat-card-subtitle class="done" *ngIf="(product$ | async).bought">
+            <mat-card-subtitle class="done" *ngIf="(product$ | async) && (product$ | async).bought">
                 <mat-icon class="icon">done</mat-icon>
             </mat-card-subtitle>
         </div>

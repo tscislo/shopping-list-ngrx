@@ -1,4 +1,3 @@
-
 import {ProductAction} from './productAction.interface';
 import {Product} from './product.interface';
 import {quantityReducer} from './quantity.reducer';
@@ -12,9 +11,11 @@ export function productsReducer(state: Product[] = [], action: ProductAction) {
                 {...action.payload.product}
             ];
 
+        case PRODUCT_ACTIONS.REMOVE_PRODUCT_FROM_FIREBASE:
         case PRODUCT_ACTIONS.REMOVE_PRODUCT:
             return state.filter((product: Product) => product.id !== action.payload.product.id);
 
+        case PRODUCT_ACTIONS.GET_PRODUCT_FROM_FIREBASE:
         case PRODUCT_ACTIONS.EDIT:
             return state.map((product: Product) => {
                 let newProduct = {...product};
@@ -40,7 +41,7 @@ export function productsReducer(state: Product[] = [], action: ProductAction) {
                 return newProduct;
             });
 
-        case PRODUCT_ACTIONS.GET_FORM_FIREBASE:
+        case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
             return action.payload.products;
 
         case PRODUCT_ACTIONS.QUANTITY_MINUS:

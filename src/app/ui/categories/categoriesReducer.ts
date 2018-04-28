@@ -42,7 +42,9 @@ export function categoriesReducer(state: Category[] = [], action: CategoryAction
         case PRODUCT_ACTIONS.EDIT:
         case PRODUCT_ACTIONS.BUY:
         case PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS:
-        case PRODUCT_ACTIONS.GET_FORM_FIREBASE:
+        case PRODUCT_ACTIONS.GET_PRODUCTS_FROM_FIREBASE:
+        case PRODUCT_ACTIONS.GET_PRODUCT_FROM_FIREBASE:
+        case PRODUCT_ACTIONS.REMOVE_PRODUCT_FROM_FIREBASE:
         case PRODUCT_ACTIONS.QUANTITY_MINUS:
         case PRODUCT_ACTIONS.QUANTITY_PLUS:
             return state.map((category: Category) => {

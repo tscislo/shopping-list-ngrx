@@ -8,6 +8,7 @@ import {CATEGORY_ACTIONS} from '../ui/categories/categoryActions.enum';
 import {Subscription} from 'rxjs/Subscription';
 import {Product} from '../ui/categories/product.interface';
 import {PRODUCT_ACTIONS} from '../ui/categories/productActions.enum';
+import * as _ from 'lodash';
 
 @Injectable()
 export class FirebaseSyncService {
@@ -16,8 +17,7 @@ export class FirebaseSyncService {
     public productsSync: Subscription;
 
     constructor(private store: Store<AppState>,
-                private angularFirestore: AngularFirestore
-    ) {
+                private angularFirestore: AngularFirestore) {
     }
 
     public syncCategories() {
@@ -34,17 +34,19 @@ export class FirebaseSyncService {
                     return new Observable();
                 }
             })
-            // TODO: Reject the same
-            // .switchMap((productsFromFirebase: Product[]) => this.store
-            //     .select((state) => state.products)
-            //     .take(1)
-            //     .switchMap((products: Product[]) => new Observable((observer) => {
-            //             if (!_.isEqual(products, productsFromFirebase)) {
-            //                 observer.next(productsFromFirebase);
-            //             }
-            //         })
-            //     )
-            // )
+            // Emits only when categories from Firebase are different then those in the store
+            .switchMap((categoriesFromFirebase: Category[]) => this.store
+                .select((state: AppState) => state.categories)
+                .map((categories: Category[]) =>
+                    categories.map((category: Category) => {
+                        delete category.products;
+                        return category;
+                    })
+                )
+                .take(1)
+                .switchMap((categoriesFromStore: Category[]) => this.emitWhenDifferent(categoriesFromStore, categoriesFromFirebase)
+                )
+            )
             // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
             .subscribe((categoriesFromFirebase: Category[]) => {
                 console.log('Categories taken from FireBase!');
@@ -72,7 +74,16 @@ export class FirebaseSyncService {
                     return new Observable();
                 }
             })
-            // TODO: Reject the same
+            // Emits only when products from Firebase are different then those in the store
+            .switchMap((productsFromFirebase: Product[]) => this.store
+                .select((state: AppState) => state.categories)
+                .map((categories: Category[]) =>
+                    categories.find((category: Category) => category.id === categoryId).products
+                )
+                .take(1)
+                .switchMap((productsFromStore: Product[]) => this.emitWhenDifferent(productsFromStore, productsFromFirebase)
+                )
+            )
             // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
             .subscribe((productsFromFirebase: Product[]) => {
                 console.log('Products taken from FireBase!');
@@ -107,7 +118,6 @@ export class FirebaseSyncService {
                     return new Observable();
                 }
             })
-            // TODO: Reject the same
             // TODO: In case there is a network connection problem valueChanges does not emit error... WHY???
             .subscribe((productFromFirebase: Product) => {
                 console.log('Product taken from FireBase!');
@@ -136,5 +146,11 @@ export class FirebaseSyncService {
     public unSyncProduct() {
         this.productSync.unsubscribe();
     }
+
+    private emitWhenDifferent = (fromStore: any[], fromFirebase: any[]) => new Observable((observer) => {
+        if (!_.isEqual(_.sortBy(fromStore, ['id']), _.sortBy(fromFirebase, ['id']))) {
+            observer.next(fromFirebase);
+        }
+    })
 
 }

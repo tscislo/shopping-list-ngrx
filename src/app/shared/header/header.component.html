@@ -1,12 +1,13 @@
 <mat-toolbar color="primary" class="header">
-    <span>{{ title }}</span>
-    <span class="spacer"></span>
-    <ng-content></ng-content>
-    <mat-icon class="icon" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
-    <mat-icon class="icon" (click)="toggleNavbar()">menu</mat-icon>
-    <mat-icon class="icon"
-              (click)="back()"
-              *ngIf="showBack">keyboard_arrow_left
-    </mat-icon>
+    <span class="title">{{ title }}</span>
+    <div>
+        <ng-content></ng-content>
+        <mat-icon class="icon" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
+        <mat-icon class="icon" (click)="toggleNavbar()">menu</mat-icon>
+        <mat-icon class="icon"
+                  (click)="back()"
+                  *ngIf="showBack">keyboard_arrow_left
+        </mat-icon>
+    </div>
 
 </mat-toolbar>

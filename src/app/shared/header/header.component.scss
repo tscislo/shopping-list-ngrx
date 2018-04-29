@@ -12,9 +12,17 @@
   top: 0px;
   left: 0px;
   z-index: 2;
+  justify-content: space-between;
 }
 
 .undo {
   transform: rotate(90deg);
   padding: 0px;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }

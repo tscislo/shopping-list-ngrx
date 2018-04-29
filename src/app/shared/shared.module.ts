@@ -16,8 +16,8 @@ import {OrderModule} from 'ngx-order-pipe';
 import {ConfirmationModalComponent} from './confirmation-modal/confirmation-modal.component';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
 import {FormsModule} from '@angular/forms';
-import {ListComponent} from "./list/list.component";
-import {RouterModule} from "@angular/router";
+import {ListComponent} from './list/list.component';
+import {RouterModule} from '@angular/router';
 import { AddItemComponent } from './add-item/add-item.component';
 
 const exportableModules = [

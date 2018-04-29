@@ -18,9 +18,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ProductEffectsService} from './core/effects/product-effects.service';
 import {FormsModule} from '@angular/forms';
 import {HammerConfig} from './HammerConfig.class';
-import {categoriesReducer} from "./ui/categories/categoriesReducer";
-import {uiReducer} from "./ui.reducer";
-import {CategoryEffectsService} from "./core/effects/category-effects.service";
+import {categoriesReducer} from './ui/categories/categoriesReducer';
+import {uiReducer} from './ui.reducer';
+import {CategoryEffectsService} from './core/effects/category-effects.service';
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

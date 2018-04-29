@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {AppState} from "../appState.interface";
-import {Observable} from "rxjs/Observable";
-import {AngularFirestore} from "angularfire2/firestore";
-import {Category} from "../ui/categories/category.intefrace";
-import {CATEGORY_ACTIONS} from "../ui/categories/categoryActions.enum";
-import {Subscription} from "rxjs/Subscription";
-import {Product} from "../ui/categories/product.interface";
-import {PRODUCT_ACTIONS} from "../ui/categories/productActions.enum";
+import {Store} from '@ngrx/store';
+import {AppState} from '../appState.interface';
+import {Observable} from 'rxjs/Observable';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Category} from '../ui/categories/category.intefrace';
+import {CATEGORY_ACTIONS} from '../ui/categories/categoryActions.enum';
+import {Subscription} from 'rxjs/Subscription';
+import {Product} from '../ui/categories/product.interface';
+import {PRODUCT_ACTIONS} from '../ui/categories/productActions.enum';
 
 @Injectable()
 export class FirebaseSyncService {
@@ -118,7 +118,7 @@ export class FirebaseSyncService {
                             categoryId,
                             product: productFromFirebase
                         }
-                    })
+                    });
                 } else {
                     this.store.dispatch({
                         type: PRODUCT_ACTIONS.REMOVE_PRODUCT_FROM_FIREBASE,
@@ -128,7 +128,7 @@ export class FirebaseSyncService {
                                 id: productId
                             }
                         }
-                    })
+                    });
                 }
             });
     }

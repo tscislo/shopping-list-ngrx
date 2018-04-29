@@ -9,8 +9,8 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Observable';
 import {Product} from '../ui/categories/product.interface';
 import * as _ from 'lodash';
-import {MatSnackBar} from "@angular/material";
-import {Router} from "@angular/router";
+import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class StoreManagementService {
@@ -35,7 +35,7 @@ export class StoreManagementService {
                 .doc(product.id)
                 .ref
                 .get()
-        );
+        )
 
     public redirectToRoot(title) {
         this.snackBar.open(

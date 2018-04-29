@@ -1,4 +1,4 @@
-export enum ListTypes{
+export enum ListTypes {
     PRODUCT = 'PRODUCT',
     CATEGORY = 'CATEGORY'
 }

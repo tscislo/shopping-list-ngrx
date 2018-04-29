@@ -4,9 +4,9 @@ import {AppState} from './appState.interface';
 import {Store} from '@ngrx/store';
 import {API_ACTIONS} from './apiActions.enum';
 import {StoreManagementService} from './core/store-management.service';
-import {MatSidenav} from "@angular/material";
-import {UI_ACTIONS} from "./uiActions.enum";
-import {FirebaseSyncService} from "./core/firebase-sync.service";
+import {MatSidenav} from '@angular/material';
+import {UI_ACTIONS} from './uiActions.enum';
+import {FirebaseSyncService} from './core/firebase-sync.service';
 
 @Component({
     selector: 'app-root',
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
                 private firebaseSyncService: FirebaseSyncService
     ) {
         this.errorMatcher.isErrorState = () => !this.isListIdValid();
-        document.addEventListener("backbutton", () => {
+        document.addEventListener('backbutton', () => {
             window.close();
         }, false);
     }
@@ -91,14 +91,14 @@ export class AppComponent implements OnInit {
         this.matSidenav.onOpen.subscribe(() => {
             this.store.dispatch({
                 type: UI_ACTIONS.OPEN_NAVBAR
-            })
+            });
         });
 
         this.matSidenav.onClose.subscribe(() => {
             this.store.dispatch({
                 type: UI_ACTIONS.CLOSE_NAVBAR
-            })
-        })
+            });
+        });
 
     }
 

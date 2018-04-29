@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../appState.interface';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -6,15 +6,15 @@ import {StoreManagementService} from '../../../core/store-management.service';
 import {Product} from '../../categories/product.interface';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {MatSnackBar} from "@angular/material";
-import {FirebaseSyncService} from "../../../core/firebase-sync.service";
+import {MatSnackBar} from '@angular/material';
+import {FirebaseSyncService} from '../../../core/firebase-sync.service';
 
 @Component({
     selector: 'app-details',
     templateUrl: './details.component.html',
     styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
     public product$: Observable<Product>;
     public productsSubscription;
@@ -30,10 +30,10 @@ export class DetailsComponent implements OnInit {
         .map((state: AppState) => {
             let products: Product[] = [];
             state.categories.forEach((category) => {
-                products = [...products, ...category.products]
-            })
-            return products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('productId'))
-        });
+                products = [...products, ...category.products];
+            });
+            return products.find((product: Product) => product.id === this.activatedRoute.snapshot.paramMap.get('productId'));
+        })
 
     ngOnInit() {
 

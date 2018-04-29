@@ -6,9 +6,9 @@ import {API_ACTIONS} from '../../apiActions.enum';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {MatSnackBar} from '@angular/material';
-import {PRODUCT_ACTIONS} from "../../ui/categories/productActions.enum";
-import {ModalsService} from "../../core/modals.service";
-import {UI_ACTIONS} from "../../uiActions.enum";
+import {PRODUCT_ACTIONS} from '../../ui/categories/productActions.enum';
+import {ModalsService} from '../../core/modals.service';
+import {UI_ACTIONS} from '../../uiActions.enum';
 
 @Component({
     selector: 'app-header',
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
     public toggleNavbar() {
         this.store.dispatch({
             type: UI_ACTIONS.TOGGLE_NAVBAR
-        })
+        });
     }
 
     public showErrorSnackBar() {

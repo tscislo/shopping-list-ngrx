@@ -5,8 +5,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ProductEffectsService} from './effects/product-effects.service';
 import {ModalsService} from './modals.service';
 import {FormsModule} from '@angular/forms';
-import {CategoryEffectsService} from "./effects/category-effects.service";
-import {FirebaseSyncService} from "./firebase-sync.service";
+import {CategoryEffectsService} from './effects/category-effects.service';
+import {FirebaseSyncService} from './firebase-sync.service';
 
 @NgModule({
     imports: [

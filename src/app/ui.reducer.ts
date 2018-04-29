@@ -1,5 +1,5 @@
-import {UI_ACTIONS} from "./uiActions.enum";
-import {UiAction} from "./uiAction.interface";
+import {UI_ACTIONS} from './uiActions.enum';
+import {UiAction} from './uiAction.interface';
 
 const initialState = {
     sidenav: false

@@ -4,13 +4,13 @@ import {Action, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {API_ACTIONS} from '../../apiActions.enum';
 import {catchError, map, switchMap} from 'rxjs/operators';
-import "rxjs/operators/take";
+import 'rxjs/operators/take';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AppState} from '../../appState.interface';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {of} from 'rxjs/observable/of';
-import {CATEGORY_ACTIONS} from "../../ui/categories/categoryActions.enum";
-import {CategoryAction} from "../../ui/categories/categoryAction.interface";
+import {CATEGORY_ACTIONS} from '../../ui/categories/categoryActions.enum';
+import {CategoryAction} from '../../ui/categories/categoryAction.interface';
 
 @Injectable()
 export class CategoryEffectsService {
@@ -40,7 +40,7 @@ export class CategoryEffectsService {
                                     .collection('categories')
                                     .doc(action.payload.id)
                                     .set(action.payload)
-                            )
+                            );
                         }
                     )
                 );

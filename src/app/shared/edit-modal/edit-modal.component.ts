@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ConfirmationModalComponent} from '../confirmation-modal/confirmation-modal.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Product} from '../../ui/categories/product.interface';
-import {Category} from "../../ui/categories/category.intefrace";
+import {Category} from '../../ui/categories/category.intefrace';
 
 @Component({
     selector: 'app-edit-modal',

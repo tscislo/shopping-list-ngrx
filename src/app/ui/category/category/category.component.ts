@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {StoreManagementService} from '../../../core/store-management.service';
 import {PRODUCT_ACTIONS} from '../../categories/productActions.enum';
@@ -6,20 +6,20 @@ import {Product} from '../../categories/product.interface';
 import {AppState} from '../../../appState.interface';
 import {ModalsService} from '../../../core/modals.service';
 import {Observable} from 'rxjs/Observable';
-import {ListComponent} from "../../../shared/list/list.component";
-import {timer} from "rxjs/observable/timer";
+import {ListComponent} from '../../../shared/list/list.component';
+import {timer} from 'rxjs/observable/timer';
 import 'rxjs/add/operator/debounce';
-import {ActivatedRoute} from "@angular/router";
-import {FirebaseSyncService} from "../../../core/firebase-sync.service";
-import {Category} from "../../categories/category.intefrace";
-import {Subscription} from "rxjs/Subscription";
+import {ActivatedRoute} from '@angular/router';
+import {FirebaseSyncService} from '../../../core/firebase-sync.service';
+import {Category} from '../../categories/category.intefrace';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-products',
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
     public products$: Observable<Product[]>;
     public listId$: Observable<string>;
     public categoryId: string;
@@ -171,7 +171,7 @@ export class CategoryComponent implements OnInit {
                     payload: {
                         categoryId: this.categoryId
                     }
-                })
+                });
             }
         });
     }

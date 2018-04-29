@@ -13,8 +13,8 @@ import {filtersReducer} from '../filters.reducer';
 import {productsReducer} from '../../categories/productsReducer';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Product} from '../../categories/product.interface';
-import {AngularFireModule} from "angularfire2";
-import {environment} from "../../../../environments/environment";
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../../../../environments/environment';
 
 describe('ListComponent', () => {
     let component: CategoryComponent;

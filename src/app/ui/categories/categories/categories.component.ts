@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalsService} from "../../../core/modals.service";
-import {AppState} from "../../../appState.interface";
-import {StoreManagementService} from "../../../core/store-management.service";
-import {Store} from "@ngrx/store";
-import {Category} from "../category.intefrace";
-import {CATEGORY_ACTIONS} from "../categoryActions.enum";
-import {Product} from "../product.interface";
-import {PRODUCT_ACTIONS} from "../productActions.enum";
-import {Observable} from "rxjs/Observable";
-import {FirebaseSyncService} from "../../../core/firebase-sync.service";
+import {ModalsService} from '../../../core/modals.service';
+import {AppState} from '../../../appState.interface';
+import {StoreManagementService} from '../../../core/store-management.service';
+import {Store} from '@ngrx/store';
+import {Category} from '../category.intefrace';
+import {CATEGORY_ACTIONS} from '../categoryActions.enum';
+import {Product} from '../product.interface';
+import {PRODUCT_ACTIONS} from '../productActions.enum';
+import {Observable} from 'rxjs/Observable';
+import {FirebaseSyncService} from '../../../core/firebase-sync.service';
 
 @Component({
     selector: 'app-categories',
@@ -40,7 +40,7 @@ export class CategoriesComponent implements OnInit {
                 name: categoryName,
                 products: []
             }
-        })
+        });
     }
 
     removeCategory(category: Category) {

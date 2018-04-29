@@ -4,7 +4,7 @@ import {Action, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
 import {API_ACTIONS} from '../../apiActions.enum';
 import {map, switchMap, catchError} from 'rxjs/operators';
-import "rxjs/operators/take";
+import 'rxjs/operators/take';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AppState} from '../../appState.interface';
 import {Product} from '../../ui/categories/product.interface';
@@ -12,10 +12,10 @@ import {fromPromise} from 'rxjs/observable/fromPromise';
 import {PRODUCT_ACTIONS} from '../../ui/categories/productActions.enum';
 import {of} from 'rxjs/observable/of';
 import {ProductAction} from '../../ui/categories/productAction.interface';
-import {StoreManagementService} from "../store-management.service";
-import {CATEGORY_ACTIONS} from "../../ui/categories/categoryActions.enum";
-import {CategoryAction} from "../../ui/categories/categoryAction.interface";
-import {Category} from "../../ui/categories/category.intefrace";
+import {StoreManagementService} from '../store-management.service';
+import {CATEGORY_ACTIONS} from '../../ui/categories/categoryActions.enum';
+import {CategoryAction} from '../../ui/categories/categoryAction.interface';
+import {Category} from '../../ui/categories/category.intefrace';
 
 @Injectable()
 export class ProductEffectsService {
@@ -112,7 +112,7 @@ export class ProductEffectsService {
                             const product = state.categories
                                 .find((category: Category) => category.id === action.payload.categoryId)
                                 .products
-                                .find((product: Product) => product.id === action.payload.product.id);
+                                .find((productSearched: Product) => productSearched.id === action.payload.product.id);
                             return fromPromise(
                                 this.angularFirestore
                                     .collection('lists')
@@ -122,7 +122,7 @@ export class ProductEffectsService {
                                     .collection('products')
                                     .doc(action.payload.product.id)
                                     .set(product)
-                            )
+                            );
                         }
                     )
                 );

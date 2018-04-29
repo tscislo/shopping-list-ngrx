@@ -4,9 +4,9 @@ import {ModalsService} from '../../core/modals.service';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../appState.interface';
 import {PRODUCT_ACTIONS} from '../../ui/categories/productActions.enum';
-import {ListTypes} from "./listTypes.enum";
-import {Category} from "../../ui/categories/category.intefrace";
-import {Router} from "@angular/router";
+import {ListTypes} from './listTypes.enum';
+import {Category} from '../../ui/categories/category.intefrace';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-list-item',
@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
 
     @Input() public type: ListTypes;
     @Input() public items: Product[] | Category[];
-    @Input() public categoryId:string;
+    @Input() public categoryId: string;
     @Output() public remove = new EventEmitter();
     @Output() public edit = new EventEmitter();
     @Output() public quantityPlus = new EventEmitter();

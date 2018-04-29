@@ -1,9 +1,9 @@
-import {Category} from "./category.intefrace";
-import {CategoryAction} from "./categoryAction.interface";
-import {CATEGORY_ACTIONS} from "./categoryActions.enum";
-import {ProductAction} from "./productAction.interface";
-import {PRODUCT_ACTIONS} from "./productActions.enum";
-import {productsReducer} from "./productsReducer";
+import {Category} from './category.intefrace';
+import {CategoryAction} from './categoryAction.interface';
+import {CATEGORY_ACTIONS} from './categoryActions.enum';
+import {ProductAction} from './productAction.interface';
+import {PRODUCT_ACTIONS} from './productActions.enum';
+import {productsReducer} from './productsReducer';
 
 export function categoriesReducer(state: Category[] = [], action: CategoryAction | ProductAction) {
     switch (action.type) {
@@ -30,12 +30,12 @@ export function categoriesReducer(state: Category[] = [], action: CategoryAction
                     // products not used intentionally
                     const {products, ...rest} = category;
                     // get products from existing state
-                    const categoryFromState: Category = state.find((categoryFromState: Category) => categoryFromState.id === category.id);
+                    const categoryFromState: Category = state.find((categoryFromStateSearch: Category) => categoryFromStateSearch.id === category.id);
                     return {
                         ...rest,
                         products: (categoryFromState) ? categoryFromState.products : []
-                    }
-                })
+                    };
+                });
         // PRODUCT related actions, as products are inside category
         case PRODUCT_ACTIONS.ADD_PRODUCT:
         case PRODUCT_ACTIONS.REMOVE_PRODUCT:
@@ -52,7 +52,7 @@ export function categoriesReducer(state: Category[] = [], action: CategoryAction
                 return {
                     products: (action.payload.categoryId === category.id) ? productsReducer(products, action) : products,
                     ...rest
-                }
+                };
             });
 
         default:

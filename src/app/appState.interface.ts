@@ -1,5 +1,5 @@
 import {Api} from './api.interface';
-import {Category} from "./ui/categories/category.intefrace";
+import {Category} from './ui/categories/category.intefrace';
 
 
 export interface AppState {
@@ -8,5 +8,5 @@ export interface AppState {
     router;
     ui: {
         sidenav: boolean
-    }
+    };
 }

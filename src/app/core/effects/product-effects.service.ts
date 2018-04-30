@@ -23,8 +23,7 @@ export class ProductEffectsService {
     constructor(private actions$: Actions<Action>,
                 private store: Store<AppState>,
                 private angularFirestore: AngularFirestore,
-                private storeManagementService: StoreManagementService
-    ) {
+                private storeManagementService: StoreManagementService) {
     }
 
 
@@ -138,42 +137,43 @@ export class ProductEffectsService {
             })
         )
     );
-    //
-    //
-    // @Effect()
-    // updateProducts$: Observable<Action> = this.actions$.pipe(
-    //     ofType(
-    //         PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS
-    //     ),
-    //     switchMap((action: ProductAction) => {
-    //         return this.store
-    //             .take(1)
-    //             .pipe(
-    //                 switchMap((state) => {
-    //                         // since it is not possible to update whole collection using one api call, we need to do that in batch
-    //                         const batch = this.angularFirestore.firestore.batch();
-    //                         return (new Observable((observer) => {
-    //                             Promise.all(this.storeManagementService.getProductsFirebaseReferences(state)).then((snapshots) => {
-    //                                 snapshots.forEach((snapshot: any) => {
-    //                                     batch.update(snapshot.ref, state.products.find((product: Product) => product.id === snapshot.id) as any)
-    //                                 });
-    //                                 observer.next();
-    //                             });
-    //                         })).switchMap(() => fromPromise(batch.commit()));
-    //                     }
-    //                 )
-    //             );
-    //     }),
-    //     map(() => {
-    //         return {
-    //             type: API_ACTIONS.FIREBASE_SUCCESS
-    //         };
-    //     }),
-    //     catchError(err =>
-    //         of({
-    //             type: API_ACTIONS.FIREBASE_ERROR
-    //         })
-    //     )
-    // );
+
+
+    @Effect()
+    updateProducts$: Observable<Action> = this.actions$.pipe(
+        ofType(
+            PRODUCT_ACTIONS.UNBUY_ALL_PRODUCTS
+        ),
+        switchMap((action: ProductAction) => {
+            return this.store
+                .take(1)
+                .pipe(
+                    switchMap((state: AppState) => {
+                            // since it is not possible to update whole collection using one api call, we need to do that in batch
+                            const batch = this.angularFirestore.firestore.batch();
+                            return (new Observable((observer) => {
+                                const products: Product[] = state.categories.find((category: Category) => category.id === action.payload.categoryId).products;
+                                Promise.all(this.storeManagementService.getProductsFirebaseReferences(state.api.firebase.listId, action.payload.categoryId, products)).then((snapshots) => {
+                                    snapshots.forEach((snapshot: any) => {
+                                        batch.update(snapshot.ref, products.find((product: Product) => product.id === snapshot.id) as any)
+                                    });
+                                    observer.next();
+                                });
+                            })).switchMap(() => fromPromise(batch.commit()));
+                        }
+                    )
+                );
+        }),
+        map(() => {
+            return {
+                type: API_ACTIONS.FIREBASE_SUCCESS
+            };
+        }),
+        catchError(err =>
+            of({
+                type: API_ACTIONS.FIREBASE_ERROR
+            })
+        )
+    );
 
 }

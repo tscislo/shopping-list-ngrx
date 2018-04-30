@@ -18,19 +18,20 @@ export class StoreManagementService {
     constructor(private store: Store<AppState>,
                 private angularFirestore: AngularFirestore,
                 private snackBar: MatSnackBar,
-                private router: Router
-    ) {
+                private router: Router) {
     }
 
     public generateId = (length = 8) => Math.floor(Math.random() * Math.pow(10, length)).toString();
 
     public getId = () => this.generateId(15);
 
-    public getProductsFirebaseReferences = (state) =>
-        state.items.map((product: Product) =>
+    public getProductsFirebaseReferences = (listId, categoryId, products: Product[]) =>
+        products.map((product: Product) =>
             this.angularFirestore
                 .collection('lists')
-                .doc(state.api.firebase.listId)
+                .doc(listId)
+                .collection('categories')
+                .doc(categoryId)
                 .collection('products')
                 .doc(product.id)
                 .ref

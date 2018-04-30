@@ -9,8 +9,8 @@
                (click)="$event.stopPropagation()"
                (change)="buy.emit(item)"
                [checked]="item.bought">
-        <div class="product-name-container">
-            <span class="product-name">{{ item.name }}</span>
+        <div class="item-name-container">
+            <span class="item-name">{{ item.name }}</span>
         </div>
     </div>
     <div class="buttons">

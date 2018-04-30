@@ -1,15 +1,16 @@
-.product-name-container {
+.item-name-container {
   display: flex;
   overflow: hidden;
   width: 100%;
   padding-left: 10px;
 }
 
-.product-name {
+.item-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+  line-height: 18px;
 }
 
 .bought {

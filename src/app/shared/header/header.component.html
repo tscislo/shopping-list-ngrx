@@ -2,9 +2,9 @@
     <span class="title">{{ title }}</span>
     <div>
         <ng-content></ng-content>
-        <mat-icon class="icon" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
-        <mat-icon class="icon" (click)="toggleNavbar()">menu</mat-icon>
-        <mat-icon class="icon"
+        <mat-icon class="header-button" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
+        <mat-icon class="header-button" (click)="toggleNavbar()">menu</mat-icon>
+        <mat-icon class="header-button"
                   (click)="back()"
                   *ngIf="showBack">keyboard_arrow_left
         </mat-icon>

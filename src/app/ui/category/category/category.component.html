@@ -2,7 +2,7 @@
         [title]="categoryName$ | async"
         [showBack]="true"
 >
-    <mat-icon class="icon" (click)="unBuy()">done_all</mat-icon>
+    <mat-icon class="header-button" (click)="unBuy()">done_all</mat-icon>
 </app-header>
 <app-add-item (itemAdded)="addProduct($event)" [type]="'product'">
 </app-add-item>

@@ -155,7 +155,7 @@ export class ProductEffectsService {
                                 const products: Product[] = state.categories.find((category: Category) => category.id === action.payload.categoryId).products;
                                 Promise.all(this.storeManagementService.getProductsFirebaseReferences(state.api.firebase.listId, action.payload.categoryId, products)).then((snapshots) => {
                                     snapshots.forEach((snapshot: any) => {
-                                        batch.update(snapshot.ref, products.find((product: Product) => product.id === snapshot.id) as any)
+                                        batch.update(snapshot.ref, products.find((product: Product) => product.id === snapshot.id) as any);
                                     });
                                     observer.next();
                                 });

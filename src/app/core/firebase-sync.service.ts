@@ -39,8 +39,9 @@ export class FirebaseSyncService {
                 .select((state: AppState) => state.categories)
                 .map((categories: Category[]) =>
                     categories.map((category: Category) => {
-                        delete category.products;
-                        return category;
+                        const newCategory = {...category};
+                        delete newCategory.products;
+                        return newCategory;
                     })
                 )
                 .take(1)

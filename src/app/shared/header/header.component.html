@@ -5,8 +5,8 @@
         <mat-icon class="header-button" *ngIf="warning | async" (click)="showErrorSnackBar()">warning</mat-icon>
         <mat-icon class="header-button" (click)="toggleNavbar()">menu</mat-icon>
         <mat-icon class="header-button"
-                  (click)="back()"
-                  *ngIf="showBack">keyboard_arrow_left
+                  (click)="exit()"
+                  *ngIf="isAndroid">power_settings_new
         </mat-icon>
     </div>
 

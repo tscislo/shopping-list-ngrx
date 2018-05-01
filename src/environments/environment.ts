@@ -3,8 +3,11 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
+import {ENV_TYPES} from "./envTypes.enum";
+
 export const environment = {
     production: false,
+    type: ENV_TYPES.DEV,
     firebase: {
         apiKey: 'AIzaSyClTh6y86MHTHjFYTegJbG5xPCbwCZLl3s',
         authDomain: 'uplifted-engine-135118.firebaseapp.com',

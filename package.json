@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve  --host=0.0.0.0",
-    "build": "ng build --prod",
+    "build": "ng build --prod --env=android --base-href .",
     "build:cordova:device": "npm run build && cordova run android --device",
     "build:cordova:emulator": "npm run build && cordova run android --emulator",
     "test": "ng test",

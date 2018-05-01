@@ -1,14 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AppState} from '../appState.interface';
 import {Store} from '@ngrx/store';
-import {ProductAction} from '../ui/categories/productAction.interface';
-import {undo} from 'ngrx-undo';
-import {PRODUCT_ACTIONS} from '../ui/categories/productActions.enum';
 import {AngularFirestore} from 'angularfire2/firestore';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Observable';
 import {Product} from '../ui/categories/product.interface';
-import * as _ from 'lodash';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 

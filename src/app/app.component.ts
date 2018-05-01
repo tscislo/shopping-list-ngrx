@@ -7,6 +7,7 @@ import {StoreManagementService} from './core/store-management.service';
 import {MatSidenav} from '@angular/material';
 import {UI_ACTIONS} from './uiActions.enum';
 import {FirebaseSyncService} from './core/firebase-sync.service';
+import {CordovaService} from "./core/cordova.service";
 
 @Component({
     selector: 'app-root',
@@ -60,12 +61,10 @@ export class AppComponent implements OnInit {
 
     constructor(private store: Store<AppState>,
                 private storeManagement: StoreManagementService,
-                private firebaseSyncService: FirebaseSyncService
+                private firebaseSyncService: FirebaseSyncService,
+                private cordovaService: CordovaService // not used on purpose
     ) {
         this.errorMatcher.isErrorState = () => !this.isListIdValid();
-        document.addEventListener('backbutton', () => {
-            window.close();
-        }, false);
     }
 
     ngOnInit() {

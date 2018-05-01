@@ -27,7 +27,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
     return localStorageSync({
         keys: [
             'categories',
-            // 'router',
+            'router',
             'api'
         ],
         rehydrate: true

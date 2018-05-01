@@ -1,13 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class CordovaService {
 
     constructor() {
         console.log('cordova')
-        document.addEventListener('backbutton', () => {
-            window.close();
-        }, false);
     }
 
 }

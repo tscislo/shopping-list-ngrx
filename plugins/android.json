@@ -9,7 +9,7 @@
   "installed_plugins": {
     "cordova-android-support-gradle-release": {
       "ANDROID_SUPPORT_VERSION": "27.+",
-      "PACKAGE_NAME": "eu.scislo.mobilenext.familyshoppinglist"
+      "PACKAGE_NAME": "eu.scislo.mobilenext.simplyshoppinglist"
     },
     "cordova-plugin-crosswalk-webview": {
       "XWALK_VERSION": "23+",
@@ -17,10 +17,10 @@
       "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
       "XWALK_MODE": "embedded",
       "XWALK_MULTIPLEAPK": "true",
-      "PACKAGE_NAME": "eu.scislo.mobilenext.familyshoppinglist"
+      "PACKAGE_NAME": "eu.scislo.mobilenext.simplyshoppinglist"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "eu.scislo.mobilenext.familyshoppinglist"
+      "PACKAGE_NAME": "eu.scislo.mobilenext.simplyshoppinglist"
     }
   },
   "dependent_plugins": {}

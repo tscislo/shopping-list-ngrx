@@ -8,7 +8,7 @@
         <div class="no-products">
             <mat-card>
                 <p><strong>You haven't added any categories yet.</strong> You can do that now... for example: fruits, vegetables etc. You can then assign products to each category.</p>
-                <p><strong>Your list number is: {{ (listId | async) || '???' }}</strong>,
+                <p><strong>Your list number is: {{ (firebase$ | async).listId || '???' }}, PIN: {{ (firebase$ | async).pin || '???' }}</strong>,
                     which you can provide to others in order to share it!</p>
             </mat-card>
         </div>

@@ -19,6 +19,7 @@ import {FormsModule} from '@angular/forms';
 import {ListComponent} from './list/list.component';
 import {RouterModule} from '@angular/router';
 import { AddItemComponent } from './add-item/add-item.component';
+import {InfoModalComponent} from './info-modal/info-modal.component';
 
 const exportableModules = [
     OrderModule,
@@ -51,6 +52,7 @@ const exportableComponents = [
         ...exportableComponents,
         ConfirmationModalComponent,
         EditModalComponent,
+        InfoModalComponent,
         AddItemComponent
     ],
     exports: [
@@ -60,6 +62,7 @@ const exportableComponents = [
     ],
     entryComponents : [
         ConfirmationModalComponent,
+        InfoModalComponent,
         EditModalComponent
     ]
 })

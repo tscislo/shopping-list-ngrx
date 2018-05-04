@@ -17,8 +17,7 @@ export class CategoryEffectsService {
 
     constructor(private actions$: Actions<Action>,
                 private store: Store<AppState>,
-                private angularFirestore: AngularFirestore
-    ) {
+                private angularFirestore: AngularFirestore) {
     }
 
 
@@ -28,15 +27,15 @@ export class CategoryEffectsService {
             CATEGORY_ACTIONS.ADD
         ),
         switchMap((action: CategoryAction) => {
-            return this.store.select((state: AppState) => state.api.firebase.listId)
+            return this.store.select((state: AppState) => state.api.firebase)
                 .take(1)
                 .pipe(
-                    switchMap((listId) => {
+                    switchMap((firebase) => {
                             delete action.payload.products;
                             return fromPromise(
                                 this.angularFirestore
                                     .collection('lists')
-                                    .doc(listId)
+                                    .doc(firebase.listId)
                                     .collection('categories')
                                     .doc(action.payload.id)
                                     .set(action.payload)

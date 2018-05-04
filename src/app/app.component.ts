@@ -7,7 +7,7 @@ import {StoreManagementService} from './core/store-management.service';
 import {MatSidenav} from '@angular/material';
 import {UI_ACTIONS} from './uiActions.enum';
 import {FirebaseSyncService} from './core/firebase-sync.service';
-import {CordovaService} from "./core/cordova.service";
+import {CordovaService} from './core/cordova.service';
 
 @Component({
     selector: 'app-root',
@@ -15,16 +15,37 @@ import {CordovaService} from "./core/cordova.service";
         <mat-sidenav-container class="sidenav-container">
             <mat-sidenav mode="over" class="sidenav">
                 <mat-form-field>
-                    <input name="listId" type="text"
+                    <input name="listId"
                            matInput
-                           [errorStateMatcher]="errorMatcher"
-                           (blur)="listIdChanged()"
+                           placeholder="List number"
+                           [errorStateMatcher]="listIdErrorMatcher"
                            [(ngModel)]="listId">
                     <mat-error>
-                        List number must have at least 8 characters
+                        Must be 8 characters long!
                     </mat-error>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
+                <mat-form-field>
+                    <input name="pin"
+                           matInput
+                           placeholder="List PIN"
+                           [errorStateMatcher]="pinErrorMatcher"
+                           [(ngModel)]="pin">
+                    <mat-error>
+                        Must be 4 characters long!
+                    </mat-error>
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+                <button mat-raised-button
+                        [disabled]="!isPINValid() || !isListIdValid() || (!isListIdDifferentThenCurrent() && !isPINDifferentThenCurrent())"
+                        color="primary"
+                        (click)="listIdChanged()"
+                        class="save">Save
+                </button>
+                <button mat-raised-button
+                        (click)="createNewList()"
+                        class="save">Create new list
+                </button>
             </mat-sidenav>
             <mat-sidenav-content>
                 <router-outlet></router-outlet>
@@ -42,17 +63,27 @@ import {CordovaService} from "./core/cordova.service";
             }
 
             .sidenav {
-                min-width: 40%;
+                width: 225px;
                 margin-top: 56px;
-                padding: 0px 10px;
+                padding: 10px 10px;
             }
+
+            .save {
+                margin-top: 10px
+            }
+
         `
     ]
 })
 export class AppComponent implements OnInit {
 
     public listId: string;
-    public errorMatcher = {
+    public pin: string;
+    public listIdErrorMatcher = {
+        isErrorState: () => {
+        }
+    };
+    public pinErrorMatcher = {
         isErrorState: () => {
         }
     };
@@ -64,20 +95,19 @@ export class AppComponent implements OnInit {
                 private firebaseSyncService: FirebaseSyncService,
                 private cordovaService: CordovaService // not used on purpose
     ) {
-        this.errorMatcher.isErrorState = () => !this.isListIdValid();
+        this.listIdErrorMatcher.isErrorState = () => !this.isListIdValid();
+        this.pinErrorMatcher.isErrorState = () => !this.isPINValid();
     }
 
     ngOnInit() {
         this.store
-            .select((state) => state.api.firebase.listId)
-            .subscribe((listId) => {
-                if (!listId) {
-                    this.store.dispatch({
-                        type: API_ACTIONS.FIREBASE_CREATE_NEW_LIST,
-                        payload: this.storeManagement.generateId()
-                    });
+            .select((state) => state.api.firebase)
+            .subscribe((firebase) => {
+                if (!firebase.listId) {
+                    this.createNewList();
                 } else {
-                    this.listId = listId;
+                    this.listId = firebase.listId;
+                    this.pin = firebase.pin;
                 }
             });
 
@@ -93,23 +123,76 @@ export class AppComponent implements OnInit {
             });
         });
 
+        this.matSidenav.openedStart.subscribe(() => {
+            this.store
+                .select((state) => state.api.firebase)
+                .take(1)
+                .subscribe((firebase) => {
+                    this.listId = firebase.listId;
+                    this.pin = firebase.pin;
+                });
+        });
+
         this.matSidenav.onClose.subscribe(() => {
             this.store.dispatch({
                 type: UI_ACTIONS.CLOSE_NAVBAR
             });
         });
 
+
     }
 
     public listIdChanged() {
-        if (this.isListIdValid()) {
+        if (this.isListIdValid()
+            && this.isPINValid()
+            && (this.isListIdDifferentThenCurrent()
+                || this.isPINDifferentThenCurrent())) {
             this.store.dispatch({
-                type: API_ACTIONS.FIREBASE_LIST_ID_CHANGED,
-                payload: this.listId
+                type: API_ACTIONS.FIREBASE_LIST_ID_CHANGE_INIT,
+                payload: {
+                    listId: this.listId,
+                    pin: this.pin
+                }
             });
+            this.store.dispatch(
+                {
+                    type: UI_ACTIONS.CLOSE_NAVBAR
+                }
+            );
         }
     }
 
-    public isListIdValid = () => this.listId && this.listId.length >= 8;
+    public isListIdValid = () => this.listId && this.listId.toString().length === 8;
+
+    public isPINValid = () => this.pin && this.pin.toString().length === 4;
+
+    public isPINDifferentThenCurrent() {
+        let pinCurrent;
+        this.store
+            .select((state) => state.api.firebase.pin)
+            .take(1)
+            .subscribe((pin) => pinCurrent = pin);
+        return pinCurrent !== this.pin.toString();
+    }
+
+    public isListIdDifferentThenCurrent() {
+        let listIdCurrent;
+        this.store
+            .select((state) => state.api.firebase.listId)
+            .take(1)
+            .subscribe((listId) => listIdCurrent = listId);
+        return listIdCurrent !== this.listId.toString();
+    }
+
+    public createNewList() {
+        this.store.dispatch({
+            type: API_ACTIONS.FIREBASE_CREATE_NEW_LIST,
+            payload:
+                {
+                    listId: this.storeManagement.generateId(),
+                    pin: this.storeManagement.generateId(4)
+                }
+        });
+    }
 
 }

@@ -5,7 +5,8 @@ import {Api} from './api.interface';
 const initialState: Api = {
     isError: false,
     firebase: {
-        listId: null
+        listId: null,
+        pin: null
     }
 };
 
@@ -15,30 +16,27 @@ export function apiReducer(state = initialState, action: ApiAction) {
         case API_ACTIONS.FIREBASE_CREATE_NEW_LIST:
             return {
                 isError: newState.isError,
-                firebase: {
-                    listId: action.payload
-                }
+                firebase: action.payload
             };
         case API_ACTIONS.FIREBASE_SUCCESS:
             return {
                 isError: false,
-                firebase: {
-                    listId: newState.firebase.listId
-                }
+                firebase: newState.firebase
             };
         case API_ACTIONS.FIREBASE_ERROR:
             return {
                 isError: true,
-                firebase: {
-                    listId: newState.firebase.listId
-                }
+                firebase: newState.firebase
             };
         case API_ACTIONS.FIREBASE_LIST_ID_CHANGED:
             return {
                 isError: newState.isError,
-                firebase: {
-                    listId: action.payload
-                }
+                firebase: action.payload
+            };
+        case API_ACTIONS.FIREBASE_LIST_ID_NOT_CHANGED:
+            return {
+                isError: newState.isError,
+                firebase: newState.firebase
             };
         default:
             return state;

@@ -5,7 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import 'hammerjs';
-import {ENV_TYPES} from "./environments/envTypes.enum";
+import {ENV_TYPES} from './environments/envTypes.enum';
 
 if (environment.production) {
   enableProdMode();

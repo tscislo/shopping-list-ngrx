@@ -7,7 +7,8 @@ import {ModalsService} from './modals.service';
 import {FormsModule} from '@angular/forms';
 import {CategoryEffectsService} from './effects/category-effects.service';
 import {FirebaseSyncService} from './firebase-sync.service';
-import {CordovaService} from "./cordova.service";
+import {CordovaService} from './cordova.service';
+import {ListEffectsService} from './effects/list-effects.service';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import {CordovaService} from "./cordova.service";
     providers: [
         ProductEffectsService,
         CategoryEffectsService,
+        ListEffectsService,
         StoreManagementService,
         ModalsService,
         FirebaseSyncService,

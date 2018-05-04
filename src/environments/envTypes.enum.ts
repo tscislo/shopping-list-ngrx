@@ -1,4 +1,4 @@
 export enum ENV_TYPES {
-    DEV = "DEV",
-    ANDROID = "ANDROID"
+    DEV = 'DEV',
+    ANDROID = 'ANDROID'
 }

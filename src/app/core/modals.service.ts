@@ -4,6 +4,7 @@ import {ConfirmationModalComponent} from '../shared/confirmation-modal/confirmat
 import {MatDialogRef} from '@angular/material/dialog/typings/dialog-ref';
 import {Product} from '../ui/categories/product.interface';
 import {EditModalComponent} from '../shared/edit-modal/edit-modal.component';
+import {InfoModalComponent} from '../shared/info-modal/info-modal.component';
 
 @Injectable()
 export class ModalsService {
@@ -13,6 +14,11 @@ export class ModalsService {
 
     public showConfirmation = (options): MatDialogRef<ConfirmationModalComponent> =>
         this.matDialog.open(ConfirmationModalComponent, {
+            data: options
+        })
+
+    public showInfo = (options): MatDialogRef<InfoModalComponent> =>
+        this.matDialog.open(InfoModalComponent, {
             data: options
         })
 

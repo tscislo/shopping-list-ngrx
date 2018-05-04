@@ -18,7 +18,7 @@ import {FirebaseSyncService} from '../../../core/firebase-sync.service';
 export class CategoriesComponent implements OnInit {
 
     public categories$: Observable<Category[]>;
-    public listId: Observable<string>;
+    public firebase$: Observable<any>;
 
     constructor(private store: Store<AppState>,
                 public storeManagement: StoreManagementService,
@@ -28,7 +28,7 @@ export class CategoriesComponent implements OnInit {
 
     ngOnInit() {
         this.categories$ = this.store.select((state) => state.categories);
-        this.listId = this.store.select((state) => state.api.firebase.listId);
+        this.firebase$ = this.store.select((state) => state.api.firebase);
     }
 
 

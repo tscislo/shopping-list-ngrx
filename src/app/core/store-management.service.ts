@@ -16,7 +16,17 @@ export class StoreManagementService {
                 private router: Router) {
     }
 
-    public generateId = (length = 8) => Math.floor(Math.random() * Math.pow(10, length)).toString();
+    private pad(value, size) {
+        while (value.length < (size || 2)) {
+            value = '0' + value;
+        }
+        return value;
+    }
+
+    public generateId = (length = 8) => {
+        const rand = Math.floor(Math.random() * Math.pow(10, length));
+        return this.pad(rand.toString(), length);
+    }
 
     public getId = () => this.generateId(15);
 

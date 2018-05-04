@@ -9,8 +9,8 @@ import {MatSnackBar} from '@angular/material';
 import {PRODUCT_ACTIONS} from '../../ui/categories/productActions.enum';
 import {ModalsService} from '../../core/modals.service';
 import {UI_ACTIONS} from '../../uiActions.enum';
-import {environment} from "../../../environments/environment";
-import {ENV_TYPES} from "../../../environments/envTypes.enum";
+import {environment} from '../../../environments/environment';
+import {ENV_TYPES} from '../../../environments/envTypes.enum';
 
 @Component({
     selector: 'app-header',

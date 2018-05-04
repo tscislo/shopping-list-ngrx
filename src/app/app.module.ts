@@ -21,6 +21,7 @@ import {HammerConfig} from './HammerConfig.class';
 import {categoriesReducer} from './ui/categories/categoriesReducer';
 import {uiReducer} from './ui.reducer';
 import {CategoryEffectsService} from './core/effects/category-effects.service';
+import {ListEffectsService} from './core/effects/list-effects.service';
 
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -60,7 +61,8 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
         }),
         EffectsModule.forRoot([
             ProductEffectsService,
-            CategoryEffectsService
+            CategoryEffectsService,
+            ListEffectsService
         ]),
         CoreModule,
         SharedModule,

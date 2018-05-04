@@ -93,7 +93,7 @@ export class ListEffectsService {
         tap((action: ApiAction) => {
             this.modalsService.showInfo({
                 title: 'Error!',
-                message: `There was a problem to change the list. This list either does not contain any categories yet or the PIN provided is not correct. You are still using previous list.`
+                message: `There was a problem to change the list. This list either does not exist yet or the PIN provided is not correct. You are still using previous list.`
             });
         })
     );

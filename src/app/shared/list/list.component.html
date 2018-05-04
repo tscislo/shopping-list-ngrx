@@ -1,7 +1,7 @@
 <div class="list-item"
      [ngClass]="{'bought': item.bought, 'm-zebra': i%2}"
      (press)="edit.emit(item)"
-     *ngFor="let item of (items | async) | orderBy: 'name'; let i = index"
+     *ngFor="let item of (items | async); let i = index"
      (click)="navigate(item.id)">
     <div class="checkbox-and-name">
         <input type="checkbox"
